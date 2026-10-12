@@ -49,7 +49,7 @@
 
         /* --- SLIDE 2: CAKE & CELEBRATION ROOM --- */
         #slide-2 {
-            background: radial-gradient(circle at center, #2b1055 0%, #10072b 100%); /* Deep night party vibe */
+            background: radial-gradient(circle at center, #2b1055 0%, #10072b 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden;
         }
 
@@ -101,7 +101,7 @@
         <div class="glass-box">
             <h2>Just for you...</h2>
             <p>Enter the secret PIN to unlock</p>
-            <input type="password" id="pwd" placeholder="Enter PIN (1411)">
+            <input type="password" id="pwd" placeholder="Enter PIN">
             <button class="unlock-btn" onclick="unlockSurprise()">Unlock 💖</button>
             <p id="error-msg">Oops! Galat PIN. Phir se try karo 🥺</p>
         </div>
@@ -158,6 +158,7 @@
         </div>
     </div>
 
+    <!-- THIS SCRIPT SECTION IS THE MOST IMPORTANT PART -->
     <script>
         // 1. Login System
         function unlockSurprise() {
@@ -200,7 +201,7 @@
             flame.style.display = 'none';
             document.getElementById('hint-text').style.display = 'none';
 
-            // 🌟 Bomb/Confetti Explosion (Using Canvas Confetti Library)
+            // Bomb/Confetti Explosion
             var duration = 15 * 1000;
             var animationEnd = Date.now() + duration;
             var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
@@ -209,7 +210,6 @@
                 var timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) { return clearInterval(interval); }
                 var particleCount = 50 * (timeLeft / duration);
-                // 2 side se confetti fire hogi
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.1, y: Math.random() - 0.2 } }));
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.9, y: Math.random() - 0.2 } }));
             }, 250);
@@ -226,7 +226,6 @@
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
                     timerEl.innerText = "Done! 🎉";
-                    // Timer khatam hone par Next Page ka button dikhao
                     document.getElementById('go-next-btn').style.display = 'inline-block';
                 }
             }, 1000);
