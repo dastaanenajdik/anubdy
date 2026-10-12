@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Surprise ✨</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e; /* Dark theme for suspense */
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Pura screen cover karega */
+            transition: background-color 1s ease; /* Smooth color change */
+        }
+
+        /* Password Box Design */
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        input {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            text-align: center;
+            margin-bottom: 15px;
+            width: 80%;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #e94560;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #d13450;
+            transform: scale(1.05);
+        }
+
+        #error-msg {
+            color: #ff4d4d;
+            margin-top: 10px;
+            display: none;
+            font-size: 14px;
+        }
+
+        /* Main Content - Shuru me chupa rahega */
+        #main-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Yahan Password Mangega -->
+    <div id="login-screen" class="login-box">
+        <h2>Kisi Khaas Ke Liye... 🤫</h2>
+        <p>Please enter the secret PIN to unlock</p>
+        <input type="password" id="pwd" placeholder="Enter PIN (Special day!.. 1411)">
+        <br>
+        <button onclick="unlockSurprise()">Unlock Surprise 🎁</button>
+        <p id="error-msg">Galat PIN! Wapas try karo.</p>
+    </div>
+
+    <!-- Password Sahi Hone Par Ye Dikhega -->
+    <div id="main-content">
+        <h1>🎉 Happy Birthday! 🎉</h1>
+        <p>Tumhara password bilkul sahi tha!</p>
+        <!-- Yahan par hum baad me photos aur animations lagayenge -->
+    </div>
+
+    <script>
+        function unlockSurprise() {
+            var password = document.getElementById("pwd").value;
+            
+            // Yahan humara password check ho raha hai - Updated to 1411
+            if (password === "1411") {
+                // Login screen chhupao
+                document.getElementById("login-screen").style.display = "none";
+                
+                // Main content dikhao
+                var mainContent = document.getElementById("main-content");
+                mainContent.style.display = "block";
+                
+                // Page ka design normal position me laane ke liye thoda CSS change
+                document.body.style.display = "block";
+                document.body.style.height = "auto";
+                document.body.style.paddingTop = "50px";
+                
+                // Background color dark se light/party theme me badalna
+                document.body.style.backgroundColor = "#ffe6ea"; 
+                document.body.style.color = "#333";
+            } else {
+                // Galat password par error dikhao
+                document.getElementById("error-msg").style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
