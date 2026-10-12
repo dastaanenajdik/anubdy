@@ -4,316 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise ✨</title>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Confetti Library for Fireworks -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Quicksand', sans-serif; overflow: hidden; background-color: #ffe6ea; }
 
-        body {
-            font-family: 'Quicksand', sans-serif;
-            overflow: hidden; 
-            background-color: #ffe6ea;
-        }
-
-        /* --- DECORATIVE PAGE 1: LOGIN SCREEN --- */
+        /* --- SCREEN 1: LOGIN --- */
         #login-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 50;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; z-index: 50;
             background: linear-gradient(-45deg, #ff9a9e, #fecfef, #ffdde1, #ffc3a0);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
+            background-size: 400% 400%; animation: gradientBG 10s ease infinite;
         }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .glass-box {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            padding: 45px 35px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3), inset 0 0 15px rgba(255,255,255,0.5);
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            position: relative;
+            background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 45px 35px; border-radius: 25px; box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3); text-align: center; width: 90%; max-width: 400px;
         }
+        .glass-box h2 { font-family: 'Pacifico', cursive; color: #d90429; font-size: 34px; margin-bottom: 5px; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); }
+        .glass-box p { color: #4a0e4e; font-weight: 700; margin-bottom: 25px; font-size: 16px; }
+        input { padding: 16px; font-size: 18px; border-radius: 15px; border: 2px solid rgba(255, 255, 255, 0.8); width: 100%; text-align: center; margin-bottom: 20px; color: #d90429; font-weight: bold; }
+        .unlock-btn { padding: 16px 30px; font-size: 18px; background: linear-gradient(45deg, #ff4d6d, #ff7eb3); color: white; border: none; border-radius: 15px; width: 100%; font-weight: 900; box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4); cursor: pointer; transition: 0.3s; }
+        #error-msg { color: #d90429; margin-top: 15px; display: none; font-weight: bold; }
 
-        .glass-box::before {
-            content: '✨';
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            font-size: 40px;
-            animation: floatAnim 3s infinite ease-in-out;
-        }
-        
-        .glass-box::after {
-            content: '🎀';
-            position: absolute;
-            bottom: -20px;
-            right: -10px;
-            font-size: 40px;
-            animation: floatAnim 4s infinite ease-in-out reverse;
-        }
+        /* --- MAIN APP --- */
+        #main-app { display: none; height: 100vh; width: 100vw; position: relative; }
+        .slide { position: absolute; top: 0; left: 0; height: 100vh; width: 100vw; opacity: 0; transition: opacity 0.8s ease-in-out; pointer-events: none; }
+        .slide.active { opacity: 1; pointer-events: auto; }
 
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(10deg); }
-        }
-
-        .glass-box h2 {
-            font-family: 'Pacifico', cursive;
-            color: #d90429;
-            font-size: 34px;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
-        }
-
-        .glass-box p {
-            color: #4a0e4e;
-            font-weight: 700;
-            margin-bottom: 25px;
-            font-size: 16px;
-        }
-
-        input {
-            padding: 16px;
-            font-size: 18px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            outline: none;
-            text-align: center;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            color: #d90429;
-            font-weight: bold;
-            margin-bottom: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .unlock-btn {
-            padding: 16px 30px;
-            font-size: 18px;
-            background: linear-gradient(45deg, #ff4d6d, #ff7eb3);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: 900;
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
-            transition: all 0.3s;
-        }
-
-        .unlock-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(255, 77, 109, 0.6);
-        }
-
-        #error-msg {
-            color: #d90429;
-            margin-top: 15px;
-            display: none;
-            font-weight: bold;
-            background: rgba(255,255,255,0.8);
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        /* --- MAIN APP CONTAINER --- */
-        #main-app {
-            display: none; 
-            height: 100vh;
-            width: 100vw;
-            position: relative;
-        }
-
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            pointer-events: none; 
-        }
-        .slide.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* --- SLIDE 1: WALLPAPER BACKGROUND --- */
-       /* --- SLIDE 1: FULL WALLPAPER WITH FADE FADING EFFECT --- */
+        /* --- SLIDE 1: WALLPAPER --- */
         #slide-1 {
-            background-image: 
-                /* Upar 0% opacity (transparent), neeche aate-aate 100% solid pink (#ffe6ea) ho jayega */
-                linear-gradient(to bottom, rgba(255, 230, 234, 0) 0%, rgba(255, 230, 234, 0.3) 40%, rgba(255, 230, 234, 1) 95%),
-                url('bg-photo.jpg'); /* <--- YAHAN APNI PHOTO KA EXACT NAAM LIKHO */
-            background-size: cover; /* Photo ko pure screen par failane ke liye */
-            background-position: center top; /* Photo ka top hissa focus me rakhne ke liye */
-            background-repeat: no-repeat;
+            background-image: linear-gradient(to bottom, rgba(255, 230, 234, 0) 0%, rgba(255, 230, 234, 0.3) 40%, rgba(255, 230, 234, 1) 95%), url('bg-photo.jpg');
+            background-size: cover; background-position: center top; background-repeat: no-repeat;
         }
+        .content-overlay { position: absolute; bottom: 12%; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .title { font-family: 'Pacifico', cursive; color: #d90429; font-size: 55px; line-height: 1.1; text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, 0px 5px 15px rgba(255,255,255,0.9); }
+        .subtitle { font-size: 28px; color: #ff9a9e; font-weight: 900; margin-bottom: 35px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .tribute-btn { background: linear-gradient(90deg, #8a98e8, #b6bdf8); color: white; padding: 18px 45px; font-size: 18px; border-radius: 30px; border: none; font-weight: 900; box-shadow: 0 8px 20px rgba(138, 152, 232, 0.6); cursor: pointer; }
 
-        .content-overlay {
-            position: absolute;
-            bottom: 12%; 
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .date-bubble {
-            background: white;
-            color: #d90429;
-            padding: 8px 25px;
-            border-radius: 30px;
-            font-weight: 900;
-            font-size: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-        }
-
-        .title {
-            font-family: 'Pacifico', cursive;
-            color: #d90429; 
-            font-size: 55px; 
-            margin-bottom: 5px;
-            text-align: center;
-            line-height: 1.1;
-            /* White outline taaki dark background me bhi pop kare */
-            text-shadow: 
-                -2px -2px 0 #fff,  
-                 2px -2px 0 #fff,
-                -2px  2px 0 #fff,
-                 2px  2px 0 #fff,
-                 0px  5px 15px rgba(255,255,255,0.9);
-        }
-
-        .subtitle {
-            font-size: 28px; 
-            color: #ff9a9e; 
-            font-weight: 900;
-            margin-bottom: 35px;
-            text-shadow: 
-                -1px -1px 0 #fff,  
-                 1px -1px 0 #fff,
-                -1px  1px 0 #fff,
-                 1px  1px 0 #fff,
-                 2px 2px 5px rgba(0,0,0,0.5);
-        }
-
-        .tribute-btn {
-            background: linear-gradient(90deg, #8a98e8, #b6bdf8);
-            color: white;
-            border: none;
-            padding: 18px 45px;
-            font-size: 18px;
-            border-radius: 30px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(138, 152, 232, 0.6);
-            transition: all 0.3s ease;
-        }
-
-        .tribute-btn:hover {
-            transform: scale(1.05);
-            background: linear-gradient(90deg, #7887d6, #a1a9e5);
-        }
-
-        /* --- SLIDE 2: NEW MEMORY PHOTO --- */
+        /* --- SLIDE 2: CAKE & CELEBRATION ROOM --- */
         #slide-2 {
-            background: #fff0f3;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
+            background: radial-gradient(circle at center, #2b1055 0%, #10072b 100%); /* Deep night party vibe */
+            display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden;
         }
 
-        #slide-2 h2 {
-            color: #d90429;
-            font-family: 'Pacifico', cursive;
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
+        /* Floating Balloons Background */
+        .balloon { position: absolute; bottom: -100px; width: 60px; height: 75px; background: rgba(255, 77, 109, 0.8); border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; animation: floatUp 8s infinite ease-in; opacity: 0.8; box-shadow: inset -10px -10px 15px rgba(0,0,0,0.2); }
+        .balloon::before { content: ''; position: absolute; bottom: -12px; left: 25px; width: 10px; height: 12px; background: inherit; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        .b1 { left: 10%; background: #ff4d6d; animation-duration: 9s; }
+        .b2 { left: 30%; background: #8a98e8; animation-duration: 12s; animation-delay: 2s; }
+        .b3 { left: 70%; background: #ffd166; animation-duration: 10s; animation-delay: 1s; }
+        .b4 { left: 85%; background: #06d6a0; animation-duration: 11s; animation-delay: 3s; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-50vh) rotate(5deg); } 100% { transform: translateY(-110vh) rotate(-5deg); } }
 
-        /* Image styling */
-        .slide-img {
-            width: 80%;
-            max-width: 300px;
-            border-radius: 15px;
-            box-shadow: 0 15px 25px rgba(217, 4, 41, 0.2);
-            margin-bottom: 20px;
-            border: 8px solid white;
-            transform: rotate(-3deg); 
-            transition: transform 0.4s;
-        }
+        /* 3D Cake Design */
+        .cake-container { position: relative; margin-top: 100px; z-index: 10; }
+        .cake-tier-bottom { width: 220px; height: 80px; background: #ff9a9e; border-radius: 10px; box-shadow: inset 0 -20px 20px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.5); position: relative; }
+        .cake-tier-top { width: 160px; height: 70px; background: #fff; border-radius: 10px; position: absolute; bottom: 80px; left: 30px; box-shadow: inset 0 -15px 15px rgba(0,0,0,0.1); }
+        .drip { position: absolute; top: 0; width: 100%; height: 25px; background: #ff4d6d; border-radius: 10px; }
+        
+        /* Candle & Flame */
+        .candle { position: absolute; width: 14px; height: 50px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d6d 5px, #ff4d6d 10px); bottom: 150px; left: 103px; border-radius: 3px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .flame { position: absolute; width: 20px; height: 35px; background: #ffd166; bottom: 52px; left: -3px; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 20px #ffd166, 0 0 40px #ff9a9e; animation: flicker 0.6s infinite alternate; cursor: pointer; z-index: 20; }
+        @keyframes flicker { 0% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 100% { transform: scale(1.1) rotate(2deg); opacity: 1; } }
 
-        .slide-img:hover {
-            transform: rotate(0deg) scale(1.05);
-        }
+        /* Swipe Instruction */
+        .swipe-hint { color: #fff; font-size: 20px; font-weight: bold; position: absolute; top: -80px; left: -50px; width: 300px; text-align: center; animation: bounce 1.5s infinite; text-shadow: 0 2px 10px #ff4d6d; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .memory-text {
-            font-size: 18px;
-            font-weight: 700;
-            color: #4a0e4e;
-            padding: 0 20px;
-            margin-bottom: 30px;
-        }
+        /* Make a Wish Screen */
+        #wish-box { display: none; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); text-align: center; color: white; z-index: 30; width: 90%; }
+        #wish-box h2 { font-family: 'Pacifico', cursive; font-size: 40px; color: #ffd166; text-shadow: 0 0 20px #ffd166; margin-bottom: 20px; }
+        .timer { font-size: 60px; font-weight: 900; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 20px; backdrop-filter: blur(10px); display: inline-block; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
 
-        /* --- PAGINATION (Bottom Dots) --- */
-        .dots-container {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
+        /* Next Page Button (Appears after wish) */
+        #go-next-btn { display: none; margin-top: 40px; background: linear-gradient(90deg, #06d6a0, #118ab2); }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            background-color: rgba(255,255,255,0.5); /* Semi transparent white */
-            border-radius: 50%;
-            transition: all 0.4s ease;
-        }
+        /* --- SLIDE 3: MEMORIES (Future) --- */
+        #slide-3 { background: #fff0f3; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; }
 
-        .dot.active {
-            width: 28px;
-            background-color: #8a98e8; 
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(138, 152, 232, 0.8);
-        }
+        /* Dots */
+        .dots-container { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+        .dot { width: 10px; height: 10px; background-color: rgba(255,255,255,0.5); border-radius: 50%; transition: 0.4s; }
+        .dot.active { width: 28px; background-color: #8a98e8; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- SCREEN 1 -->
+    <!-- SCREEN 1: LOGIN -->
     <div id="login-screen">
         <div class="glass-box">
             <h2>Just for you...</h2>
@@ -324,40 +107,47 @@
         </div>
     </div>
 
-    <!-- APP CONTAINER -->
     <div id="main-app">
-        
-        <!-- SLIDE 1: Full Background Wallpaper -->
+        <!-- SLIDE 1: WALLPAPER -->
         <div class="slide active" id="slide-1">
             <div class="content-overlay">
-                <div class="date-bubble">14 • 11</div>
+                <div class="date-bubble" style="background:white; color:#d90429; padding:8px 25px; border-radius:30px; font-weight:900; margin-bottom:20px;">14 • 11</div>
                 <h1 class="title">Happy Birthday</h1>
                 <h2 class="subtitle">Tingu Mingu 🌸🥺</h2>
-                
-                <button class="tribute-btn" onclick="goToSlide(2)">
-                    Start the tribute ➜
-                </button>
+                <button class="tribute-btn" onclick="goToSlide(2)">Start the tribute ➜</button>
             </div>
         </div>
 
-        <!-- SLIDE 2: NEW MEMORY PAGE -->
+        <!-- SLIDE 2: CAKE ROOM -->
         <div class="slide" id="slide-2">
-            <h2>Our Memories 📸</h2>
-            
-            <img src="memory1.jpeg" alt="Our Memory" class="slide-img">
-            
-            <p class="memory-text">
-                Sabse cute pagal! Aise hi humesha haste rehna ✨
-            </p>
+            <!-- Balloons -->
+            <div class="balloon b1"></div>
+            <div class="balloon b2"></div>
+            <div class="balloon b3"></div>
+            <div class="balloon b4"></div>
 
-            <button class="tribute-btn" onclick="goToSlide(3)">
-                Next Surprise ➜
-            </button>
+            <!-- 3D Cake -->
+            <div class="cake-container">
+                <div class="swipe-hint" id="hint-text">👆 Swipe or Tap Flame to Blow!</div>
+                <div class="candle">
+                    <div class="flame" id="flame"></div>
+                </div>
+                <div class="cake-tier-top"><div class="drip"></div></div>
+                <div class="cake-tier-bottom"></div>
+            </div>
+
+            <!-- Wish Timer Box -->
+            <div id="wish-box">
+                <h2>Make a Wish! 🌟</h2>
+                <div class="timer" id="timer-display">15</div>
+                <button class="tribute-btn" id="go-next-btn" onclick="goToSlide(3)">See Memories ➜</button>
+            </div>
         </div>
 
-        <!-- SLIDE 3 (Future) -->
+        <!-- SLIDE 3: MEMORIES -->
         <div class="slide" id="slide-3">
-            <h2>Next Page 🎉</h2>
+            <h2 style="color: #d90429; font-family: 'Pacifico', cursive; font-size: 40px; margin-bottom: 15px;">Our Memories 📸</h2>
+            <img src="memory1.jpeg" alt="Our Memory" style="width:80%; max-width:300px; border-radius:15px; border:8px solid white; transform:rotate(-3deg); box-shadow:0 15px 25px rgba(0,0,0,0.2);">
         </div>
 
         <!-- DOTS -->
@@ -365,14 +155,13 @@
             <div class="dot active" id="dot-1"></div>
             <div class="dot" id="dot-2"></div>
             <div class="dot" id="dot-3"></div> 
-            <div class="dot" id="dot-4"></div> 
         </div>
     </div>
 
     <script>
+        // 1. Login System
         function unlockSurprise() {
-            var password = document.getElementById("pwd").value;
-            if (password === "1411") {
+            if (document.getElementById("pwd").value === "1411") {
                 document.getElementById("login-screen").style.display = "none";
                 document.getElementById("main-app").style.display = "block";
             } else {
@@ -380,17 +169,57 @@
             }
         }
 
-        function goToSlide(slideNumber) {
-            let allSlides = document.querySelectorAll('.slide');
-            allSlides.forEach(slide => slide.classList.remove('active'));
-
-            let allDots = document.querySelectorAll('.dot');
-            allDots.forEach(dot => dot.classList.remove('active'));
-
-            document.getElementById('slide-' + slideNumber).classList.add('active');
-            document.getElementById('dot-' + slideNumber).classList.add('active');
+        // 2. Slide Navigation
+        function goToSlide(num) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+            document.getElementById('slide-' + num).classList.add('active');
+            document.getElementById('dot-' + num).classList.add('active');
         }
-    </script>
 
-</body>
-</html>
+        // 3. Swipe / Tap to Blow Candle Logic
+        const flame = document.getElementById('flame');
+        let touchstartX = 0; let touchendX = 0;
+
+        // Touch Swipe
+        flame.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
+        flame.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            if (Math.abs(touchendX - touchstartX) > 20) { triggerCelebration(); } // Agar swipe kiya
+        });
+        // Click/Tap (Backup for PC)
+        flame.addEventListener('click', triggerCelebration);
+
+        // 4. Celebration (Confetti & Timer)
+        let isBlown = false;
+        function triggerCelebration() {
+            if (isBlown) return;
+            isBlown = true;
+            
+            // Aag bujhao aur hint hatao
+            flame.style.display = 'none';
+            document.getElementById('hint-text').style.display = 'none';
+
+            // 🌟 Bomb/Confetti Explosion (Using Canvas Confetti Library)
+            var duration = 15 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) { return clearInterval(interval); }
+                var particleCount = 50 * (timeLeft / duration);
+                // 2 side se confetti fire hogi
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.1, y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.9, y: Math.random() - 0.2 } }));
+            }, 250);
+
+            // Show Make a wish Box
+            document.getElementById('wish-box').style.display = 'block';
+
+            // Start 15s Timer
+            let timeLeft = 15;
+            let timerEl = document.getElementById('timer-display');
+            let countdown = setInterval(() => {
+                timeLeft--;
+                timer
