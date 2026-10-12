@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Surprise ✨</title>
-    <!-- Premium Fonts load krne ke liye -->
+    <title>Surprise ✨</title>
+    <!-- Cute Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -15,38 +15,52 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: #1a1a2e;
-            color: white;
-            text-align: center;
-            overflow: hidden; /* Scroll hide krne ke liye */
-            transition: background-color 1s ease;
+            /* First page ka beautiful pink gradient background */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            color: #333;
+            overflow: hidden;
         }
 
-        /* --- PAGE 1: PASSWORD SCREEN --- */
+        /* --- PAGE 1: PINK PASSWORD SCREEN --- */
         #login-screen {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
         }
 
-        .login-box {
-            background: rgba(255, 255, 255, 0.1);
+        /* Glassmorphism Effect */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 192, 203, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
+            text-align: center;
             width: 90%;
             max-width: 400px;
         }
 
-        .login-box h2 {
+        .glass-box h2 {
             font-family: 'Pacifico', cursive;
-            color: #ffb6c1;
-            font-size: 28px;
+            color: #ff4d6d;
+            font-size: 32px;
             margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .glass-box p {
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         input {
@@ -56,55 +70,59 @@
             border: 2px solid #ffb6c1;
             outline: none;
             text-align: center;
-            margin: 20px 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.8);
             color: #333;
+            margin-bottom: 15px;
         }
 
         .unlock-btn {
             padding: 15px 30px;
             font-size: 16px;
-            background: linear-gradient(45deg, #ff7eb3, #ff758c);
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
             color: white;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
             width: 100%;
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s;
         }
 
         .unlock-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
+            transform: scale(1.05);
         }
 
         #error-msg {
-            color: #ff4d4d;
+            color: #ff1a1a;
             margin-top: 15px;
             display: none;
             font-weight: bold;
+            font-size: 14px;
         }
 
-        /* --- PAGE 2: HAPPY BIRTHDAY SCREEN --- */
+        /* --- PAGE 2: PHOTO BDAY SCREEN --- */
         #bday-screen {
-            display: none; /* Starting me hide rhega */
+            display: none; /* Login ke baad dikhega */
             height: 100vh;
             width: 100vw;
-            position: relative;
-            /* Yahan photo lagani hai. Linear gradient usko 60% ke baad background me fade kr dega */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            /* Gradient for smooth fade + Photo */
             background-image: 
-                linear-gradient(to bottom, rgba(255, 230, 234, 0) 0%, rgba(255, 230, 234, 0) 50%, #ffe6ea 75%, #ffe6ea 100%),
-                url('girl-photo.jpg'); /* YAHAN APNI PHOTO KA NAAM DALNA HAI */
+                linear-gradient(to bottom, rgba(255, 230, 234, 0) 0%, rgba(255, 230, 234, 0) 55%, #ffe6ea 80%, #ffe6ea 100%),
+                url('girl-photo.jpg'); /* PHOTO YAHAN AAYEGI */
             background-size: cover;
             background-position: center top;
-            animation: fadeIn 2s ease-in;
+            animation: fadeIn 1.5s ease-in;
         }
 
         .content-overlay {
             position: absolute;
-            bottom: 5%; /* Text ko screen ke bottom hisse me rkhne ke liye */
+            bottom: 5%; /* Bottom side pe text aur button aayega */
             left: 0;
             width: 100%;
             display: flex;
@@ -116,10 +134,10 @@
         .date-bubble {
             background: white;
             color: #ff758c;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 8px 25px;
+            border-radius: 30px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin-bottom: 15px;
             letter-spacing: 2px;
@@ -128,34 +146,30 @@
         .title {
             font-family: 'Pacifico', cursive;
             color: #333;
-            font-size: 45px;
-            line-height: 1.2;
+            font-size: 42px;
             margin-bottom: 5px;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
         }
 
         .subtitle {
-            font-size: 24px;
+            font-size: 22px;
             color: #ff4d6d;
             font-weight: bold;
             margin-bottom: 30px;
         }
 
-        /* Start Tribute Button (Screenshot Reference) */
+        /* Start Tribute Button */
         .tribute-btn {
-            background: linear-gradient(90deg, #8a98e8, #b6bdf8); /* Purple/Blue cute gradient */
+            background: linear-gradient(90deg, #8a98e8, #b6bdf8);
             color: white;
             border: none;
-            padding: 18px 40px;
+            padding: 18px 45px;
             font-size: 18px;
             border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(138, 152, 232, 0.4);
+            box-shadow: 0 8px 20px rgba(138, 152, 232, 0.4);
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .tribute-btn:hover {
@@ -163,35 +177,40 @@
             background: linear-gradient(90deg, #7887d6, #a1a9e5);
         }
 
-        /* --- PAGE 3: TRIBUTE SCREEN (Abhi ke liye khali rakha hai) --- */
+        /* --- PAGE 3: TRIBUTE SCREEN --- */
         #tribute-screen {
             display: none;
             height: 100vh;
-            color: #333;
+            width: 100vw;
+            background: #fff0f3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
             padding: 50px 20px;
+            text-align: center;
         }
 
-        /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PAGE 1: Login -->
+    <!-- SCREEN 1: Pink Glass Login -->
     <div id="login-screen">
-        <div class="login-box">
+        <div class="glass-box">
             <h2>Just for you... 🎀</h2>
-            <p>Enter the secret PIN</p>
-            <input type="password" id="pwd" placeholder="Enter PIN">
+            <p>Enter the secret PIN to unlock</p>
+            <input type="password" id="pwd" placeholder="Enter PIN (1411)">
             <button class="unlock-btn" onclick="unlockSurprise()">Unlock 💖</button>
             <p id="error-msg">Oops! Galat PIN. Phir se try karo 🥺</p>
         </div>
     </div>
 
-    <!-- PAGE 2: Happy Birthday Photo Screen -->
+    <!-- SCREEN 2: Photo & Happy Birthday -->
     <div id="bday-screen">
         <div class="content-overlay">
             <div class="date-bubble">14 • 11</div>
@@ -204,35 +223,29 @@
         </div>
     </div>
 
-    <!-- PAGE 3: The Tribute (Next part me banayenge) -->
+    <!-- SCREEN 3: Tribute Start (Next me isko sajayenge) -->
     <div id="tribute-screen">
-        <h2>Yay! Tum next page par aa gayi! 🎉</h2>
-        <p>Yahan par hum unki story, photos aur baaki cheezein add karenge.</p>
+        <h2>Yay! Next Page 🎉</h2>
     </div>
 
     <script>
+        // Password check karne ka function
         function unlockSurprise() {
             var password = document.getElementById("pwd").value;
             
             if (password === "1411") {
-                // Page 1 hide karo
+                // Pehla page hatao
                 document.getElementById("login-screen").style.display = "none";
-                
-                // Background color light pink set karo
-                document.body.style.backgroundColor = "#ffe6ea"; 
-                
-                // Page 2 show karo
+                // Doosra page dikhao
                 document.getElementById("bday-screen").style.display = "block";
             } else {
                 document.getElementById("error-msg").style.display = "block";
             }
         }
 
+        // Tribute start karne ka function
         function startTribute() {
-            // Page 2 hide karo
             document.getElementById("bday-screen").style.display = "none";
-            
-            // Page 3 show karo
             document.getElementById("tribute-screen").style.display = "block";
         }
     </script>
