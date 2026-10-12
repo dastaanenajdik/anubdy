@@ -160,13 +160,15 @@
             pointer-events: auto;
         }
 
-        /* --- SLIDE 1: BDAY PHOTO --- */
+        /* --- SLIDE 1: WALLPAPER BACKGROUND --- */
         #slide-1 {
             background-image: 
-                linear-gradient(to bottom, rgba(255, 230, 234, 0) 0%, rgba(255, 230, 234, 0.4) 50%, #ffe6ea 85%, #ffe6ea 100%),
-                url('girl-photo.jpg'); 
-            background-size: cover;
-            background-position: center top;
+                /* Halka sa dark overlay taaki text clear padha ja sake */
+                linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6)),
+                url('girl-photo.jpg'); /* Yahan tumhari background image ka naam aayega */
+            background-size: cover; /* Poore screen par set karne ke liye */
+            background-position: center; /* Image ko center rakhne ke liye */
+            background-repeat: no-repeat;
         }
 
         .content-overlay {
@@ -187,32 +189,38 @@
             border-radius: 30px;
             font-weight: 900;
             font-size: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             margin-bottom: 20px;
             letter-spacing: 3px;
         }
 
         .title {
             font-family: 'Pacifico', cursive;
-            color: #2b1055; 
+            color: #d90429; 
             font-size: 55px; 
             margin-bottom: 5px;
             text-align: center;
             line-height: 1.1;
+            /* White outline taaki dark background me bhi pop kare */
             text-shadow: 
                 -2px -2px 0 #fff,  
                  2px -2px 0 #fff,
                 -2px  2px 0 #fff,
                  2px  2px 0 #fff,
-                 0px  5px 15px rgba(255,255,255,0.8);
+                 0px  5px 15px rgba(255,255,255,0.9);
         }
 
         .subtitle {
             font-size: 28px; 
-            color: #d90429; 
+            color: #ff9a9e; 
             font-weight: 900;
             margin-bottom: 35px;
-            text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                 1px -1px 0 #fff,
+                -1px  1px 0 #fff,
+                 1px  1px 0 #fff,
+                 2px 2px 5px rgba(0,0,0,0.5);
         }
 
         .tribute-btn {
@@ -224,7 +232,7 @@
             border-radius: 30px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(138, 152, 232, 0.5);
+            box-shadow: 0 8px 20px rgba(138, 152, 232, 0.6);
             transition: all 0.3s ease;
         }
 
@@ -258,7 +266,7 @@
             border-radius: 15px;
             box-shadow: 0 15px 25px rgba(217, 4, 41, 0.2);
             margin-bottom: 20px;
-            border: 8px solid white; /* Polaroid jaisa white border */
+            border: 8px solid white;
             transform: rotate(-3deg); 
             transition: transform 0.4s;
         }
@@ -289,7 +297,7 @@
         .dot {
             width: 10px;
             height: 10px;
-            background-color: #cbd5e1;
+            background-color: rgba(255,255,255,0.5); /* Semi transparent white */
             border-radius: 50%;
             transition: all 0.4s ease;
         }
@@ -298,6 +306,7 @@
             width: 28px;
             background-color: #8a98e8; 
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(138, 152, 232, 0.8);
         }
     </style>
 </head>
@@ -317,7 +326,7 @@
     <!-- APP CONTAINER -->
     <div id="main-app">
         
-        <!-- SLIDE 1 -->
+        <!-- SLIDE 1: Full Background Wallpaper -->
         <div class="slide active" id="slide-1">
             <div class="content-overlay">
                 <div class="date-bubble">14 • 11</div>
@@ -334,7 +343,6 @@
         <div class="slide" id="slide-2">
             <h2>Our Memories 📸</h2>
             
-            <!-- UPDATE: Yahan naam memory1.jpeg kar diya gaya hai -->
             <img src="memory1.jpeg" alt="Our Memory" class="slide-img">
             
             <p class="memory-text">
