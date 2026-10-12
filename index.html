@@ -222,4 +222,15 @@
             let timerEl = document.getElementById('timer-display');
             let countdown = setInterval(() => {
                 timeLeft--;
-                timer
+                timerEl.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerEl.innerText = "Done! 🎉";
+                    // Timer khatam hone par Next Page ka button dikhao
+                    document.getElementById('go-next-btn').style.display = 'inline-block';
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
