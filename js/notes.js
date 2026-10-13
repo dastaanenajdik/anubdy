@@ -1,8 +1,8 @@
 /* ============================================================
    notes.js — Slide 7 (Feelings zone) + Slide 8 (Notes / chunks)
    ============================================================
-   • Slide 7 = darwaza: chip "Feelings zone" + 4 lock icons + "Notes kholo →"
-   • Slide 8 = 4 note cards; har card pe tap karo → lock khulta hai
+   • Slide 7 = darwaza: chip "Feelings zone" + 4 note/letter icons
+   • Slide 8 = 4 note cards; har card pe tap karo → khulta hai
      aur note typing animation ke saath likha jaata hai.
 
    Notes ka text/title → js/config.js > notes.items
@@ -12,17 +12,22 @@
 
 let notesOpened = 0;
 
-// ---------------- Slide 7: 4 chhote lock icons (bas hint) ----------------
+// ---------------- Slide 7: 4 chhote note/letter icons (bas hint) ----------------
+// (pehle 🔒 lock the — ab mail box / letter wala sign hai ✉️💌)
 function buildLocks() {
     const row = byId('lock-row');
     if (!row) return;
     row.innerHTML = '';
-    for (let i = 0; i < CONFIG.notes.lockCount; i++) {
-        const lock = document.createElement('span');
-        lock.className = 'lock-dot';
-        lock.textContent = '🔒';
-        lock.style.setProperty('--d', (1.7 + i * 0.35).toFixed(2) + 's');
-        row.appendChild(lock);
+
+    const count = CONFIG.notes.noteCount || (CONFIG.notes.items || []).length || 4;
+    const icon = CONFIG.notes.noteIcon || '✉️';
+
+    for (let i = 0; i < count; i++) {
+        const note = document.createElement('span');
+        note.className = 'note-dot';
+        note.textContent = icon;
+        note.style.setProperty('--d', (1.7 + i * 0.35).toFixed(2) + 's');
+        row.appendChild(note);
     }
 }
 
@@ -40,7 +45,7 @@ function buildNotes() {
         card.innerHTML =
             '<div class="note-head">' +
                 '<span class="note-num">Note ' + (i + 1) + '</span>' +
-                '<span class="note-lock">🔒</span>' +
+                '<span class="note-lock">✉️</span>' +
             '</div>' +
             '<h4 class="note-title">' + note.title + '</h4>' +
             '<p class="note-body"></p>' +
@@ -58,7 +63,7 @@ function openNote(card, note) {
     if (card.classList.contains('open')) return;
 
     card.classList.add('open');
-    card.querySelector('.note-lock').textContent = '🔓';
+    card.querySelector('.note-lock').textContent = '💌';
     card.querySelector('.note-tap').textContent = '';
 
     typeNote(card.querySelector('.note-body'), note.text);
@@ -89,8 +94,6 @@ function updateNoteProgress() {
             : notesOpened + ' / ' + total + ' notes khule 💌 (baaki bhi khol lo)';
     }
     if (notesOpened >= total) {
-        const next = byId('notes-next');
-        if (next) next.classList.remove('hidden-btn');
         showToast('Sab notes khul gaye 💗');
     }
 }

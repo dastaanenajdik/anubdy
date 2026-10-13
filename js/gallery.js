@@ -4,7 +4,7 @@
    • Samne wala card side me swipe karo → hatt jaata hai, piche wala aage aata hai,
      aur piche wale ke peeche se teesra card jhalak deta hai.
    • Neeche caption bhi saath-saath badalta hai (gallery/caption.txt se).
-   • 🎵 Her song button → gallery/song.mp3 bajata hai.
+   • Photo badalne ka sirf ek tarika: SWIPE (arrow / numbering / song hata diye)
 
    Photo list → js/config.js > gallery.photos
    Captions   → gallery/caption.txt (ya config me backup captions)
@@ -108,16 +108,13 @@ function updateDeck(animate) {
     showCaption(deckIndex);
 }
 
-// ---------------- Caption + counter ----------------
+// ---------------- Caption ----------------
 function showCaption(index) {
     const cap = byId('deck-caption');
-    const count = byId('deck-count');
-    if (cap) {
-        cap.classList.remove('in');
-        cap.textContent = deckCaptions[index] || '';
-        requestAnimationFrame(() => cap.classList.add('in'));
-    }
-    if (count) count.textContent = (index + 1) + ' / ' + deckCards.length;
+    if (!cap) return;
+    cap.classList.remove('in');
+    cap.textContent = deckCaptions[index] || '';
+    requestAnimationFrame(() => cap.classList.add('in'));
 }
 
 // ---------------- Card ko swipe/drag karna ----------------
@@ -189,59 +186,26 @@ function flingCard(card, flyDir, step) {
 function deckNext() { if (deckCards[deckIndex]) flingCard(deckCards[deckIndex], -1, 1); }
 function deckPrev() { if (deckCards[deckIndex]) flingCard(deckCards[deckIndex], 1, -1); }
 
-// ---------------- 🎵 Uska gana ----------------
-function initMusic() {
-    const audio = byId('her-song');
-    const btn = byId('music-btn');
-    if (!audio || !btn) return;
-
-    audio.src = CONFIG.gallery.songSrc;
-    btn.textContent = CONFIG.gallery.songLabelOff;
-
-    btn.addEventListener('click', () => {
-        if (audio.paused) {
-            const playing = audio.play();
-            if (playing && playing.catch) {
-                playing.catch(() => {
-                    showToast('Ye gaana nahi mila 🎵 is file ko daal do: ' + CONFIG.gallery.songSrc);
-                });
-            }
-        } else {
-            audio.pause();
-        }
-    });
-
-    audio.addEventListener('play', () => {
-        btn.textContent = CONFIG.gallery.songLabelOn;
-        btn.classList.add('on');
-    });
-    audio.addEventListener('pause', () => {
-        btn.textContent = CONFIG.gallery.songLabelOff;
-        btn.classList.remove('on');
-    });
-}
-
 // ---------------- Gallery slide par aane par ----------------
-function resetDeck() {
-    if (!deckBuilt) buildDeck();
-    else showCaption(deckIndex);
+// (slide khulte waqt) — bas caption theek kar do
+function fitDeck() {
+    if (!deckBuilt) return;
+    showCaption(deckIndex);
 }
+
+// (purane naam se bhi kaam kare)
+function resetDeck() { fitDeck(); }
 
 async function initGallery() {
     if (!byId('deck')) return;
 
     deckCaptions = await loadCaptions();
     buildDeck();
-    initMusic();
 
-    const prev = byId('deck-prev');
-    const next = byId('deck-next');
-    if (prev) prev.addEventListener('click', deckPrev);
-    if (next) next.addEventListener('click', deckNext);
-
-    // Keyboard se bhi (laptop par)
+    // Keyboard se bhi (laptop par) — phone par swipe hi hai
     document.addEventListener('keydown', (e) => {
-        if (!byId('slide-6').classList.contains('active')) return;
+        const slide = byId('slide-6');
+        if (!slide || !slide.classList.contains('active')) return;
         if (e.key === 'ArrowRight') deckNext();
         if (e.key === 'ArrowLeft') deckPrev();
     });

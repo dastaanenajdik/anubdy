@@ -1,40 +1,107 @@
 /* ============================================================
-   slide-4.css — Slide 4 - envelope + handwritten letter
+   slide-4.css — Slide 4: envelope + poori story (type hoke)
    Yahi file badlo jab isi part ka look/style change karna ho.
+
+   Layout ka idea:
+     • envelope upar (absolute) — typing badhti hai to niche sarakta hai
+     • letter paper seedha envelope ke niche se shuru hota hai
+     • poori cheez HAR phone size par theek dikhe (vw/vh + clamp)
    ============================================================ */
 
-/* ================= SLIDE 4: LOVE LETTER ENVELOPE ================= */
+/* ================= SLIDE 4: LOVE LETTER ================= */
 #slide-4 {
     background: radial-gradient(ellipse 70% 45% at 50% 62%, rgba(255, 236, 214, 0.9) 0%, rgba(255, 236, 214, 0) 70%), linear-gradient(180deg, #fff8f5 0%, #fdeef1 45%, #f9e3ea 75%, #f4dbe4 100%);
-    display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 20px 104px; overflow-y: auto; position: relative;
+    justify-content: flex-start;
+    padding: 58px 16px 120px;
 }
+
+/* envelope + letter ka dabba */
+.letter-wrap {
+    position: relative; width: 100%; max-width: 660px;
+    /* itni jagah envelope ke liye (letter iske bilkul niche se shuru hoga) */
+    padding-top: calc(clamp(36px, 14vh, 150px) + min(220px, 58vw) + 26px);
+}
+
+/* envelope apni jagah par tika rehta hai (JS ise typing ke saath niche sarakta hai) */
+.envelope-slot {
+    position: absolute; top: clamp(36px, 14vh, 150px); left: 0; right: 0;
+    display: flex; justify-content: center; align-items: flex-start;
+    z-index: 1; pointer-events: none;
+}
+
 .envelope-container {
-    position: relative; width: 320px; height: 220px; background: #f2a6bb; border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(180, 80, 110, 0.3); cursor: pointer; display: flex; justify-content: center; align-items: center; transition: transform 0.3s;
+    position: relative; cursor: pointer; pointer-events: auto;
+    width: min(320px, 84vw); height: min(220px, 58vw);
+    background: #f2a6bb; border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(180, 80, 110, 0.3);
+    perspective: 900px;
+    transition: transform 0.22s linear, box-shadow 0.3s ease;
 }
-.envelope-container:hover { transform: scale(1.02); }
+.envelope-slot:hover .envelope-container { box-shadow: 0 20px 42px rgba(180, 80, 110, 0.4); }
+
+/* upar ka dhakkan (triangle) — tap par khulta hai */
 .envelope-flap {
-    position: absolute; top: 0; left: 0; width: 0; height: 0;
-    border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 120px solid #e28fa5;
-    transform-origin: top; transition: transform 0.6s ease; z-index: 3;
+    position: absolute; top: 0; left: 0; width: 100%; height: 55%;
+    background: #e28fa5;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center; transition: transform 0.6s ease, z-index 0s linear 0.3s, opacity 0.6s ease;
+    z-index: 3; border-radius: 14px 14px 0 0;
 }
+.envelope-container.opened .envelope-flap { transform: rotateX(180deg); z-index: 1; opacity: 0.9; }
+
+/* samne wala hissa (triangle) */
 .envelope-pocket {
-    position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-    border-left: 160px solid #f6b6c7; border-right: 160px solid #f6b6c7; border-bottom: 110px solid #f49bb2;
-    border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 2;
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+    background: #f49bb2;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    border-radius: 0 0 14px 14px; z-index: 2;
 }
-.envelope-label { position: absolute; z-index: 4; font-family: 'Pacifico', cursive; color: #fff; font-size: 22px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); pointer-events: none; bottom: 35px; }
 
-/* Letter Paper modal/view */
+/* beech me pyara sa seal (khulne par gayab) */
+.envelope-seal {
+    position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
+    width: 44px; height: 44px; border-radius: 50%; z-index: 4;
+    display: grid; place-items: center; font-size: 20px;
+    background: #fff2f6; box-shadow: 0 6px 16px rgba(150, 60, 95, 0.28);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.envelope-container.opened .envelope-seal { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+
+.envelope-label {
+    position: absolute; z-index: 5; left: 0; right: 0; bottom: 14%;
+    font-family: 'Pacifico', cursive; color: #fff; font-size: clamp(16px, 4.6vw, 22px);
+    text-shadow: 0 2px 6px rgba(150, 60, 95, 0.45); pointer-events: none; text-align: center;
+    transition: opacity 0.35s ease;
+}
+.envelope-container.opened .envelope-label { opacity: 0; }
+
+/* ---------------- LETTER PAPER ---------------- */
 .letter-paper {
-    display: none; background: #fffdf9; width: 90%; max-width: 650px; max-height: min(64vh, 520px); overflow-y: auto;
-    padding: 40px 35px; border-radius: 20px; box-shadow: 0 20px 45px rgba(150, 70, 90, 0.25);
-    border: 1px solid #f0d5dc; position: relative; z-index: 20; text-align: left;
-    font-family: 'Caveat', cursive; font-size: 26px; line-height: 1.6; color: #4a2c35;
+    display: none; position: relative; z-index: 5; width: 100%;
+    background: #fffdf9; border-radius: 22px; border: 1px solid #f0d5dc;
+    box-shadow: 0 20px 45px rgba(150, 70, 90, 0.25);
+    padding: clamp(20px, 5vw, 38px) clamp(15px, 4.5vw, 34px);
+    font-family: 'Caveat', cursive; color: #4a2c35;
+    font-size: clamp(18.5px, 4.9vw, 25px); line-height: 1.62;
+    text-align: left; white-space: pre-wrap; overflow-wrap: anywhere;
+    animation: letterIn 0.5s ease both;
 }
-.letter-paper::-webkit-scrollbar { width: 6px; }
-.letter-paper::-webkit-scrollbar-thumb { background: #f2a6bb; border-radius: 10px; }
+@keyframes letterIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-/* Letter ke neeche wale buttons (skip typing + continue) */
-.letter-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 18px; position: relative; z-index: 21; }
+/* typing wali blinking line */
+.typing-caret {
+    display: inline-block; width: 2px; height: 0.95em; margin-left: 2px;
+    background: #f2a6bb; vertical-align: -0.12em;
+    animation: caretBlink 1s steps(1, end) infinite;
+}
+@keyframes caretBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+/* Letter ke niche wale buttons (skip typing + continue) */
+.letter-actions {
+    display: none; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center;
+    margin-top: 18px; position: relative; z-index: 21;
+}
 #slide-4 .chip-btn { padding: 12px 22px; }

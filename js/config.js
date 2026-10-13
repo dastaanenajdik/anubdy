@@ -18,21 +18,30 @@ const CONFIG = {
     text: {
         date: '14 • 10',
         title: 'Happy Birthday',
-        name: 'Anushri',                // asli naam
-        heroName: 'Anushri 🌸🥺',       // slide 1 wala naam
+        name: 'Anushree',                // asli naam
+        heroName: 'Anushree 🌸🥺',       // slide 1 wala naam
         aka: 'aka Tingu 💗',            // pyar wala naam
         eyebrow: '14 • 10 • JUST FOR YOU',
         introSub: "{name}, it's your special day",
         plaque: 'Tingu',                // cake par likha hua pyara naam
         questionSub: 'Pick your answer, Tingu 🎀',
         wishTitle: 'Make a Wish',
-        wishSub: 'Close your eyes and make it count',
+        wishSub: 'Close your eyes and make a wish ✨',
         wishDoneTitle: 'Wish Granted',
         wishDoneSub: 'May every dream of yours come true',
-        hintLabel: 'Tap the candles or swipe across to blow',
-        micLabel: 'Or blow into your mic',
+        hintLabel: 'Tap the mic 🎤 then blow the candles out',
+        micLabel: 'Tap here & blow 🎤',
         micListening: 'Listening... blow now!',
-        micUnavailable: 'Mic unavailable, just tap the candles',
+        micUnavailable: 'Mic nahi mila 😢 mic allow karke dobara try karo 🎤',
+        // Cake tap karne par ye chhote messages saamne aate hain (ek-ek karke)
+        micOnly: [
+            'Pookiee, tap the mic and blow into it 🎤💨',
+            'Tapping won\'t work — blow into the mic, pookiee 🎤',
+            'Only voice works here, pookiee — tap the mic and blow 💨🎤',
+        ],
+        wishLocked: 'Pehle wish karo — mic pe tap karke foonk maaro 🎤💨',
+        wishDone: 'Wish ho gayi 💗 ab aage chalo',
+        letterDone: 'Poora letter likh diya 💌',
 
         // --- Slide 9 (14 October wala page) ---
         factsChip: '14 October — Tera Din ✨',
@@ -40,9 +49,11 @@ const CONFIG = {
         // --- Slide 10 (last page) ---
         finalTitle: 'Happiest Birthday,<br>Tingu! 🎂💗',
         finalText: 'Bas itna kehna tha — duniya thodi si chaotic hai, par usme tujh jaise log mil jaaye to jina worth it lagta hai. Hassti rehna, khati rehna, aur main hamesha ek text door hoon. 🫂💗',
+        photoCaption: 'Ek din sach me… 🫂💗',
         finalLine: '14.10 — officially tera din. ✨',
         wishBoxTitle: '💌 Wish Box 🎁',
         wishBoxPrompt: 'anything you wanna tell me today....',
+        restartHint: 'Yahan se poori site dobara shuru hogi 💗',
     },
 
     // ---------- 3. CAKE (slide 2) ----------
@@ -97,9 +108,9 @@ const CONFIG = {
         celebrationDelayMs: 650,  // bujhne ke baad confetti kab shuru ho
         sideConfettiMs: 6000,     // side se confetti kitni der tak chalti rahe
         confettiColors: ['#f9a8c0', '#fcd5b5', '#c8b6ff', '#b8e0d2', '#fff1a8', '#ffffff', '#f6c1d0'],
-        swipeDistance: 30,        // swipe karne par candles bujhne ki doori (px)
-        micSensitivity: 0.12,     // mic kitni aawaz pe react kare (0.1 - 0.3)
-        micLoudFrames: 5,         // kitne frames tak tez aawaz chahiye
+        // (swipe se candles bujhna hata diya gaya — ab sirf mic se)
+        micSensitivity: 0.09,     // mic kitni aawaz pe react kare (0.1 - 0.3)
+        micLoudFrames: 4,         // kitne frames tak tez aawaz chahiye
     },
 
     // ---------- 6. "NO" BUTTON JO BHAAGTA HAI (slide 3) ----------
@@ -125,17 +136,18 @@ const CONFIG = {
 
     // ---------- 7. LETTER (slide 4) ----------
     letter: {
-        typeSpeedMs: 15,          // typewriter ki speed (chhota number = fast)
+        typeSpeedMs: 12,          // ek tick me kitna time lage (chhota number = fast)
+        charsPerTick: 5,          // ek tick me kitne akshar type hon (chhota = slow, badiya feel)
         flapOpenMs: 500,          // envelope ka flap khulne me kitna time
         skipSpeedMs: 2,           // skip dabane par typing ki speed
     },
 
     // ---------- 8. WHO IS THIS FOR? (slide 5) ----------
     who: {
-        // Dono chips tap hote hain, phir ye reveal hota hai
-        name: 'Anushri 🌸',
+        // Ab sirf ek hi option hai — aur reveal bina tap ke khud dikhta hai
+        name: 'Anushree 🌸',
         aka: 'meri Tingu 💗',
-        line: 'Yes… ye sab sirf tere liye hai 🫶🏻',
+        line: 'Yes… ye sab sirf tumhare liye hai 🫶🏻',
     },
 
     // ---------- 9. GALLERY (slide 6) ----------
@@ -156,16 +168,14 @@ const CONFIG = {
             'Stunning under the lights! ✨  🫣',
         ],
 
-        // 🎵 USKA GANA: apna gaana is naam se gallery folder me daal do
-        // (file ka naam badalna ho to neeche wala path badlo, ya mp3 ki jagah .m4a/.wav likho)
-        songSrc: 'gallery/song.mp3',
-        songLabelOn: '⏸ Pause her song',
-        songLabelOff: '🎵 Her song chalao',
+        // Note: "Her song chalao" wala button hata diya gaya hai
+
     },
 
     // ---------- 10. FEELINGS ZONE + NOTES (slide 7 & 8) ----------
     notes: {
-        lockCount: 4,             // bas hint wale lock icons (koi logic nahi)
+        noteCount: 4,             // bas hint wale note icons (koi logic nahi)
+        noteIcon: '✉️',           // 🔒 ki jagah letter/note wala sign
         items: [
             {
                 title: 'Some things, I wanna confess to you…',
@@ -196,6 +206,7 @@ const CONFIG = {
             { id: 'days', chip: '🌍 Days', label: 'International & National Days', emoji: '📅', sub: '14 October ko duniya kya manati hai' },
             { id: 'worldHistory', chip: '🌏 Duniya', label: 'World History', emoji: '📜', sub: 'Duniya me aaj ke din kya hua tha' },
             { id: 'worldCelebs', chip: '🌍 World', label: 'International Celebs', emoji: '✨', sub: 'Duniya bhar ke 14 October wale' },
+            { id: 'important', chip: '💗 Important', label: 'Important', emoji: '💗', sub: 'Baaki sab interesting hai, par asli baat ye hai' },
         ],
         sections: {
             // (a) Indian History
@@ -237,6 +248,10 @@ const CONFIG = {
                 { t: 'Roger Moore (b. 1927)', d: 'James Bond ki 7 filmon ke Bond — 14 October ko hi paida hue.' },
                 { t: 'Usher (b. 1978)', d: 'American singer — 8 Grammy awards, R&B ke bade naam.' },
                 { t: 'Leonard Bernstein (d. 1990)', d: 'Composer aur conductor (West Side Story) — 14 October 1990 ko unka nidhan hua.' },
+            ],
+            // (f) Important — sabse aakhiri box, par sabse badi baat
+            important: [
+                { t: 'The one thing that matters — you landed on this day ❤️😂', d: 'Baaki saari baatein interesting hain, but ye hi asli baat hai: is duniya ne 14 October ko ek bahut hi pyaara insaan gift kiya. 🥹🎀' },
             ],
         },
         timeline: [

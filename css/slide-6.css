@@ -1,41 +1,54 @@
 /* ============================================================
-   slide-6.css — Gallery (photo cards + caption + uska gana)
+   slide-6.css — Gallery (photo cards + caption)
    Yahi file badlo jab isi part ka look/style change karna ho.
+
+   • Frame ab bada hai (photos horizontally poori dikhti hain)
+   • Purane photo / numbering / song wale buttons hata diye —
+     ab sirf SWIPE karke photo badalti hai 💫
    ============================================================ */
 
 #slide-6 { justify-content: flex-start; padding-top: 52px; }
 
 /* ---------------- PHOTO CARD KA DECK ---------------- */
 .deck {
-    position: relative; margin: 18px auto 0;
-    width: min(72vw, 290px); height: min(44vh, 360px);
+    position: relative; margin: 16px auto 0;
+    /* Frame pehle se bahut bada (horizontally bhi) aur photos ke
+       shape (3:4 portrait) jaisa — isliye poori photo bina kate dikhti hai.
+       (46vh = height kabhi screen se bahar na jaye) */
+    width: min(96vw, 520px, 46vh);
+    aspect-ratio: 3 / 4;
     touch-action: none;
 }
 .deck-card {
     position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #fff;
-    border: 5px solid #fff;
+    border: 6px solid #fff;
     box-shadow: 0 18px 40px rgba(160, 80, 110, 0.32), 0 2px 0 rgba(255, 255, 255, 0.9) inset;
     transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.25, 1.15), opacity 0.35s ease;
     will-change: transform;
 }
 .deck-card.dragging { transition: none; cursor: grabbing; }
-.deck-card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+/* contain = poori photo dikhti hai (kuch bhi katt ke bahar nahi jaata) */
+.deck-card img { width: 100%; height: 100%; object-fit: contain; background: #fff; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 
-/* ---------------- CAPTION + COUNTER ---------------- */
+/* ---------------- CAPTION ---------------- */
+/* Caption ke peeche wala white frame bada kar diya —
+   lambi caption ki aakhiri line bhi andar hi rehti hai 💗 */
 .deck-caption {
-    max-width: 34ch; min-height: 48px; margin-top: 18px;
-    color: #7d4a5e; font-weight: 700; font-size: clamp(14px, 3.7vw, 16px); line-height: 1.5;
-    background: rgba(255, 255, 255, 0.78); border: 1px solid rgba(240, 195, 208, 0.9);
-    padding: 12px 18px; border-radius: 18px;
+    max-width: min(94vw, 560px); min-height: 48px; margin-top: 20px;
+    color: #7d4a5e; font-weight: 700; font-size: clamp(13.5px, 3.6vw, 16px); line-height: 1.55;
+    background: rgba(255, 255, 255, 0.86); border: 1px solid rgba(240, 195, 208, 0.9);
+    padding: 14px 20px; border-radius: 20px;
     box-shadow: 0 10px 24px rgba(214, 120, 150, 0.16);
     opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease;
 }
 .deck-caption.in { opacity: 1; transform: translateY(0); }
 
-.deck-meta { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
-.deck-count { color: #a8607e; font-weight: 900; font-size: 14px; min-width: 54px; }
-.deck-meta .chip-btn { padding: 10px 18px; }
+/* Bahut purane browser me aspect-ratio nahi hota → tab bhi deck dikhe */
+@supports not (aspect-ratio: 3 / 4) {
+    .deck { height: min(62vh, 62vw, 620px); }
+}
 
-/* ---------------- USKA GANA ---------------- */
-.music-btn { margin-top: 16px; }
-.music-btn.on { background: linear-gradient(135deg, rgba(138, 152, 232, 0.95), rgba(182, 189, 248, 0.85)); }
+/* Chhote phone par bhi sab kuch fit rahe */
+@media (max-width: 380px) {
+    .deck-caption { padding: 12px 14px; font-size: 13px; }
+}

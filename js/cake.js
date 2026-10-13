@@ -5,19 +5,22 @@
      • cake ke layers/drips/rosettes banana  (buildTier)
      • candles banana                        (buildCandles)
      • screen ke hisaab se cake ka size      (fitCake)
-     • tap / swipe / mic se candles bujhana  (blowCandles)
+     • SIRF mic (voice) se candles bujhana   (blowCandles)
+     • cake pe tap karne par "mic pe tap karke foonk maaro" wala message
      • confetti + wish wala countdown        (startCelebration)
 
+   ⚠️ Tap / swipe se candles NAHI bujhte — bas voice se.
    Numbers badalne hon (candles ki position, countdown seconds,
    confetti colors) to js/config.js ka 'cake' aur 'celebration'
    section badlo. Look badalna ho to css/cake.css.
    ============================================================ */
 
-let cakeStage = null;      // #cake-stage  (tap/swipe yahin hota hai)
+let cakeStage = null;      // #cake-stage
 let cakeScene = null;      // #cake-scene  (scale yahin hota hai)
 let isBlown = false;       // candles ek baar bujh gayin to dobara nahi
-let touchStartX = 0, touchStartY = 0;
+let wishReady = false;     // countdown pura hua? (tab hi aage jaane do)
 let micStream = null, micRaf = null;
+let micHintIndex = 0;      // "mic pe tap karo" messages ke liye counter
 
 // ---------- Cake ke layers (drips, phool, berries) ----------
 function buildTier(tier, { width, ry, rosettes, berries }) {
@@ -90,6 +93,22 @@ function fitCake() {
     cakeScene.style.transform = 'scale(' + s + ')';
 }
 
+// ---------- Cake pe tap karne par chhota sa message ----------
+// (candles tap/swipe se nahi bujhte — pookiee ko mic pe tap karke foonk maarna hai 🎤)
+function micOnlyHint() {
+    const lines = CONFIG.text.micOnly || ['Tap the mic and blow into it 🎤'];
+    const line = lines[micHintIndex % lines.length];
+    micHintIndex++;
+    showToast(line, 3000);
+
+    const micBtn = byId('mic-btn');
+    if (micBtn) {
+        micBtn.classList.remove('sparkle');
+        void micBtn.offsetWidth;
+        micBtn.classList.add('sparkle');
+    }
+}
+
 // ---------- Mic se blow karna ----------
 function stopMic() {
     if (micRaf) cancelAnimationFrame(micRaf);
@@ -100,11 +119,13 @@ function stopMic() {
 function startMicListening() {
     const micBtn = byId('mic-btn');
     const micLabel = byId('mic-label');
-    if (micStream) return;
+    if (micStream || isBlown) return;         // candles bujh chuki hain to kuch nahi
 
     // browser me mic ka support nahi hai to seedha message dikha do
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         micLabel.textContent = CONFIG.text.micUnavailable;
+        showToast(CONFIG.text.micUnavailable, 3200);
+        showMicFallback();
         return;
     }
 
@@ -135,18 +156,29 @@ function startMicListening() {
         listen();
     }).catch(() => {
         micLabel.textContent = CONFIG.text.micUnavailable;
+        showToast(CONFIG.text.micUnavailable, 3400);
+        showMicFallback();
     });
 }
 
-// ---------- Candles bujhana ----------
+// ---------- Mic na chale to ek chhota rasta (warna page par ruk jayenge) ----------
+function showMicFallback() {
+    const btn = byId('mic-fallback');
+    if (btn) btn.hidden = false;
+}
+
+// ---------- Candles bujhana (sirf mic se) ----------
 function blowCandles() {
     if (isBlown) return;
     isBlown = true;
     stopMic();
 
-    cakeStage.setAttribute('aria-label', 'Candles blown out');
+    if (cakeStage) cakeStage.setAttribute('aria-label', 'Candles blown out');
     byId('hint-text').classList.add('hide');
     byId('mic-btn').classList.add('hide');
+
+    const fallback = byId('mic-fallback');
+    if (fallback) fallback.classList.add('hide');
 
     // har candle thode gap se bujhe, saath me smoke uthe
     document.querySelectorAll('.candle').forEach((candle, i) => {
@@ -215,8 +247,10 @@ function startCelebration() {
             timerEl.textContent = '♡';
             byId('wish-title').textContent = CONFIG.text.wishDoneTitle;
             byId('wish-sub').textContent = CONFIG.text.wishDoneSub;
-            byId('go-next-btn').style.display = 'inline-block';
+            wishReady = true;                       // ab Next/Continue enable ho gaya
+            if (typeof updateNavBar === 'function') updateNavBar();   // Next unlock
             confetti({ particleCount: 90, spread: 120, startVelocity: 30, origin: { y: 0.3 }, colors, zIndex: 100 });
+            showToast(CONFIG.text.wishDone, 3000);
         }
     }, 1000);
 }
@@ -231,22 +265,9 @@ function initCake() {
     buildTier(byId(CONFIG.cake.tiers.top.id), CONFIG.cake.tiers.top);
     buildCandles();
 
-    // tap = candles bujho
-    cakeStage.addEventListener('click', blowCandles);
-    cakeStage.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); blowCandles(); }
-    });
-
-    // swipe = candles bujho
-    cakeStage.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    cakeStage.addEventListener('touchmove', (e) => {
-        const dx = e.touches[0].clientX - touchStartX;
-        const dy = e.touches[0].clientY - touchStartY;
-        if (Math.hypot(dx, dy) > CONFIG.celebration.swipeDistance) blowCandles();
-    }, { passive: true });
+    // cake pe tap = "mic pe tap karke foonk maaro" wala message
+    // (candles sirf voice se bujhengi ✨)
+    cakeStage.addEventListener('click', () => { if (!isBlown) micOnlyHint(); });
 
     // mic wala button
     byId('mic-btn').addEventListener('click', startMicListening);

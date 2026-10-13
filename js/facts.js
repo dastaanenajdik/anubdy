@@ -1,11 +1,11 @@
 /* ============================================================
    facts.js — Slide 9: "Janti hai aaj kya kya hua tha?" + timeline
    ============================================================
-   • 5 buttons (Indian History, Indian Celebs, Days, World History,
-     International Celebs) → tap karo to chhota sa modal page khulta hai
-     aur items ek-ek karke aate hain.
-   • Neeche "Hamari timeline 🗓️" — items ~300ms ke gap pe appear hote hain
+   • Sabse upar "Hamari timeline 🗓️" — items ~300ms ke gap pe appear hote hain
      (sirf pehli baar).
+   • Uske neeche 6 buttons (Indian History, Indian Celebs, Days, World History,
+     International Celebs + 💗 Important) → tap karo to chhota sa modal page
+     khulta hai aur items ek-ek karke aate hain.
 
    Sara data → js/config.js > facts
    Look      → css/slide-9.css (+ modal css/base.css me)
@@ -21,7 +21,7 @@ function buildFactButtons() {
 
     CONFIG.facts.buttons.forEach((btn) => {
         const el = document.createElement('button');
-        el.className = 'fact-btn';
+        el.className = 'fact-btn' + (btn.id === 'important' ? ' important' : '');
         el.type = 'button';
         el.innerHTML =
             '<span class="fact-emoji">' + btn.emoji + '</span>' +

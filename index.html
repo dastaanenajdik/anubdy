@@ -65,7 +65,7 @@
             <div class="content-overlay">
                 <div class="date-bubble" data-bind="date">14 • 10</div>
                 <h1 class="title" data-bind="title">Happy Birthday</h1>
-                <h2 class="subtitle" data-bind="heroName">Anushri 🌸🥺</h2>
+                <h2 class="subtitle" data-bind="heroName">Anushree 🌸🥺</h2>
                 <p class="aka-line" data-bind="aka">aka Tingu 💗</p>
                 <!-- data-goto = kaunsi slide par jana hai (js/slides.js) -->
                 <button class="tribute-btn" type="button" data-goto="2">Start the tribute ➜</button>
@@ -87,7 +87,7 @@
                 <div class="intro" id="intro">
                     <span class="eyebrow" data-bind="eyebrow">14 • 10 • JUST FOR YOU</span>
                     <h2 data-bind="title">Happy Birthday</h2>
-                    <p data-bind="introSub">Anushri, it&apos;s your special day</p>
+                    <p data-bind="introSub">Anushree, it&apos;s your special day</p>
                 </div>
                 <div class="wish-panel" id="wish-panel" aria-live="polite">
                     <h2 id="wish-title" data-bind="wishTitle">Make a Wish</h2>
@@ -108,8 +108,9 @@
                 </div>
             </div>
 
-            <!-- Cake: layers/candles JS se bante hain (js/cake.js) -->
-            <div class="cake-stage" id="cake-stage" role="button" tabindex="0" aria-label="Tap to blow out the candles">
+            <!-- Cake: layers/candles JS se bante hain (js/cake.js)
+                 NOTE: cake ab tap/swipe se nahi bujhta — sirf mic (voice) se ✨ -->
+            <div class="cake-stage" id="cake-stage" aria-label="Birthday cake">
                 <div class="cake-scene" id="cake-scene">
                     <div class="cake-inner" id="cake-inner">
                         <div class="table-shadow"></div>
@@ -144,12 +145,13 @@
             </div>
 
             <div class="cake-controls">
-                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Tap the candles or swipe across to blow</span></div>
+                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Tap the mic 🎤 then blow the candles out</span></div>
                 <button class="mic-btn" id="mic-btn" type="button">
                     <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
-                    <span id="mic-label" data-bind="micLabel">Or blow into your mic</span>
+                    <span id="mic-label" data-bind="micLabel">Tap here &amp; blow 🎤</span>
                 </button>
-                <button class="tribute-btn" id="go-next-btn" type="button" data-goto="3">Continue ➜</button>
+                <!-- Sirf tab dikhta hai jab mic kaam na kare (warna candles sirf voice se hi bujhti hain) -->
+                <button class="chip-btn ghost mic-fallback" id="mic-fallback" type="button" hidden>Mic nahi chal raha? 🙈 Tap to blow</button>
             </div>
         </section>
 
@@ -169,19 +171,24 @@
             </div>
         </section>
 
-        <!-- SLIDE 4: LOVE LETTER ENVELOPE -->
-        <section class="slide" id="slide-4">
-            <div class="envelope-container" id="envelope">
-                <div class="envelope-flap" id="env-flap"></div>
-                <div class="envelope-pocket"></div>
-                <div class="envelope-label">Tap to Open ✨</div>
+        <!-- SLIDE 4: LOVE LETTER — envelope pe tap → poori story type hoti hai -->
+        <section class="slide scrollable" id="slide-4">
+            <div class="letter-wrap" id="letter-wrap">
+                <div class="envelope-slot" id="envelope-slot">
+                    <div class="envelope-container" id="envelope" role="button" tabindex="0" aria-label="Tap to open the letter">
+                        <div class="envelope-flap" id="env-flap"></div>
+                        <div class="envelope-pocket"></div>
+                        <div class="envelope-seal">💗</div>
+                        <div class="envelope-label">Tap to Open ✨</div>
+                    </div>
+                </div>
+                <div class="letter-paper" id="letter-paper" aria-live="polite">
+                    <span id="typed-text"></span><span class="typing-caret" id="typing-caret"></span>
+                </div>
             </div>
-            <div class="letter-paper" id="letter-paper">
-                <span id="typed-text"></span>
-            </div>
+            <!-- Sirf extra "Skip typing" — aage jaane ke liye neeche wala Next hi hai -->
             <div class="letter-actions" id="letter-actions">
                 <button class="chip-btn ghost" id="skip-typing-btn" type="button" hidden>⏩ Skip typing</button>
-                <button class="chip-btn" id="letter-next-btn" type="button" data-goto="5" hidden>Continue ➜</button>
             </div>
         </section>
 
@@ -190,52 +197,28 @@
             <div class="glass-card who-card">
                 <span class="eyebrow">Ek chhota sa sawaal 👀</span>
                 <h2 class="page-title">Who is this for?</h2>
-                <p class="page-sub">Dono option sach hain... tap karke dekh lo 💗</p>
 
                 <div class="who-options" id="who-options">
                     <button class="who-chip" type="button" data-who="0">
                         <span class="who-emoji">💗</span>
                         <span class="who-text">Someone very close to my heart</span>
                     </button>
-                    <button class="who-chip" type="button" data-who="1">
-                        <span class="who-emoji">✨</span>
-                        <span class="who-text">Someone very special</span>
-                    </button>
                 </div>
 
+                <!-- Reveal ab khud dikhta hai (tap ki zaroorat nahi) -->
                 <div class="who-reveal" id="who-reveal" aria-live="polite"></div>
-
-                <div class="nav-row">
-                    <button class="chip-btn ghost" type="button" data-goto="4">← Back</button>
-                    <button class="chip-btn hidden-btn" id="who-next" type="button" data-goto="6">Continue ➜</button>
-                </div>
             </div>
         </section>
 
-        <!-- SLIDE 6: GALLERY (photo cards + caption + uska gana) -->
+        <!-- SLIDE 6: GALLERY (photo cards + caption) -->
         <section class="slide scrollable" id="slide-6">
             <span class="eyebrow">Her photos 🖼️</span>
             <h2 class="page-title">Kuch yaadein, kuch pal 📸</h2>
-            <p class="page-sub">Card ko side me swipe karo — agli photo aa jayegi 💫</p>
+            <p class="page-sub">Photo ko side me swipe karo — agli photo aa jayegi 💫</p>
 
             <div class="deck" id="deck"></div>
 
             <p class="deck-caption" id="deck-caption" aria-live="polite"></p>
-
-            <div class="deck-meta">
-                <button class="chip-btn ghost" id="deck-prev" type="button" aria-label="Previous photo">◀</button>
-                <span class="deck-count" id="deck-count">1 / 7</span>
-                <button class="chip-btn ghost" id="deck-next" type="button" aria-label="Next photo">▶</button>
-            </div>
-
-            <button class="chip-btn music-btn" id="music-btn" type="button">🎵 Her song chalao</button>
-
-            <audio id="her-song" loop preload="none"></audio>
-
-            <div class="nav-row">
-                <button class="chip-btn ghost" type="button" data-goto="5">← Back</button>
-                <button class="chip-btn" type="button" data-goto="7">Continue ➜</button>
-            </div>
         </section>
 
         <!-- SLIDE 7: FEELINGS ZONE (notes ka darwaza) -->
@@ -245,12 +228,7 @@
                 <h2 class="page-title">Some things, I wanna confess to you… 💌</h2>
                 <p class="page-sub">kuch notes likhe hain tere liye — aage har card pe tap karke ek-ek karke kholna.</p>
 
-                <div class="lock-row" id="lock-row" aria-hidden="true"></div>
-
-                <div class="nav-row">
-                    <button class="chip-btn ghost" type="button" data-goto="6">← Back</button>
-                    <button class="chip-btn" type="button" data-goto="8">Notes kholo →</button>
-                </div>
+                <div class="note-row" id="lock-row" aria-hidden="true"></div>
             </div>
         </section>
 
@@ -263,30 +241,20 @@
             <div class="note-list" id="note-list"></div>
 
             <p class="note-progress" id="note-progress" aria-live="polite"></p>
-
-            <div class="nav-row">
-                <button class="chip-btn ghost" type="button" data-goto="7">← Back</button>
-                <button class="chip-btn hidden-btn" id="notes-next" type="button" data-goto="9">Continue ➜</button>
-            </div>
         </section>
 
-        <!-- SLIDE 9: 14 OCTOBER — AJ KYA KYA HUA THA + TIMELINE -->
+        <!-- SLIDE 9: 14 OCTOBER — TIMELINE (uppar) + FACTS (niche) -->
         <section class="slide scrollable" id="slide-9">
             <span class="eyebrow" data-bind="factsChip">14 October — Tera Din ✨</span>
             <h2 class="page-title">Janti hai aaj kya kya hua tha? 👀</h2>
-            <p class="page-sub">Har section pe tap kar — chhota sa page khulega 💌</p>
-
-            <div class="fact-buttons" id="fact-buttons"></div>
 
             <div class="timeline">
                 <h3 class="timeline-title">Hamari timeline 🗓️</h3>
                 <div class="timeline-list" id="timeline-list"></div>
             </div>
 
-            <div class="nav-row">
-                <button class="chip-btn ghost" type="button" data-goto="8">← Back</button>
-                <button class="chip-btn" type="button" data-goto="10">Continue ➜</button>
-            </div>
+            <p class="page-sub fact-sub">Har section pe tap kar — chhota sa page khulega 💌</p>
+            <div class="fact-buttons" id="fact-buttons"></div>
         </section>
 
         <!-- SLIDE 10: LAST PAGE — HAPPIEST BIRTHDAY AGAIN + WISH BOX -->
@@ -295,10 +263,16 @@
                 <div class="heart-row" aria-hidden="true"><span>💗</span><span>🎂</span><span>💗</span></div>
                 <h2 class="final-title" data-bind="finalTitle" data-bind-html>Happiest Birthday,<br>Tingu! 🎂💗</h2>
                 <p class="final-text" data-bind="finalText">Bas itna kehna tha — duniya thodi si chaotic hai, par usme tujh jaise log mil jaaye to jina worth it lagta hai. Hassti rehna, khati rehna, aur main hamesha ek text door hoon. 🫂💗</p>
+
+                <!-- Photo frame: hum dono (AI wali cute photo) -->
+                <figure class="photo-frame">
+                    <img src="together.jpeg" alt="Hum dono, ek cute si photo me 🫶🏻" loading="lazy" decoding="async">
+                    <figcaption data-bind="photoCaption">Ek din sach me… 🫂💗</figcaption>
+                </figure>
+
                 <p class="final-line" data-bind="finalLine">14.10 — officially tera din. ✨</p>
                 <div class="nav-row">
                     <button class="chip-btn" id="celebrate-again" type="button">🎉 Celebrate Again</button>
-                    <button class="chip-btn ghost" id="start-over" type="button">↺ Shuru se</button>
                 </div>
             </div>
 
@@ -308,6 +282,12 @@
                 <textarea id="wish-text" maxlength="500" placeholder="anything you wanna tell me today.... ✍️" aria-label="Your message"></textarea>
                 <p class="wish-hint">Message ready hai — edit kar sakti hai, phir send 💗</p>
                 <button class="chip-btn send-btn" id="wish-send" type="button">💚 Send on WhatsApp</button>
+            </div>
+
+            <!-- Sabse niche: shuru se (site refresh) -->
+            <div class="restart-box">
+                <button class="chip-btn ghost restart-btn" id="start-over" type="button">↺ Shuru se</button>
+                <p class="restart-hint" data-bind="restartHint">Yahan se poori site dobara shuru hogi 💗</p>
             </div>
         </section>
 
