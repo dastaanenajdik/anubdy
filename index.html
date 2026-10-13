@@ -251,15 +251,49 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; position: relative; overflow: hidden;
         }
         .question-box {
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); padding: 40px 30px; border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(214, 120, 150, 0.25); border: 1px solid rgba(255, 255, 255, 0.9); max-width: 420px; width: 90%; position: relative; z-index: 10;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%);
+            padding: clamp(36px, 8vw, 58px) clamp(24px, 7vw, 48px);
+            border-radius: 36px; border: 1px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 26px 60px rgba(214, 120, 150, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            max-width: 520px; width: 92%; position: relative; z-index: 10;
         }
-        .question-box h2 { font-family: 'Pacifico', cursive; color: #cf5b7f; font-size: 32px; margin-bottom: 25px; text-shadow: 0 2px 4px rgba(240, 160, 185, 0.3); }
-        .btn-group { display: flex; justify-content: center; gap: 20px; position: relative; margin-top: 20px; min-height: 60px; align-items: center; }
-        .yes-btn { background: linear-gradient(45deg, #ff4d6d, #ff7eb3); color: white; padding: 14px 35px; font-size: 18px; border: none; border-radius: 20px; font-weight: 900; box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4); cursor: pointer; font-family: inherit; transition: transform 0.2s; }
-        .yes-btn:hover { transform: scale(1.05); }
-        .no-btn { background: #e2d1d6; color: #8a5468; padding: 14px 35px; font-size: 18px; border: none; border-radius: 20px; font-weight: 900; cursor: pointer; font-family: inherit; position: absolute; transition: all 0.2s ease; }
-        #funny-msg { color: #d90429; font-weight: 700; font-size: 15px; margin-top: 15px; min-height: 24px; text-shadow: 0 1px 2px rgba(255,255,255,0.8); }
+        .question-box::before {
+            content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+            background: linear-gradient(155deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 48%);
+        }
+        .question-box > * { position: relative; z-index: 1; }
+        .question-box h2 {
+            font-family: 'Quicksand', sans-serif; font-weight: 800; color: #cf5b7f;
+            font-size: clamp(27px, 6.4vw, 38px); line-height: 1.26; letter-spacing: 0.2px; margin: 14px 0 8px;
+            text-shadow: 0 2px 6px rgba(240, 160, 185, 0.25);
+        }
+        @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+            .question-box h2 {
+                background: linear-gradient(115deg, #e0588a 0%, #c95a9e 48%, #9b6ae8 100%);
+                -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+                text-shadow: none; filter: drop-shadow(0 2px 6px rgba(240, 160, 185, 0.35));
+            }
+        }
+        .q-sub { color: #8a5468; font-weight: 600; font-size: clamp(14px, 3.4vw, 16px); }
+
+        .btn-group { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px; position: relative; margin-top: 28px; min-height: 66px; }
+
+        .btn-glass {
+            font-family: inherit; font-weight: 800; font-size: clamp(16px, 4vw, 19px); border-radius: 20px;
+            padding: 16px clamp(22px, 6vw, 40px); cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(14px) saturate(180%); -webkit-backdrop-filter: blur(14px) saturate(180%);
+            box-shadow: 0 12px 28px rgba(214, 120, 150, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -10px 20px rgba(255, 255, 255, 0.12);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.3s ease;
+        }
+        .btn-glass:hover { transform: translateY(-2px) scale(1.04); }
+        .btn-glass:active { transform: scale(0.97); }
+        .yes-btn { background: linear-gradient(135deg, rgba(255, 77, 109, 0.92) 0%, rgba(255, 126, 179, 0.78) 100%); color: #fff; text-shadow: 0 1px 6px rgba(180, 55, 90, 0.35); }
+        .yes-btn:hover { box-shadow: 0 18px 36px rgba(255, 77, 109, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -10px 20px rgba(255, 255, 255, 0.15); }
+        .no-btn { background: rgba(255, 255, 255, 0.42); color: #7d4a5e; display: inline-flex; align-items: center; gap: 8px; will-change: transform; transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, background 0.3s ease; }
+        .no-btn:hover { background: rgba(255, 255, 255, 0.6); box-shadow: 0 16px 32px rgba(214, 120, 150, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.85); }
+        .no-emoji { font-size: 1.2em; line-height: 1; display: inline-block; }
+        #funny-msg { color: #d90429; font-weight: 700; font-size: clamp(14px, 3.6vw, 16px); margin-top: 18px; min-height: 26px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85); }
 
         /* ================= SLIDE 4: LOVE LETTER ENVELOPE ================= */
         #slide-4 {
@@ -412,12 +446,16 @@
         <!-- SLIDE 3: ARE YOU READY TO CELEBRATE? -->
         <section class="slide" id="slide-3">
             <div class="question-box">
+                <span class="eyebrow">One tiny question ✨</span>
                 <h2>Are you ready to celebrate?</h2>
+                <p class="q-sub">Pick your answer, Tingu Mingu 🎀</p>
                 <div class="btn-group" id="btn-group">
-                    <button class="yes-btn" onclick="goToSlide(4)">Yes 💖</button>
-                    <button class="no-btn" id="no-btn" onmouseover="moveNoBtn()" onclick="moveNoBtn()">No 🙈</button>
+                    <button class="btn-glass yes-btn" id="yes-btn" type="button" onclick="goToSlide(4)">Yes 💖</button>
+                    <button class="btn-glass no-btn" id="no-btn" type="button" aria-label="No" onclick="dodgeNoBtn()">
+                        <span class="no-emoji" id="no-emoji">🙈</span><span>No</span>
+                    </button>
                 </div>
-                <div id="funny-msg"></div>
+                <div id="funny-msg" aria-live="polite"></div>
             </div>
         </section>
 
@@ -464,6 +502,7 @@
             document.getElementById('slide-' + num).classList.add('active');
             document.getElementById('dot-' + num).classList.add('active');
             if (num === 2) fitCake();
+            if (num === 3) resetNoBtn();
         }
 
         // ---------- 3. Build the scene ----------
@@ -696,26 +735,90 @@
             }, 1000);
         }
 
-        // ---------- 5. Slide 3: No Button Moving Logic ----------
-        const noMessages = [
-            "nahi yrr.. yess kro",
-            "tum smjhti kyu nahi",
-            "yes kro",
-            "nice try...but u can't skip this"
-        ];
-        let noClickCount = 0;
-        function moveNoBtn() {
-            const noBtn = document.getElementById('no-btn');
-            const msgEl = document.getElementById('funny-msg');
-            
-            // Random position shift inside container bounds
-            const x = (Math.random() - 0.5) * 160;
-            const y = (Math.random() - 0.5) * 100;
-            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        // ---------- 5. Slide 3: "No" Button Dodging Logic ----------
+        // Emojis the No button keeps rotating through, one step per dodge
+        const noEmojis = ['🙈', '🥺', '😢', '😭', '😠', '😤', '😩', '🫠', '🥴', '🙃', '😵‍💫', '😴'];
 
-            msgEl.textContent = noMessages[noClickCount % noMessages.length];
-            noClickCount++;
+        // Funny lines shown below. {emoji} is swapped for the emoji shown right then.
+        const noMessages = [
+            "Arre nahi nahi... Yes dabao na {emoji}",
+            "Tum samajhti kyu nahi? Yes karo {emoji}",
+            "Yes kro {emoji}",
+            "Nice try... but u can't skip this one {emoji}",
+            "No button bhi bhaag raha hai tumse {emoji}",
+            "Pakad mein nahi aa raha na? Yes hi karo {emoji}",
+            "Ab to No ne surrender kar diya hai {emoji}",
+            "Bas karo, ab gussa ho gaya hai No wala {emoji}",
+            "Chhodo usse, abhi so jayega {emoji}",
+            "Last baar bol rahi hoon... YES dabao {emoji}",
+            "Theek hai theek hai... dogi ho ho ho 🥰💖"
+        ];
+
+        let noClickCount = 0;
+        const noBtn = document.getElementById('no-btn');
+        const noEmojiEl = document.getElementById('no-emoji');
+        const funnyMsgEl = document.getElementById('funny-msg');
+
+        // How far the No button may roam inside the button area
+        function getNoRange() {
+            const groupBox = document.getElementById('btn-group').getBoundingClientRect();
+            const btnBox = noBtn.getBoundingClientRect();
+            const pad = 6;
+            const maxX = Math.max(0, (groupBox.width - btnBox.width) / 2 - pad);
+            const maxY = Math.min(120, Math.max(30, window.innerHeight * 0.13));
+            return { maxX, maxY };
         }
+
+        // Run away + change emoji + show a new funny line
+        function dodgeNoBtn() {
+            const { maxX, maxY } = getNoRange();
+            const x = (Math.random() * 2 - 1) * maxX;
+            const y = (Math.random() * 2 - 1) * maxY;
+
+            noBtn.style.transition = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)';
+            noBtn.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+            noBtn.style.background = 'rgba(255, 255, 255, 0.6)';
+
+            // Emoji keeps rotating forever
+            const emoji = noEmojis[noClickCount % noEmojis.length];
+            noEmojiEl.textContent = emoji;
+
+            // Dialogue lines play in order, then the last one sticks
+            const msgIndex = Math.min(noClickCount + 1, noMessages.length - 1);
+            funnyMsgEl.textContent = noMessages[msgIndex].replace('{emoji}', emoji);
+
+            noClickCount++;
+
+            clearTimeout(dodgeNoBtn._t);
+            dodgeNoBtn._t = setTimeout(() => { noBtn.style.background = 'rgba(255, 255, 255, 0.42)'; }, 180);
+        }
+
+        // Mouse users: it slips away before the cursor even reaches it
+        function hoverNoBtn() {
+            const { maxX, maxY } = getNoRange();
+            const x = (Math.random() * 2 - 1) * maxX;
+            const y = (Math.random() * 2 - 1) * maxY;
+            noBtn.style.transition = 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+            noBtn.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+        }
+
+        // Fresh start every time this slide shows up
+        function resetNoBtn() {
+            noClickCount = 0;
+            noBtn.style.transition = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)';
+            noBtn.style.transform = 'translate(0, 0)';
+            noBtn.style.background = 'rgba(255, 255, 255, 0.42)';
+            noEmojiEl.textContent = noEmojis[0];
+            funnyMsgEl.textContent = '';
+        }
+
+        if (window.matchMedia('(hover: hover)').matches) {
+            noBtn.addEventListener('mouseenter', hoverNoBtn);
+        }
+        window.addEventListener('resize', () => {
+            noBtn.style.transition = 'none';
+            noBtn.style.transform = 'translate(0, 0)';
+        });
 
         // ---------- 6. Slide 4: Envelope & Handwriting Typewriter ----------
         const fullMessage = `Happy Birthday meri pyaari Tingu Mingu 🥹❤️🎀🫶🏻✨️!!! First of all, I just want to say ki I'm really grateful ki tum meri life mein aayi, and honestly, kabhi socha nahi tha ki kisi se itni unexpectedly baat hogi aur woh insaan dheere-dheere itna special ban jayega. 🫠💗 I still remember 27 September 2026, jab humari pehli baar baat hui thi. Out of nowhere tumne call ke liye poochha tha, and that's how our conversations started. Phir humne lagbhag 3 hours tak baat ki thi, and the most surprising thing was ki mujhe ek second ke liye bhi aisa nahi laga ki main tumse pehli baar baat kar raha hoon. It felt like I had known you for a really long time, jaise hum pehle se ek dusre ko jaante hain aur bas ab baat karne ka mauka mila hai. 🥹🫂❤️ Pata nahi kaise, but tumse baat karna itna natural tha, na koi awkwardness, na koi hesitation, bas baatein hi baatein aur time ka pata hi nahi chala. And you know what, agle din main literally wait kar raha tha ki tumhara text aayega, but tumne text nahi kiya. 😭😂 Maine snaps bhej kar hints bhi dene ki koshish ki, but madam ki taraf se koi khaas response hi nahi aaya. 🤡💔 Us time mujhe kya pata tha ki jis insaan ke text ka main itna wait kar raha hoon, woh aage jaakar meri life ka itna beautiful part ban jayegi. Phir agle din humari dobara baat hui, and bas, dheere-dheere humari conversations badhti gayi, hum ek dusre ko jaanne lage, aur pata hi nahi chala kab tum mere liye itni special ban gayi. ❤️‍🩹✨️ Aaj jab main peeche mudkar dekhta hoon na, toh genuinely feel hota hai ki tumhare aane ke baad meri life mein kaafi kuch change hua hai. You have made me feel a kind of happiness and specialness that I had never really experienced with anyone before. Tumse baat karna, tumhari random si baatein sunna, tumhari hasi, tumhara mujhe tease karna, tumhara chhoti-chhoti baaton par gussa ho jaana, phir woh cute si nok-jhok, aur tumhara apne hi andaaz mein baatein karna, everything feels so precious to me. 🥹💗 Maybe tumhe khud bhi nahi pata hoga ki tumhari chhoti-chhoti baatein kisi ke face par kitni badi smile la sakti hain. Sometimes, the simplest conversations become the most beautiful memories, and that's exactly what is happening with us. Tumse baat karke kabhi-kabhi aisa lagta hai ki chahe din kaisa bhi gaya ho, there's still something to smile about. And honestly, I really hope ki tum hamesha aise hi meri life ka part bani raho. 🫂❤️ I don't know what the future holds for us, aur na hi main yeh predict kar sakta hoon ki aage kya-kya hoga, but I genuinely hope ki humari friendship aur bhi beautiful hoti jaaye, hum aur close hote jaayein, aur humare paas aisi bahut saari memories hon jinhe hum future mein yaad karke has sakein. I hope ki time ke saath humari bonding kam hone ke bajaye aur strong ho, chahe life kitni bhi busy kyun na ho jaaye. Kabhi misunderstandings ho, kabhi chhoti-moti fights ho, ya kabhi kisi baat ko lekar hum ek dusre se naraz ho jaayein, toh I hope ki hum baat karke sab theek kar lein, because I really don't want ki koi chhoti si baat humari beautiful friendship ke beech aaye. 🥹🤍 I want us to keep sharing our random thoughts, our happiness, our problems, our silly jokes, our achievements, and even those little things jo shayad duniya ke liye important na hon, but humare liye special hon. And haan, tum jitna mujhe tease karti ho na, woh bhi band mat karna, kyunki ab uski aadat si ho rahi hai. 😭😂💗 Bas kabhi-kabhi mere hints bhi samajh liya karna, madam, har baar itna ignore karna zaroori nahi hota. 🤡🤌🏻❤️‍🩹 And Tingu Mingu, there's one more thing I'm genuinely excited about, and that's the day jab hum first time real life mein ek dusre ko dekhenge. 🥹🫶🏻 I swear, main us moment ko imagine karke hi excited ho jaata hoon. I keep wondering ki woh moment kaisa hoga, hum kaise react karenge, kitna awkward ya funny hoga sab kuch, aur kya hum waise hi baatein kar paayenge jaise calls par karte hain. 😭❤️ Maybe hum dono hasne lagenge, maybe thodi awkwardness hogi, ya maybe phir se aisa hi lagega ki hum pehle bhi kitni baar mil chuke hain. Whatever happens, I just hope ki woh moment humare liye ek beautiful memory ban jaaye, something that we will remember and smile about for a really long time. 🫂✨️ And before that day comes, I want us to keep making memories just the way we do now, one conversation, one laugh, and one silly moment at a time. Also, I'm really sorry for tang karne ke liye, especially video calls ke liye😭🙏🏻 I know kabhi-kabhi main zyada ho jaata hoon, and maybe tumhe irritate bhi kar deta hoon, but I never want you to feel pressured because of me. Your comfort matters to me, and I want you to do everything at your own pace, whenever you feel comfortable. I'm genuinely sorry if I ever made you feel uncomfortable, and I'll try to be more understanding. ❤️‍🩹🫂 You deserve to feel respected, comfortable, and happy in every conversation we have. And now, coming to your birthday, I wish ki tumhari life ka yeh new year tumhare liye endless happiness, peace, love, success, and countless beautiful memories lekar aaye. 🥳🎂💗 May you always have reasons to smile, may your heart always feel light, and may you never have to hide your beautiful smile because of anything or anyone. I hope tumhari life mein jo bhi dreams hain, chahe woh chhote hon ya bade, sab dheere-dheere poore hon. And especially, tumhara stage par dance karne ka dream, I really hope ki woh din jaldi aaye jab tum apne dream stage par khadi hokar perform karo, apne talent ko duniya ke saamne dikhao, aur khud par proud feel karo. 💃🏻✨️ I genuinely want to see you achieve all those things that make you happy. Hamesha apne dreams ke liye work karna, khud par believe karna, aur kabhi apni capabilities par doubt mat karna. You have so much ahead of you, and I hope life gives you beautiful opportunities to become everything you want to be. Along with all of this, I wish you a healthy life, a peaceful mind, genuine people around you, and a heart that always finds happiness in the little things. Please apna dhyaan rakha karna, apni health ka, apni happiness ka, aur apni smile ka bhi. 🥹🎀❤️ Hamesha khush rehna, khulkar hasna, apne favourite songs par dance karna, silly harkatein karna, aur apni woh cute si personality kabhi mat badalna just because of someone else's opinions. You don't have to be perfect to be special, and you don't have to change yourself to deserve happiness. Just keep being the person you are, because that person is already so precious. 💗🫶🏻 And listen, life mein kabhi bhi aisa time aaye jab tum sad feel karo, overthink karo, ya tumhe lage ki things aren't going the way you wanted them to, toh please yaad rakhna ki you don't always have to handle everything alone. Agar tum comfortable ho, toh mujhse share kar sakti ho. Main shayad har problem ka solution na de paaun, but I'll always try to listen, understand, and be there for you whenever I can. Chahe tumhe advice chahiye ho, kisi baat par rant karna ho, ya bas bina kisi reason ke baat karni ho, you can always talk to me. And even if you don't feel like talking, that's okay too. I'll respect that. ❤️🫂 I hope tumhe life mein hamesha aise log milein jo tumhari value samjhein, tumhari feelings ki respect karein, tumhari achievements par tumse zyada khush hon, aur tumhare difficult days mein bhi tumhara saath dein. You deserve friendships that feel safe, genuine, and effortless, where you can be yourself without worrying about being judged. And I hope humari friendship bhi hamesha aisi hi rahe, jahan hum ek dusre ke saath apni real selves ban kar reh sakein, bina kisi unnecessary expectations ke, bas honesty, respect, care, aur lots of laughter ke saath. 🤍✨️ Tingu Mingu, honestly, mujhe nahi pata ki main words mein properly explain kar paaunga ya nahi ki tum mere liye kitni special ho, but I'm really happy that our paths crossed. Itna kam time hua hai humari baat hote hue, but sometimes connection ko samajhne ke liye years nahi, bas kuch genuine conversations hi kaafi hoti hain. And with you, it has felt surprisingly easy to be myself. Thank you for the laughs, for the conversations, for the teasing, for the little moments, and for becoming such a lovely part of my days. Thank you for being you. 🥹❤️ I hope this birthday brings you the kind of happiness that stays with you even after the day ends, and I hope the coming year gives you countless reasons to look back and say, "This was one of the most beautiful phases of my life." May all your silent wishes come true, may you find happiness in unexpected places, and may you always remember how much you matter as a person. And no matter how much life changes, I hope we keep finding our way back to our conversations, our jokes, and our silly little bond. Main nahi jaanta aage kya hoga, but I'm genuinely excited to see where life takes us and what beautiful memories are still waiting for us. Bas itna chahta hoon ki humari friendship aise hi aage badhti rahe, hum ek dusre ko samajhte rahein, aur humari bonding hamesha genuine bani rahe. ❤️‍🩹🫶🏻 Once again, happiest birthday meri Tingu Mingu, meri favourite troublemaker, meri cute si dost, and one of the most unexpected yet beautiful people I've met. 😭🎂🎀💗 Keep smiling, keep dancing, keep annoying me with your cute little tantrums, and keep being the amazing person you are. I hope tumhari life mein sadness se zyada happiness ho, worries se zyada reasons to smile hon, aur har difficult phase ke baad ek beautiful beginning ho. May you always be surrounded by love, kindness, good health, and positive energy. Aur haan, aaj tumhara birthday hai, toh aaj ke din extra nakhre allowed hain, but sirf aaj ke din... baaki din toh mujhe bhi thoda bhaav de diya karna. 😭😂🤌🏻❤️‍🔥 Jokes apart, I'm really glad I met you, and I hope one day we'll look back at these early conversations and laugh about how everything started with one unexpected call and a three-hour conversation. Who knew that one random beginning could become such a sweet part of our lives? 🥹🫂❤️ Happy Birthday once again, Tingu Mingu! Stay happy, stay healthy, keep chasing your dreams, and never stop being the wonderful person you are. I hope this is just the beginning of a long, beautiful friendship filled with countless memories, endless laughter, random conversations, silly fights, and moments we'll cherish forever. Sending you lots of happiness, the warmest birthday wishes, and the biggest virtual hug. 🫂🎂💗🎀✨️ Enjoy your day to the fullest, birthday girl. You deserve all the happiness in the world! ❤️‍🩹🧿♾️`;
