@@ -93,20 +93,27 @@ function fitCake() {
     cakeScene.style.transform = 'scale(' + s + ')';
 }
 
-// ---------- Cake pe tap karne par chhota sa message ----------
+// ---------- Mic button ko hilaa/chamka kar ishara karna ----------
+// Kahi aur click ho to mic button gayab NAHI hota — bas thoda hilta (nudge)
+// aur chamakta hai, ki "click here to open mic to blow" 🎤
+// (candles bujh jaane ke baad hi button jaata hai, wo blowCandles me hota hai)
+function nudgeMicButton() {
+    const micBtn = byId('mic-btn');
+    if (!micBtn || isBlown) return;
+    micBtn.classList.remove('hide');           // galti se chhupa ho to wapas lao
+    micBtn.classList.remove('nudge', 'sparkle');
+    void micBtn.offsetWidth;                   // animation dobara chalane ke liye
+    micBtn.classList.add('nudge', 'sparkle');
+}
+
+// ---------- Cake / page pe kahin aur tap karne par chhota sa message ----------
 // (candles tap/swipe se nahi bujhte — pookiee ko mic pe tap karke foonk maarna hai 🎤)
 function micOnlyHint() {
     const lines = CONFIG.text.micOnly || ['Tap the mic and blow into it 🎤'];
     const line = lines[micHintIndex % lines.length];
     micHintIndex++;
     showToast(line, 3000);
-
-    const micBtn = byId('mic-btn');
-    if (micBtn) {
-        micBtn.classList.remove('sparkle');
-        void micBtn.offsetWidth;
-        micBtn.classList.add('sparkle');
-    }
+    nudgeMicButton();
 }
 
 // ---------- Mic se blow karna ----------
@@ -114,6 +121,8 @@ function stopMic() {
     if (micRaf) cancelAnimationFrame(micRaf);
     if (micStream) micStream.getTracks().forEach(t => t.stop());
     micStream = null;
+    const micBtn = byId('mic-btn');
+    if (micBtn) micBtn.classList.remove('listening');
 }
 
 function startMicListening() {
@@ -122,7 +131,9 @@ function startMicListening() {
     if (micStream || isBlown) return;         // candles bujh chuki hain to kuch nahi
 
     // browser me mic ka support nahi hai to seedha message dikha do
+    // (mic button waisa ka waisa dikhta rahega — gayab nahi hoga)
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        micBtn.classList.remove('hide', 'listening');
         micLabel.textContent = CONFIG.text.micUnavailable;
         showToast(CONFIG.text.micUnavailable, 3200);
         showMicFallback();
@@ -155,6 +166,8 @@ function startMicListening() {
         };
         listen();
     }).catch(() => {
+        // mic allow na ho / error aaye tab bhi button dikhta rahe, taaki dobara try ho sake
+        micBtn.classList.remove('hide', 'listening');
         micLabel.textContent = CONFIG.text.micUnavailable;
         showToast(CONFIG.text.micUnavailable, 3400);
         showMicFallback();
@@ -265,11 +278,21 @@ function initCake() {
     buildTier(byId(CONFIG.cake.tiers.top.id), CONFIG.cake.tiers.top);
     buildCandles();
 
-    // cake pe tap = "mic pe tap karke foonk maaro" wala message
+    // Slide 2 par KAHIN BHI tap (cake, khaali jagah, header...) =
+    // "mic pe tap karke foonk maaro" wala message + mic button me halki halchal.
+    // Mic wala option isse kabhi gayab nahi hota.
     // (candles sirf voice se bujhengi ✨)
-    cakeStage.addEventListener('click', () => { if (!isBlown) micOnlyHint(); });
+    const slide2 = byId('slide-2');
+    if (slide2) {
+        slide2.addEventListener('click', (e) => {
+            if (isBlown) return;
+            // mic / fallback button par click ka apna kaam hai, use chhedo mat
+            if (e.target.closest('#mic-btn, #mic-fallback')) return;
+            micOnlyHint();
+        });
+    }
 
-    // mic wala button
+    // mic wala button (apne click par slide wala hint wala handler upar hi ruk jaata hai)
     byId('mic-btn').addEventListener('click', startMicListening);
 
     const fallbackBtn = byId('mic-fallback');

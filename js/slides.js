@@ -28,11 +28,16 @@ function cakeSwipeOk() {
 // Slide 2 se aage jaane ki koshish — rok do aur pookiee ko bata do
 function cakeSwipeGuard() {
     if (typeof showToast === 'function') showToast(CONFIG.text.wishLocked, 3000);
-    const micBtn = byId('mic-btn');
-    if (micBtn && !micBtn.classList.contains('hide')) {
-        micBtn.classList.remove('sparkle');
-        void micBtn.offsetWidth;
-        micBtn.classList.add('sparkle');
+    // Mic button gayab nahi hoga — bas hilke/chamke ishara karega "yahan click karo"
+    if (typeof nudgeMicButton === 'function') {
+        nudgeMicButton();
+    } else {
+        const micBtn = byId('mic-btn');
+        if (micBtn && !micBtn.classList.contains('hide')) {
+            micBtn.classList.remove('sparkle');
+            void micBtn.offsetWidth;
+            micBtn.classList.add('sparkle');
+        }
     }
     return false;
 }

@@ -145,11 +145,13 @@
             </div>
 
             <div class="cake-controls">
-                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Tap the mic 🎤 then blow the candles out</span></div>
+                <!-- Mic button ab instruction (hint) wali jagah par hai — neeche dabaa nahi rehta,
+                     aur kahi aur click karne par bhi ye gayab nahi hota (sirf wiggle karke ishara karta hai) -->
                 <button class="mic-btn" id="mic-btn" type="button">
                     <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
-                    <span id="mic-label" data-bind="micLabel">Tap here &amp; blow 🎤</span>
+                    <span id="mic-label" data-bind="micLabel">Click here to open mic &amp; blow 🎤</span>
                 </button>
+                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Tap the mic 🎤 then blow the candles out</span></div>
                 <!-- Sirf tab dikhta hai jab mic kaam na kare (warna candles sirf voice se hi bujhti hain) -->
                 <button class="chip-btn ghost mic-fallback" id="mic-fallback" type="button" hidden>Mic nahi chal raha? 🙈 Tap to blow</button>
             </div>
