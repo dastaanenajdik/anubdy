@@ -1,0 +1,21 @@
+/* ============================================================
+   base.css — Global reset, slide system, dots, reduced-motion
+   Yahi file badlo jab isi part ka look/style change karna ho.
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Quicksand', sans-serif; overflow: hidden; background-color: #ffe6ea; -webkit-tap-highlight-color: transparent; }
+
+/* ================= MAIN APP ================= */
+#main-app { display: none; height: 100vh; width: 100vw; position: relative; }
+.slide { position: absolute; top: 0; left: 0; height: 100vh; width: 100vw; opacity: 0; transition: opacity 0.8s ease-in-out; pointer-events: none; }
+.slide.active { opacity: 1; pointer-events: auto; }
+
+/* Dots */
+.dots-container { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+.dot { width: 10px; height: 10px; background-color: rgba(207, 91, 127, 0.3); border-radius: 50%; transition: 0.4s; }
+.dot.active { width: 28px; background-color: #8a98e8; border-radius: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+    .bokeh, .balloon, .hint, .bulb, .glow { animation: none !important; }
+}
