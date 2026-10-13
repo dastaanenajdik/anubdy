@@ -29,17 +29,19 @@ const CONFIG = {
         wishSub: 'Close your eyes and make a wish ✨',
         wishDoneTitle: 'Wish Granted',
         wishDoneSub: 'May every dream of yours come true',
-        hintLabel: 'Page pe kahin bhi tap karo, phir foonk maaro 💨',
-        micLabel: 'Tap anywhere to open mic & blow 🎤',
+        hintLabel: 'Candle pe tap karo 🕯️ ya page pe tap karke foonk maaro 💨',
+        micLabel: 'Tap anywhere for mic 🎤 · candle pe tap = seedha bujh jaye 🕯️',
         micListening: 'Blow now… 💨',
         micOpening: 'Mic khul raha hai… 🎤',
         micRetryLabel: 'Page pe phir se tap karo — mic dobara khulega 🎤',
         micUnavailable: 'Mic nahi mila 😢 mic allow karke page pe phir se tap kijiye 🎤',
         blowNow: 'Blow now… 💨',
         blowGuide: 'Aise foonk maaro! 💨',
-        wishLocked: 'Pehle wish kijiye — page pe tap karke mic se foonk maariye 🎤💨',
+        wishLocked: 'Pehle wish kijiye — candle pe tap karo ya mic se foonk maariye 🕯️💨',
         wishDone: 'Wish ho gayi 💗 ab aage badhiye',
         letterDone: 'Poora letter likh diya 💌',
+        tapAria: 'Cake — candle pe tap kijiye (ya Enter dabaiye), candles bujh jayengi',
+        tapTitle: 'Candle pe tap karo 🕯️💨',
 
         // --- Slide 9 (14 October wala page) ---
         factsChip: '14 October — Aapka Din ✨',
@@ -60,6 +62,8 @@ const CONFIG = {
         sceneHeight: 400,
         minScale: 0.6,        // chhoti screen par kitna chhota ho sakta hai
         maxScale: 1.3,        // badi screen par kitna bada ho sakta hai
+        tapToBlow: true,      // 🕯️ candle/cake pe tap (click) karne se bhi candles bujh jaayen
+                              // (aur wish ka timer wahin se shuru ho jaaye)
         tiers: {
             // width/ry = tier ka size, rosettes = phool, berries = chhoti laal goliyan
             bottom: { id: 'tier-bottom', width: 260, ry: 24, rosettes: 9, berries: true },
@@ -106,7 +110,8 @@ const CONFIG = {
         celebrationDelayMs: 650,  // bujhne ke baad confetti kab shuru ho
         sideConfettiMs: 6000,     // side se confetti kitni der tak chalti rahe
         confettiColors: ['#f9a8c0', '#fcd5b5', '#c8b6ff', '#b8e0d2', '#fff1a8', '#ffffff', '#f6c1d0'],
-        // (swipe se candles bujhna hata diya gaya — ab sirf mic se)
+        // Candles do tarah se bujh sakti hain: mic se foonk maarke, ya candle pe tap karke
+        // (tap wala rasta band karna ho to upar `cake.tapToBlow: false` kar do)
         micSensitivity: 0.09,     // mic kitni aawaz pe react kare (0.1 - 0.3)
         micLoudFrames: 4,         // kitne frames tak tez aawaz chahiye
     },

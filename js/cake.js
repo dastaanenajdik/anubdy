@@ -5,12 +5,15 @@
      • cake ke layers/drips/rosettes banana  (buildTier)
      • candles banana                        (buildCandles)
      • screen ke hisaab se cake ka size      (fitCake)
-     • SIRF mic (voice) se candles bujhana   (blowCandles)
-     • slide 2 par KAHIN BHI click = mic khulta hai, "Blow now…" dikhta hai,
+     • candles bujhana                       (blowCandles)
+         – mic (voice) se foonk maarke, YA
+         – candle/cake pe tap (click) karke  ← dono me timer turant shuru
+     • slide 2 par kahin AUR click = mic khulta hai, "Blow now…" dikhta hai,
        aur mic kisi wajah se na khule to agla page-click dobara try karta hai
      • confetti + wish wala countdown        (startCelebration)
 
-   ⚠️ Tap / swipe se candles NAHI bujhte — bas voice se.
+   ⚠️ Foonk se bujhta hai, aur candle pe tap karne se bhi bujh jaata hai.
+      Tap wala rasta band karna ho to js/config.js > cake.tapToBlow: false.
    Numbers badalne hon (candles ki position, countdown seconds,
    confetti colors) to js/config.js ka 'cake' aur 'celebration'
    section badlo. Look badalna ho to css/cake.css.
@@ -145,7 +148,8 @@ function stopMic() {
 }
 
 // ---------- Mic se blow karna ----------
-// Slide 2 par KAHIN BHI click ho (ya mic button par) to yahi chalta hai:
+// Slide 2 par kahin BHI click (jo cake/candle par nahi hai) ya mic button par
+// click hone par yahi chalta hai:
 //   • mic pehle se khula hai  → bas "Blow now…" dikhta rahe, kuch aur nahi
 //   • mic khul raha hai       → doosra permission prompt nahi khulta
 //   • mic band / fail ho gaya → bilkul nayi koshish (isliye phir se page
@@ -239,13 +243,43 @@ function hideMicFallback() {
     if (btn) btn.hidden = true;
 }
 
-// ---------- Candles bujhana (sirf mic se) ----------
-function blowCandles() {
+// ---------- Tap se blow karna (candle/cake pe click) ----------
+// Tap wala rasta band karna ho to js/config.js > cake.tapToBlow: false
+function tapToBlowOn() {
+    return !CONFIG.cake || CONFIG.cake.tapToBlow !== false;
+}
+
+// Tap hui jagah par chhota sa 💨 poof — taaki saaf pata chale ki tap se bujhi hai
+function puffAt(x, y) {
+    const puff = document.createElement('span');
+    puff.className = 'tap-puff';
+    puff.textContent = '💨';
+    puff.style.left = x + 'px';
+    puff.style.top = y + 'px';
+    document.body.appendChild(puff);
+    setTimeout(() => puff.remove(), 900);
+}
+
+function onCandleTap(e) {
+    if (isBlown) return;
+    puffAt(e.clientX, e.clientY);
+    blowCandles('tap');                        // andar hi confetti + timer chalu ho jaata hai
+}
+
+// ---------- Candles bujhana (mic ki foonk YA candle pe tap — dono se) ----------
+// Dono raste yahi function bulate hain, isliye smoke + confetti + wish ka timer
+// (startCelebration) bilkul ek jaisa chalta hai.
+//   source: 'voice' (mic) ya 'tap' (candle/cake pe click)
+function blowCandles(source) {
     if (isBlown) return;
     isBlown = true;
     stopMic();
 
-    if (cakeStage) cakeStage.setAttribute('aria-label', 'Candles blown out');
+    if (cakeStage) {
+        cakeStage.classList.add('blown');      // ab candles pe tap karne ka ishara band
+        cakeStage.dataset.blownBy = (source === 'tap' ? 'tap' : 'voice');
+        cakeStage.setAttribute('aria-label', 'Candles blown out');
+    }
     byId('hint-text').classList.add('hide');
     byId('mic-btn').classList.add('hide');
 
@@ -341,18 +375,42 @@ function initCake() {
     buildTier(byId(CONFIG.cake.tiers.top.id), CONFIG.cake.tiers.top);
     buildCandles();
 
-    // Slide 2 par KAHIN BHI click/tap (cake, khaali jagah, header, side wala
-    // cute face...) = mic kholo. Mic khulte hi "Blow now…" dikhta hai, aur
-    // kisi wajah se mic na khule to PAGE PAR PHIR SE CLICK = dobara try
-    // (fail hone par handleMicFailure state saaf kar deta hai).
+    // Slide 2 par click/tap ka do tarah ka kaam hai:
+    //   1) cake/candle par tap  → wahi candle turant bujh jaati hai (aur wish ka
+    //      timer wahin se shuru — bilkul foonk jaisa hi) 💨
+    //   2) baaki kahin bhi tap  → mic khul jaata hai, "Blow now…" dikhta hai
+    //      (mic na khule to page par phir se click = dobara try;
+    //       fail hone par handleMicFailure state saaf kar deta hai)
     // Sirf fallback button isse bahar hai — uska apna kaam hai (bina mic bujhana).
-    // (candles sirf voice se bujhengi ✨)
     const slide2 = byId('slide-2');
     if (slide2) {
         slide2.addEventListener('click', (e) => {
             if (isBlown) return;
             if (e.target.closest('#mic-fallback')) return;
+
+            // Candle (ya cake ke kisi bhi hisse) par tap = seedha foonk 🕯️💨
+            if (tapToBlowOn() && e.target.closest('#cake-stage')) {
+                onCandleTap(e);
+                return;
+            }
             startMicListening();
+        });
+    }
+
+    // Candle/cake ko keyboard se bhi bujha sakein (Enter / Space) — keyboard wale
+    // logon ke liye cake-stack ek button ki tarah kaam karta hai
+    if (tapToBlowOn() && cakeStage) {
+        cakeStage.setAttribute('role', 'button');
+        cakeStage.setAttribute('tabindex', '0');
+        cakeStage.setAttribute('aria-label', CONFIG.text.tapAria || 'Cake — tap or press Enter to blow the candles');
+        cakeStage.setAttribute('title', CONFIG.text.tapTitle || '');
+        cakeStage.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+            if (isBlown) return;
+            e.preventDefault();
+            const box = cakeStage.getBoundingClientRect();
+            puffAt(box.left + box.width / 2, box.top + box.height * 0.3);
+            blowCandles('tap');
         });
     }
 
