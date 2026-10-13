@@ -301,13 +301,17 @@ function startCelebration() {
     byId('intro').classList.add('hide');
     byId('wish-panel').classList.add('show');
 
-    // ---- 15 second ka wish countdown ring ----
+    // ---- 10 second ka wish countdown ring (seconds: js/config.js → celebration.wishSeconds) ----
     const total = CONFIG.celebration.wishSeconds;
     const ring = byId('ring-progress');
     const timerEl = byId('timer-display');
     const circumference = 2 * Math.PI * Number(ring.getAttribute('r'));
     ring.style.strokeDasharray = circumference;
     let timeLeft = total;
+
+    // shuruaat hamesha config se — HTML me likha number purana reh jaye to bhi chalega
+    timerEl.textContent = timeLeft;
+    ring.style.strokeDashoffset = 0;
 
     const countdown = setInterval(() => {
         timeLeft--;

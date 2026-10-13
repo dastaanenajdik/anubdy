@@ -100,7 +100,7 @@ const CONFIG = {
 
     // ---------- 5. CELEBRATION (jab candles bujhein) ----------
     celebration: {
-        wishSeconds: 15,          // wish karne ka countdown (seconds)
+        wishSeconds: 10,          // wish karne ka countdown (seconds)
         sparkleCount: 12,         // cake ke upar chamakte sitare
         blowStaggerMs: 140,       // candles ek-ek karke bujhne ka gap
         celebrationDelayMs: 650,  // bujhne ke baad confetti kab shuru ho
