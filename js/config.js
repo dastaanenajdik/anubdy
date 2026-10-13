@@ -30,7 +30,7 @@ const CONFIG = {
         wishDoneTitle: 'Wish Granted',
         wishDoneSub: 'May every dream of yours come true',
         hintLabel: 'Tap the mic 🎤 then blow the candles out',
-        micLabel: 'Tap here & blow 🎤',
+        micLabel: 'Click here to open mic & blow 🎤',
         micListening: 'Listening... blow now!',
         micUnavailable: 'Mic nahi mila 😢 mic allow karke dobara try kijiye 🎤',
         // Cake tap karne par ye chhote messages saamne aate hain (ek-ek karke)

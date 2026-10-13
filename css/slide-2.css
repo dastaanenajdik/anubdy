@@ -68,10 +68,10 @@
 .hint-dot { width: 8px; height: 8px; border-radius: 50%; background: #f08aa6; box-shadow: 0 0 0 0 rgba(240, 138, 166, 0.6); animation: ping 1.6s ease-out infinite; flex-shrink: 0; }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(240, 138, 166, 0.6); } 100% { box-shadow: 0 0 0 10px rgba(240, 138, 166, 0); } }
 @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-.mic-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.88); border: 1.5px solid #e9a9bb; color: #c2456b; font-family: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(214, 120, 150, 0.18); cursor: pointer; transition: background 0.25s ease, transform 0.2s ease; }
+.mic-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.88); border: 1.5px solid #e9a9bb; color: #c2456b; font-family: inherit; font-weight: 700; font-size: 15px; padding: 12px 22px; border-radius: 999px; box-shadow: 0 6px 18px rgba(214, 120, 150, 0.18); cursor: pointer; transition: background 0.25s ease, transform 0.2s ease; }
 .mic-btn:hover, .mic-btn.listening { background: rgba(255,255,255,0.8); }
 .mic-btn.listening .mic-icon { animation: ping 1.2s ease-out infinite; border-radius: 50%; }
-.mic-icon { width: 16px; height: 16px; }
+.mic-icon { width: 18px; height: 18px; }
 .hide { display: none !important; }
 
 /* cake pe tap karne par mic button chamak uthta hai ("mic pe tap karo" hint) */
@@ -79,4 +79,15 @@
 @keyframes micSparkle {
     0%, 100% { box-shadow: 0 0 0 0 rgba(242, 143, 171, 0); }
     40% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.55), 0 0 26px 10px rgba(255, 170, 200, 0.85); }
+}
+
+/* kahi aur click ho to mic button thoda hilke ishara karta hai:
+   "click here to open mic to blow" — button gayab NAHI hota */
+.mic-btn.nudge { animation: micNudge 0.6s ease; }
+@keyframes micNudge {
+    0%, 100% { transform: translateX(0) scale(1); }
+    20% { transform: translateX(-5px) rotate(-2deg) scale(1.06); }
+    40% { transform: translateX(5px) rotate(2deg) scale(1.06); }
+    60% { transform: translateX(-4px) rotate(-1.5deg) scale(1.04); }
+    80% { transform: translateX(4px) rotate(1.5deg) scale(1.02); }
 }
