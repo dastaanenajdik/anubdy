@@ -74,6 +74,81 @@
 .mic-icon { width: 18px; height: 18px; }
 .hide { display: none !important; }
 
+/* Mic khulte hi cake ke upar bada sa "Blow now…" 💨 (js/cake.js .show lagata hai) */
+.blow-now {
+    position: absolute; left: 50%; bottom: calc(100% + 2px); z-index: 7;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    font-weight: 900; font-size: clamp(16px, 4.6vw, 20px); color: #fff;
+    background: linear-gradient(135deg, #ff4d6d 0%, #ff7eb3 55%, #c9a7f0 100%);
+    padding: 11px 22px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 12px 28px rgba(214, 120, 150, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    opacity: 0; pointer-events: none; transform: translate(-50%, 10px) scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.blow-now.show { opacity: 1; transform: translate(-50%, 0) scale(1); animation: blowNowPulse 1.1s ease-in-out infinite; }
+.blow-now-dot { width: 9px; height: 9px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); animation: ping 1.1s ease-out infinite; flex-shrink: 0; }
+@keyframes blowNowPulse {
+    0%, 100% { transform: translate(-50%, 0) scale(1); }
+    50% { transform: translate(-50%, -3px) scale(1.06); }
+}
+
+/* Mic sun raha ho to button bhi gulabi hokar dhadakta hai */
+.mic-btn.listening {
+    background: linear-gradient(135deg, #ff5f83 0%, #ff8fb5 100%); color: #fff; border-color: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 10px 26px rgba(230, 90, 130, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* -------- Side wala cute helper: lines se bana face, foonk maarta hua -------- */
+/* Chhota sa card side me — bas samjhane ke liye ki "muh se foonk maarni hai".
+   pointer-events: none hai, isliye iske upar click bhi page click hi banta hai
+   aur mic khul jaata hai (js/cake.js, slide-2 wala click handler). */
+.blow-guide {
+    position: absolute; right: 12px; bottom: 104px; z-index: 5; width: 118px;
+    padding: 8px 7px 7px; text-align: center; pointer-events: none;
+    background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(240, 195, 208, 0.85);
+    border-radius: 18px; box-shadow: 0 10px 24px rgba(214, 120, 150, 0.2);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    animation: blowGuideBob 3s ease-in-out infinite;
+}
+.blow-guide-text { display: block; margin-top: 1px; font-size: 11.5px; font-weight: 800; line-height: 1.3; color: #a04a68; }
+.blow-face { display: block; width: 100%; height: auto; overflow: visible; }
+.blow-face .face-head { fill: rgba(255, 250, 248, 0.9); stroke: #c86a8a; stroke-width: 2.6; }
+.blow-face .face-hair { fill: rgba(242, 143, 171, 0.3); stroke: #c86a8a; stroke-width: 2.2; }
+.blow-face .face-eye, .blow-face .face-nose { stroke: #9a5a70; stroke-width: 2.4; }
+.blow-face .face-mouth { fill: #fff; stroke: #c2456b; stroke-width: 2.4; }
+/* phoola hua gaal — foonk maarne se pehle phoulta hai */
+.blow-face .face-cheek {
+    fill: rgba(242, 138, 166, 0.45); stroke: rgba(200, 106, 138, 0.65); stroke-width: 1.6;
+    transform-box: fill-box; transform-origin: center; animation: cheekPuff 1.7s ease-in-out infinite;
+}
+/* munh se nikalti hawa — behti hui dashed lines + aage badhte chhote puffs */
+.blow-face .wind-line { stroke: #7fb8cc; stroke-width: 3; stroke-dasharray: 7 7; opacity: 0.85; animation: windFlow 0.8s linear infinite; }
+.blow-face .wind-line.w2 { animation-delay: -0.3s; }
+.blow-face .wind-line.w3 { animation-delay: -0.55s; }
+.blow-face .wind-puff {
+    fill: rgba(255, 255, 255, 0.92); stroke: #7fb8cc; stroke-width: 1.8;
+    transform-box: fill-box; transform-origin: center; opacity: 0;
+    animation: windPuffMove 1.7s ease-out infinite;
+}
+.blow-face .wind-puff.p2 { animation-delay: 0.45s; }
+.blow-face .wind-puff.p3 { animation-delay: 0.9s; }
+@keyframes blowGuideBob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-5px) rotate(1deg); } }
+@keyframes cheekPuff { 0%, 100% { transform: scale(0.7); } 45%, 65% { transform: scale(1.2); } }
+@keyframes windFlow { to { stroke-dashoffset: -14; } }
+@keyframes windPuffMove {
+    0% { transform: translateX(0) scale(0.6); opacity: 0; }
+    25% { opacity: 0.95; }
+    100% { transform: translateX(34px) scale(1.25); opacity: 0; }
+}
+@media (max-width: 480px) {
+    .blow-guide { width: 94px; right: 7px; bottom: 96px; padding: 6px 5px; border-radius: 15px; }
+    .blow-guide-text { font-size: 10.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .blow-guide, .blow-now.show, .blow-face .face-cheek, .blow-face .wind-line, .blow-face .wind-puff { animation: none !important; }
+    .blow-face .wind-puff { opacity: 0.8; }
+}
+
 /* cake pe tap karne par mic button chamak uthta hai ("mic pe tap karo" hint) */
 .mic-btn.sparkle { animation: micSparkle 1s ease; }
 @keyframes micSparkle {

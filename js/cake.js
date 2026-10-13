@@ -6,7 +6,8 @@
      • candles banana                        (buildCandles)
      • screen ke hisaab se cake ka size      (fitCake)
      • SIRF mic (voice) se candles bujhana   (blowCandles)
-     • cake pe tap karne par "mic pe tap karke foonk maaro" wala message
+     • slide 2 par KAHIN BHI click = mic khulta hai, "Blow now…" dikhta hai,
+       aur mic kisi wajah se na khule to agla page-click dobara try karta hai
      • confetti + wish wala countdown        (startCelebration)
 
    ⚠️ Tap / swipe se candles NAHI bujhte — bas voice se.
@@ -20,7 +21,8 @@ let cakeScene = null;      // #cake-scene  (scale yahin hota hai)
 let isBlown = false;       // candles ek baar bujh gayin to dobara nahi
 let wishReady = false;     // countdown pura hua? (tab hi aage jaane do)
 let micStream = null, micRaf = null;
-let micHintIndex = 0;      // "mic pe tap karo" messages ke liye counter
+let micAudioCtx = null;    // mic wala AudioContext (stopMic band karta hai)
+let micOpening = false;    // mic khul raha hai? (tez-tez clicks par do permission prompt na aayein)
 
 // ---------- Cake ke layers (drips, phool, berries) ----------
 function buildTier(tier, { width, ry, rosettes, berries }) {
@@ -94,8 +96,8 @@ function fitCake() {
 }
 
 // ---------- Mic button ko hilaa/chamka kar ishara karna ----------
-// Kahi aur click ho to mic button gayab NAHI hota — bas thoda hilta (nudge)
-// aur chamakta hai, ki "click here to open mic to blow" 🎤
+// Jab aage jaane ki koshish ho (Next locked) to mic button gayab NAHI hota —
+// bas thoda hilta (nudge) aur chamakta hai, ki "pehle foonk maaro" 🎤
 // (candles bujh jaane ke baad hi button jaata hai, wo blowCandles me hota hai)
 function nudgeMicButton() {
     const micBtn = byId('mic-btn');
@@ -106,53 +108,106 @@ function nudgeMicButton() {
     micBtn.classList.add('nudge', 'sparkle');
 }
 
-// ---------- Cake / page pe kahin aur tap karne par chhota sa message ----------
-// (candles tap/swipe se nahi bujhte — pookiee ko mic pe tap karke foonk maarna hai 🎤)
-function micOnlyHint() {
-    const lines = CONFIG.text.micOnly || ['Tap the mic and blow into it 🎤'];
-    const line = lines[micHintIndex % lines.length];
-    micHintIndex++;
-    showToast(line, 3000);
-    nudgeMicButton();
+// ---------- "Blow now…" wala bada ishara dikhana / chhupana ----------
+function setBlowNow(show) {
+    const el = byId('blow-now');
+    if (el) el.classList.toggle('show', !!show);
 }
 
-// ---------- Mic se blow karna ----------
+// ---------- Mic kisi wajah se na khule to wapas "phir se try" wali haalat ----------
+// State yahan poori saaf ho jaati hai, isliye page par AGla click mic ko
+// bilkul naye sire se kholne ki koshish karta hai (retry) ✨
+function handleMicFailure() {
+    stopMic();
+    const micBtn = byId('mic-btn');
+    const micLabel = byId('mic-label');
+    if (micBtn) micBtn.classList.remove('hide', 'listening');
+    if (micLabel) micLabel.textContent = CONFIG.text.micRetryLabel || CONFIG.text.micLabel;
+    showToast(CONFIG.text.micUnavailable, 3400);
+    showMicFallback();
+}
+
+// ---------- Mic band karna (saari safaai ek hi jagah) ----------
 function stopMic() {
+    micOpening = false;
     if (micRaf) cancelAnimationFrame(micRaf);
+    micRaf = null;
     if (micStream) micStream.getTracks().forEach(t => t.stop());
     micStream = null;
+    if (micAudioCtx) {
+        const closing = micAudioCtx.close();
+        if (closing && closing.catch) closing.catch(() => { /* pehle se band hai to koi baat nahi */ });
+        micAudioCtx = null;
+    }
+    setBlowNow(false);
     const micBtn = byId('mic-btn');
     if (micBtn) micBtn.classList.remove('listening');
 }
 
+// ---------- Mic se blow karna ----------
+// Slide 2 par KAHIN BHI click ho (ya mic button par) to yahi chalta hai:
+//   • mic pehle se khula hai  → bas "Blow now…" dikhta rahe, kuch aur nahi
+//   • mic khul raha hai       → doosra permission prompt nahi khulta
+//   • mic band / fail ho gaya → bilkul nayi koshish (isliye phir se page
+//                               click karne par mic dobara khul jaata hai)
 function startMicListening() {
     const micBtn = byId('mic-btn');
     const micLabel = byId('mic-label');
-    if (micStream || isBlown) return;         // candles bujh chuki hain to kuch nahi
+    if (isBlown) return;                       // candles bujh chuki hain to kuch nahi
 
-    // browser me mic ka support nahi hai to seedha message dikha do
-    // (mic button waisa ka waisa dikhta rahega — gayab nahi hoga)
+    if (micStream) {                           // mic khula hua hai — foonk ka ishara bana rahe
+        setBlowNow(true);
+        return;
+    }
+    if (micOpening) return;                    // khul hi raha hai, duplicate prompt roko
+
+    // browser me mic ka support hi nahi hai to message + chhota rasta dikha do
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        micBtn.classList.remove('hide', 'listening');
-        micLabel.textContent = CONFIG.text.micUnavailable;
-        showToast(CONFIG.text.micUnavailable, 3200);
-        showMicFallback();
+        handleMicFailure();
         return;
     }
 
+    micOpening = true;
+    if (micBtn) micBtn.classList.remove('hide', 'listening');
+    if (micLabel) micLabel.textContent = CONFIG.text.micOpening || CONFIG.text.micLabel;
+
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        micOpening = false;
+        if (isBlown) {                         // intezaar me hi kaam ho gaya ho to mic band rakho
+            stream.getTracks().forEach(t => t.stop());
+            return;
+        }
+
         micStream = stream;
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = ctx.createAnalyser();
+        try {
+            micAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (micAudioCtx.state === 'suspended') {
+                const resuming = micAudioCtx.resume();
+                if (resuming && resuming.catch) resuming.catch(() => { /* browser khud sambhal lega */ });
+            }
+        } catch (e) {
+            handleMicFailure();
+            return;
+        }
+        const analyser = micAudioCtx.createAnalyser();
         analyser.fftSize = 512;
-        ctx.createMediaStreamSource(stream).connect(analyser);
+        micAudioCtx.createMediaStreamSource(stream).connect(analyser);
         const data = new Uint8Array(analyser.fftSize);
         let loudFrames = 0;
 
-        micBtn.classList.add('listening');
-        micLabel.textContent = CONFIG.text.micListening;
+        // mic beech me band ho jaaye (device hata, permission gayi) to
+        // state saaf kar do, taaki agla page-click dobara mic khol sake
+        stream.getTracks().forEach(t => t.addEventListener('ended', () => {
+            if (!isBlown) handleMicFailure();
+        }));
+
+        hideMicFallback();                     // mic chal gaya, purana fallback hata do
+        if (micBtn) micBtn.classList.add('listening');
+        if (micLabel) micLabel.textContent = CONFIG.text.micListening;
+        setBlowNow(true);                      // 🎉 ab saaf dikhega: "Blow now… 💨"
 
         const listen = () => {
+            if (!micStream) return;            // mic band ho gaya to sunna bhi band
             analyser.getByteTimeDomainData(data);
             let sum = 0;
             for (let i = 0; i < data.length; i++) { const v = (data[i] - 128) / 128; sum += v * v; }
@@ -160,24 +215,28 @@ function startMicListening() {
             loudFrames = rms > CONFIG.celebration.micSensitivity ? loudFrames + 1 : 0;
 
             if (loudFrames > CONFIG.celebration.micLoudFrames) {
-                blowCandles(); stopMic(); ctx.close(); return;
+                blowCandles();                 // andar hi stopMic() chal jaata hai
+                return;
             }
             micRaf = requestAnimationFrame(listen);
         };
         listen();
     }).catch(() => {
-        // mic allow na ho / error aaye tab bhi button dikhta rahe, taaki dobara try ho sake
-        micBtn.classList.remove('hide', 'listening');
-        micLabel.textContent = CONFIG.text.micUnavailable;
-        showToast(CONFIG.text.micUnavailable, 3400);
-        showMicFallback();
+        // mic allow na ho / error aaye — sab saaf karke rakho, taaki page par
+        // phir se click karne par mic dobara khulne ki koshish ho sake
+        handleMicFailure();
     });
 }
 
 // ---------- Mic na chale to ek chhota rasta (warna page par ruk jayenge) ----------
 function showMicFallback() {
     const btn = byId('mic-fallback');
-    if (btn) btn.hidden = false;
+    if (btn) { btn.hidden = false; btn.classList.remove('hide'); }
+}
+
+function hideMicFallback() {
+    const btn = byId('mic-fallback');
+    if (btn) btn.hidden = true;
 }
 
 // ---------- Candles bujhana (sirf mic se) ----------
@@ -278,21 +337,23 @@ function initCake() {
     buildTier(byId(CONFIG.cake.tiers.top.id), CONFIG.cake.tiers.top);
     buildCandles();
 
-    // Slide 2 par KAHIN BHI tap (cake, khaali jagah, header...) =
-    // "mic pe tap karke foonk maaro" wala message + mic button me halki halchal.
-    // Mic wala option isse kabhi gayab nahi hota.
+    // Slide 2 par KAHIN BHI click/tap (cake, khaali jagah, header, side wala
+    // cute face...) = mic kholo. Mic khulte hi "Blow now…" dikhta hai, aur
+    // kisi wajah se mic na khule to PAGE PAR PHIR SE CLICK = dobara try
+    // (fail hone par handleMicFailure state saaf kar deta hai).
+    // Sirf fallback button isse bahar hai — uska apna kaam hai (bina mic bujhana).
     // (candles sirf voice se bujhengi ✨)
     const slide2 = byId('slide-2');
     if (slide2) {
         slide2.addEventListener('click', (e) => {
             if (isBlown) return;
-            // mic / fallback button par click ka apna kaam hai, use chhedo mat
-            if (e.target.closest('#mic-btn, #mic-fallback')) return;
-            micOnlyHint();
+            if (e.target.closest('#mic-fallback')) return;
+            startMicListening();
         });
     }
 
-    // mic wala button (apne click par slide wala hint wala handler upar hi ruk jaata hai)
+    // Mic button bhi wahi kaam karta hai — slide wala handler bhi iske click par
+    // chalega, par micOpening/micStream wale check duplicate prompt rok dete hain
     byId('mic-btn').addEventListener('click', startMicListening);
 
     const fallbackBtn = byId('mic-fallback');
