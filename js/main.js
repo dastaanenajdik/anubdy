@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     safeInit('cake', initCake);
     safeInit('question', initQuestion);
     safeInit('letter', initLetter);
+    safeInit('music', initMusic);
     safeInit('cats', initCats);
     safeInit('who', initWho);
     safeInit('gallery', initGallery);

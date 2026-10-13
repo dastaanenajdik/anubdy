@@ -3,7 +3,8 @@
    ============================================================
    Kaise chalta hai:
      • Envelope pe tap karo → flap khulta hai
-     • Poori story type hoti jaati hai (bilkul notes jaisa, ek-ek akshar)
+     • Poori story type hoti jaati hai (bilkul notes jaisa, ek-ek akshar — aahista)
+     • Envelope khulte hi letter wala gaana shuru hota hai (js/music.js)
      • Jitna text badhta hai, envelope utna hi NICHE sarakta jaata hai
        (letter ke peeche se nikal kar neeche chala jaata hai) ✨
      • "Continue ➜" tab dikhta hai jab poori story likh jaye
@@ -25,6 +26,9 @@ function letterSlide() { return byId('slide-4'); }
 function openEnvelope() {
     if (letterOpened) return;
     letterOpened = true;
+
+    // Gaana turant (user ke tap ke saath hi) — browser auto-play block na kare
+    if (typeof syncMusic === 'function') syncMusic();
 
     const flap = byId('env-flap');
     const paper = byId('letter-paper');
@@ -68,7 +72,12 @@ function startTypewriter(speedMs) {
             if (!isTyping) return;
             try {
                 const chunk = speed <= 4 ? 14 : perTick;
-                typedCount = Math.min(typedCount + chunk, BIRTHDAY_MESSAGE.length);
+                const total = BIRTHDAY_MESSAGE.length;
+                let next = Math.min(typedCount + chunk, total);
+                // Emoji (surrogate pair) ko beech se na todo — dono akshar ek saath aayein
+                const lastCode = BIRTHDAY_MESSAGE.charCodeAt(next - 1);
+                if (next < total && lastCode >= 0xD800 && lastCode <= 0xDBFF) next = Math.min(next + 1, total);
+                typedCount = next;
                 container.textContent = BIRTHDAY_MESSAGE.slice(0, typedCount);
                 followTyping();
 

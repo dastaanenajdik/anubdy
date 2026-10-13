@@ -2,6 +2,7 @@
    extras.css — Floating billi (cats) + toast messages
    Yahi file badlo jab isi part ka look/style change karna ho.
    Cat ki lines/js/cats.js aur js/config.js > cats me hain.
+   (Text ke upar aane par cat khud hat jaati hai — js/cats.js)
    ============================================================ */
 
 /* ---------------- FLOATING BILLI (cats) ---------------- */
@@ -13,13 +14,15 @@
     filter: drop-shadow(0 8px 14px rgba(180, 100, 130, 0.32));
     animation: catBob 3.4s ease-in-out infinite;
     z-index: 221;
+    /* Auto-hatna / wapas jaana (text se bachne ke liye) — smooth sarke */
+    transition: translate 0.7s cubic-bezier(0.3, 0.7, 0.4, 1);
 }
 .cat img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .cat-fallback {
     display: grid; place-items: center; width: 100%; height: 100%; font-size: 26px;
     background: rgba(255, 255, 255, 0.88); border: 2px solid #f6c9d6; border-radius: 50%;
 }
-.cat.dragging { animation: none; cursor: grabbing; transform: scale(1.08); }
+.cat.dragging { animation: none; cursor: grabbing; transform: scale(1.08); transition: none; }
 .cat.pop { animation: catPop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.6); }
 @keyframes catBob {
     0%, 100% { transform: translateY(0) rotate(-3deg); }

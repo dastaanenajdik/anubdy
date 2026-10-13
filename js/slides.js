@@ -1,5 +1,5 @@
 /* ============================================================
-   slides.js — slides ke beech aage-peeche jaana + neeche wale dots + nav bar
+   slides.js — slides ke beech aage-peeche jaana + neeche wale Back / Next bar
    ============================================================
    • "data-goto" wale buttons khud kaam karte hain
    • Slide 2 (cake) ka niyam: jab tak mic se candles na bujhein aur
@@ -37,21 +37,6 @@ function cakeSwipeGuard() {
     return false;
 }
 
-function buildDots() {
-    const box = byId('dots-container');
-    if (!box) return;
-    box.innerHTML = '';
-    for (let i = 1; i <= TOTAL_SLIDES; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (i === currentSlide ? ' active' : '');
-        dot.id = 'dot-' + i;
-        dot.setAttribute('role', 'button');
-        dot.setAttribute('aria-label', 'Go to slide ' + i);
-        dot.addEventListener('click', () => goToSlide(i));
-        box.appendChild(dot);
-    }
-}
-
 function goToSlide(num, opts) {
     if (num < 1 || num > TOTAL_SLIDES) return;
     const target = byId('slide-' + num);
@@ -65,16 +50,15 @@ function goToSlide(num, opts) {
     }
 
     document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
     target.classList.add('active');
-
-    const dot = byId('dot-' + num);
-    if (dot) dot.classList.add('active');
 
     target.scrollTop = 0;
     currentSlide = num;
 
     updateNavBar();
+
+    // Har page ke hisaab se gaana (letter / photo / throughout) — js/music.js
+    if (typeof syncMusic === 'function') syncMusic();
 
     const hook = SLIDE_HOOKS[num];
     if (hook) hook();
@@ -120,8 +104,6 @@ function updateNavBar() {
 }
 
 function initSlides() {
-    buildDots();
-
     document.querySelectorAll('[data-goto]').forEach(el => {
         // Ye buttons jaan-boojh kar lagaye gaye hain, isliye mic-gate yahan lagu nahi hota
         el.addEventListener('click', () => goToSlide(Number(el.dataset.goto), { force: true }));

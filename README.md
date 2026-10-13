@@ -84,6 +84,7 @@ anubdy/
 | 14 October ke facts / timeline | `js/config.js` → `facts` |
 | Wish box ka WhatsApp number | `js/config.js` → `wish.whatsapp` (country code `wish.countryCode`) |
 | Floating billi (GIF, lines, size) | `js/config.js` → `cats` |
+| Gaane (letter / photo / throughout) + volume | `js/config.js` → `music` (logic: `js/music.js`) |
 | Toast kitne/kitni der | `js/config.js` → `toast` |
 | Wish countdown 15 sec → kuch aur | `js/config.js` → `celebration.wishSeconds` |
 | Slide 7 ke note icons (✉️) | `js/config.js` → `notes.noteIcon` |
