@@ -109,7 +109,8 @@
             </div>
 
             <!-- Cake: layers/candles JS se bante hain (js/cake.js)
-                 NOTE: cake ab tap/swipe se nahi bujhta — sirf mic (voice) se ✨ -->
+                 NOTE: cake tap/swipe se nahi bujhta — sirf mic (voice) se ✨
+                 Slide 2 par KAHIN BHI click/tap = mic khulta hai (js/cake.js) -->
             <div class="cake-stage" id="cake-stage" aria-label="Birthday cake">
                 <div class="cake-scene" id="cake-scene">
                     <div class="cake-inner" id="cake-inner">
@@ -144,14 +145,44 @@
                 </div>
             </div>
 
+            <!-- Side me chhota sa cute helper: lines se bana face, foonk maarta hua 💨
+                 (sirf samjhane ke liye hai — ispe click bhi page click hi count hota hai,
+                  kyunki ye pointer-events band hai aur peeche slide hi click leta hai) -->
+            <div class="blow-guide" aria-hidden="true">
+                <svg class="blow-face" viewBox="0 0 150 84" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- munh se nikalti hawa (animated lines + chhote puffs) -->
+                    <g class="wind">
+                        <path class="wind-line w1" d="M72 30c10-7 18 5 28-2 7-5 14-4 20 1"/>
+                        <path class="wind-line w2" d="M74 45c12-6 18 6 30 0 8-4 15-3 22 2"/>
+                        <path class="wind-line w3" d="M72 60c9 5 17-5 27 1 7 4 13 3 19-1"/>
+                        <circle class="wind-puff p1" cx="88" cy="37" r="3"/>
+                        <circle class="wind-puff p2" cx="98" cy="50" r="3.5"/>
+                        <circle class="wind-puff p3" cx="88" cy="58" r="2.6"/>
+                    </g>
+                    <!-- lines se bana hua face (side profile, gaal phoola hua) -->
+                    <g class="face">
+                        <circle class="face-head" cx="38" cy="42" r="27"/>
+                        <path class="face-hair" d="M14 34c1-13 11-22 24-22 8 0 15 4 20 10-7-4-14-5-22-3-8 2-16 8-22 15z"/>
+                        <path class="face-eye" d="M23 38c3-3.5 8-3.5 11 0"/>
+                        <circle class="face-cheek" cx="47" cy="51" r="7.5"/>
+                        <path class="face-nose" d="M42 40c3.5 3 3.5 6.5 0 9"/>
+                        <circle class="face-mouth" cx="65" cy="45" r="4.6"/>
+                    </g>
+                </svg>
+                <span class="blow-guide-text" data-bind="blowGuide">Aise foonk maaro! 💨</span>
+            </div>
+
             <div class="cake-controls">
-                <!-- Mic button ab instruction (hint) wali jagah par hai — neeche dabaa nahi rehta,
-                     aur kahi aur click karne par bhi ye gayab nahi hota (sirf wiggle karke ishara karta hai) -->
+                <!-- Mic khulte hi ye bada sa "Blow now" dikhta hai (js/cake.js .show lagata hai) -->
+                <div class="blow-now" id="blow-now" aria-live="polite"><span class="blow-now-dot"></span><span data-bind="blowNow">Blow now… 💨</span></div>
+                <!-- Asli kaam ab POORE PAGE par kahin bhi click karne se hota hai —
+                     ye button bas wahi kaam ek saaf jagah par bhi dikhata hai.
+                     Mic kisi wajah se na khule to page par phir se click = dobara try ✨ -->
                 <button class="mic-btn" id="mic-btn" type="button">
                     <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
-                    <span id="mic-label" data-bind="micLabel">Click here to open mic &amp; blow 🎤</span>
+                    <span id="mic-label" data-bind="micLabel">Tap anywhere to open mic &amp; blow 🎤</span>
                 </button>
-                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Tap the mic 🎤 then blow the candles out</span></div>
+                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Page pe kahin bhi tap karo, phir foonk maaro 💨</span></div>
                 <!-- Sirf tab dikhta hai jab mic kaam na kare (warna candles sirf voice se hi bujhti hain) -->
                 <button class="chip-btn ghost mic-fallback" id="mic-fallback" type="button" hidden>Mic nahi chal raha? 🙈 Tap to blow</button>
             </div>

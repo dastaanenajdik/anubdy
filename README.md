@@ -69,7 +69,7 @@ anubdy/
 |---|---|
 | PIN badalna | `js/config.js` → `pin: '1410'` |
 | Naam badalna | `js/config.js` → `text.name` / `text.heroName` / `text.aka` |
-| Cake ke tap par aane wale mic-messages | `js/config.js` → `text.micOnly` |
+| Mic / "Blow now…" / side face wale texts | `js/config.js` → `text.micLabel` / `text.blowNow` / `text.blowGuide` |
 | "Close your eyes and make a wish" line | `js/config.js` → `text.wishSub` |
 | Letter type hone ki speed | `js/config.js` → `letter.typeSpeedMs` + `letter.charsPerTick` |
 | Last page ka photo | `together.jpeg` badal do (ya `index.html` me path) |
@@ -100,14 +100,21 @@ anubdy/
 
 ## 🎤 Cake wala page (slide 2) — sirf VOICE se
 
-- Candles **sirf mic (voice) se** bujhti hain. Cake pe tap karne se sirf ek chhota
-  message aata hai: *“Pookiee, tap the mic and blow into it 🎤💨”*
+- Candles **sirf mic (voice) se** bujhti hain. Is page par **kahin bhi click/tap**
+  karne se mic khul jaata hai aur bada sa *“Blow now… 💨”* dikhne lagta hai —
+  mic button dabana zaroori nahi hai.
+- Mic kisi wajah se na khule (permission deny, error…) to state khud saaf ho
+  jaati hai: **page par phir se click = mic dobara kholne ki koshish**. Saath me
+  ek chhota fallback button bhi aa jaata hai (“Mic nahi chal raha? 🙈 Tap to
+  blow”) — taaki page par rukna na pade.
+- Side me ek chhota sa cute animation hai — lines se bana face, phoole gaal ke
+  saath foonk maarta hua, munh se hawa jaati hui 💨 — bas samjhane ke liye ki
+  karna kya hai (*“Aise foonk maaro!”*). Look → `css/slide-2.css` (`.blow-guide`),
+  drawing → `index.html` (`.blow-face` wala SVG).
 - Mic ki aawaz kitni tez chahiye → `js/config.js` → `celebration.micSensitivity`
   + `celebration.micLoudFrames`.
 - Jab tak candles nahi bujhti aur wish ka timer poora nahi hota, **Next disable**
   rehta hai (wish ke waqt message: *“Close your eyes and make a wish ✨”*).
-- Mic kisi wajah se na chale to ek chhota fallback button khud aa jaata hai
-  (“Mic nahi chal raha? 🙈 Tap to blow”) — taaki page par rukna na pade.
 - ⚠️ Mic sirf **https://** ya **localhost** par chalta hai (Vercel par theek chalega).
 
 ---
