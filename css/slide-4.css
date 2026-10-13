@@ -34,3 +34,7 @@
 }
 .letter-paper::-webkit-scrollbar { width: 6px; }
 .letter-paper::-webkit-scrollbar-thumb { background: #f2a6bb; border-radius: 10px; }
+
+/* Letter ke neeche wale buttons (skip typing + continue) */
+.letter-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 18px; position: relative; z-index: 21; }
+#slide-4 .chip-btn { padding: 12px 22px; }

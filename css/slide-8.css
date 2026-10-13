@@ -1,0 +1,35 @@
+/* ============================================================
+   slide-8.css — Notes / chunks (tap karke khulne wale cards)
+   Yahi file badlo jab isi part ka look/style change karna ho.
+   ============================================================ */
+
+#slide-8 { justify-content: flex-start; padding-top: 52px; }
+
+.note-list { display: flex; flex-direction: column; gap: 14px; width: min(94vw, 520px); margin-top: 22px; }
+
+.note-card {
+    text-align: left; font-family: inherit; cursor: pointer; width: 100%;
+    background: rgba(255, 255, 255, 0.62); border: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-radius: 22px; padding: 16px 18px;
+    box-shadow: 0 14px 30px rgba(214, 120, 150, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
+}
+.note-card:hover { transform: translateY(-3px); box-shadow: 0 20px 38px rgba(214, 120, 150, 0.28); }
+.note-card.open { background: rgba(255, 251, 252, 0.92); border-color: #f2a6bb; }
+
+.note-head { display: flex; justify-content: space-between; align-items: center; }
+.note-num { font-size: 12px; font-weight: 900; letter-spacing: 0.14em; color: #b0708c; text-transform: uppercase; }
+.note-lock { font-size: 17px; transition: transform 0.4s ease; }
+.note-card.open .note-lock { transform: rotate(-12deg) scale(1.1); }
+
+.note-title {
+    font-family: 'Quicksand', sans-serif; font-weight: 800; color: #c2456b;
+    font-size: clamp(15px, 4vw, 17.5px); line-height: 1.4; margin: 8px 0 4px;
+}
+.note-body { color: #5f4050; font-weight: 600; font-size: clamp(14px, 3.6vw, 15.5px); line-height: 1.65; }
+.note-body:empty { display: none; }
+.note-tap { color: #b0708c; font-weight: 700; font-size: 13px; margin-top: 6px; }
+.note-tap:empty { display: none; }
+.note-card.open .note-tap { margin: 0; }
+
+.note-progress { color: #a8607e; font-weight: 800; font-size: 14px; margin-top: 18px; min-height: 20px; }
