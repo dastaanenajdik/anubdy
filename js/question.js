@@ -73,7 +73,11 @@ function initQuestion() {
     funnyMsgEl = byId('funny-msg');
 
     noBtn.addEventListener('click', dodgeNoBtn);
-    if (window.matchMedia('(hover: hover)').matches) {
+    // kuch purane browsers/webviews me matchMedia nahi hota → guard laga do
+    const canHover = typeof window.matchMedia === 'function'
+        ? window.matchMedia('(hover: hover)').matches
+        : false;
+    if (canHover) {
         noBtn.addEventListener('mouseenter', hoverNoBtn);
     }
     // screen ghume to button wapas center me

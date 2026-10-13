@@ -26,7 +26,29 @@
     text-shadow: 0 2px 0 #fff, 0 8px 22px rgba(240, 160, 185, 0.5);
 }
 .final-text { color: #7d4a5e; font-weight: 600; font-size: clamp(14px, 3.7vw, 16px); line-height: 1.6; max-width: 38ch; }
-.final-line { color: #a8607e; font-weight: 900; font-size: 14px; letter-spacing: 0.04em; margin-top: 12px; }
+
+/* ---------------- CUTE PHOTO FRAME (hum dono 🫶🏻) ---------------- */
+.photo-frame {
+    position: relative; margin: 18px auto 4px; padding: 10px 10px 6px;
+    width: min(86vw, 340px);
+    background: #fffdf9; border-radius: 20px; border: 1px solid #f0d5dc;
+    box-shadow: 0 18px 40px rgba(160, 80, 110, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transform: rotate(-1.4deg);
+    animation: photoIn 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.photo-frame img {
+    display: block; width: 100%; height: auto; border-radius: 13px; object-fit: contain;
+}
+.photo-frame figcaption {
+    padding: 10px 6px 6px; font-family: 'Caveat', cursive;
+    color: #c2456b; font-size: clamp(16px, 4.4vw, 20px); line-height: 1.3;
+}
+@keyframes photoIn {
+    from { opacity: 0; transform: rotate(-1.4deg) translateY(22px) scale(0.94); }
+    to { opacity: 1; transform: rotate(-1.4deg) translateY(0) scale(1); }
+}
+
+.final-line { color: #a8607e; font-weight: 900; font-size: 14px; letter-spacing: 0.04em; margin-top: 14px; }
 .final-block .nav-row { margin-top: 18px; }
 
 /* ---------------- 3B. WISH BOX ---------------- */
@@ -47,3 +69,11 @@
 #wish-text:focus { outline: 2px solid #f2a6bb; outline-offset: 1px; }
 .wish-hint { color: #b0708c; font-weight: 700; font-size: 12.8px; margin: 10px 0 14px; }
 .send-btn { background: linear-gradient(135deg, rgba(37, 190, 120, 0.95), rgba(120, 214, 160, 0.85)); box-shadow: 0 12px 28px rgba(60, 180, 120, 0.32); }
+
+/* ---------------- 3C. SABSE NICHE: SHURU SE ---------------- */
+.restart-box {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    margin: 24px 0 4px;
+}
+.restart-btn { padding: 12px 26px; }
+.restart-hint { color: #b0708c; font-weight: 700; font-size: 12.8px; }

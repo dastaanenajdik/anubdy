@@ -3,7 +3,7 @@
    ============================================================
    • Page pe aate hi: confetti bursts + dono billi khud pop karti hain
    • "🎉 Celebrate Again" → 3 confetti bursts + button pe sparkle + toast
-   • "↺ Shuru se" → pehle page (slide 1)
+   • "↺ Shuru se" (sabse niche) → site refresh (bilkul shuru se)
    • Wish box → WhatsApp par message kholta hai
 
    WhatsApp number / toasts → js/config.js > wish
@@ -66,11 +66,13 @@ function initWish() {
     const again = byId('celebrate-again');
     if (again) again.addEventListener('click', celebrateAgain);
 
+    // ↺ Shuru se → poori site refresh (sab kuch pehle jaisa, ekdum fresh)
     const restart = byId('start-over');
     if (restart) {
         restart.addEventListener('click', () => {
-            goToFirstSlide();
             burstConfetti({ x: 0.5, y: 0.6 }, { particleCount: 60, spread: 90 });
+            showToast('Shuru se… 💗', 1200);
+            setTimeout(() => { window.location.reload(); }, 420);
         });
     }
 }
