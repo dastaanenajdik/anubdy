@@ -12,7 +12,7 @@
     background: #ffffff; color: #d90429; padding: 8px 25px;
     border-radius: 30px; font-weight: 900; margin-bottom: 20px;
 }
-.content-overlay { position: absolute; bottom: 12%; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+.content-overlay { position: absolute; bottom: 16%; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 20px; }
 .title { font-family: 'Pacifico', cursive; color: #d90429; font-size: 55px; line-height: 1.1; text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, 0px 5px 15px rgba(255,255,255,0.9); text-align: center; }
 .subtitle { font-size: 28px; color: #ff9a9e; font-weight: 900; margin-bottom: 35px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
 .tribute-btn { background: linear-gradient(90deg, #8a98e8, #b6bdf8); color: white; padding: 18px 45px; font-size: 18px; border-radius: 30px; border: none; font-weight: 900; box-shadow: 0 8px 20px rgba(138, 152, 232, 0.6); cursor: pointer; font-family: inherit; }

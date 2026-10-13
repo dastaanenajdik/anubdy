@@ -282,7 +282,7 @@ const CONFIG = {
                 id: 'cat-dance',
                 gif: 'https://media.tenor.com/ECATiSXWwm8AAAAm/dancing-cat-cat.webp',
                 fallback: '💃',
-                side: 'left', bottom: '15%', offset: '4%',
+                side: 'left', bottom: '22%', offset: '4%',
                 lines: [
                     'Dua: Tujhe hamesha aise log milein jo teri value samjhein 💗 — May you always find people who truly value you.',
                     'Dua: Teri hansi kabhi kam na ho 😄 — May your laughter never run out.',
