@@ -109,8 +109,10 @@
             </div>
 
             <!-- Cake: layers/candles JS se bante hain (js/cake.js)
-                 NOTE: cake tap/swipe se nahi bujhta — sirf mic (voice) se ✨
-                 Slide 2 par KAHIN BHI click/tap = mic khulta hai (js/cake.js) -->
+                 NOTE: candles do tarah se bujhti hain —
+                       1) candle/cake par TAP  → seedha bujh jaati hai + timer shuru 🕯️💨
+                       2) mic se foonk maarke    → tab bhi wahi timer shuru 🎤💨
+                 Slide 2 par baaki KAHIN BHI click/tap = mic khulta hai (js/cake.js) -->
             <div class="cake-stage" id="cake-stage" aria-label="Birthday cake">
                 <div class="cake-scene" id="cake-scene">
                     <div class="cake-inner" id="cake-inner">
@@ -175,15 +177,16 @@
             <div class="cake-controls">
                 <!-- Mic khulte hi ye bada sa "Blow now" dikhta hai (js/cake.js .show lagata hai) -->
                 <div class="blow-now" id="blow-now" aria-live="polite"><span class="blow-now-dot"></span><span data-bind="blowNow">Blow now… 💨</span></div>
-                <!-- Asli kaam ab POORE PAGE par kahin bhi click karne se hota hai —
-                     ye button bas wahi kaam ek saaf jagah par bhi dikhata hai.
+                <!-- Do raste: (1) candle/cake par tap = seedha bujh jaye, (2) baaki page
+                     par kahin bhi click = mic khul jaye, phir foonk maaro.
+                     Ye button doosra (mic) wala kaam ek saaf jagah par bhi dikhata hai.
                      Mic kisi wajah se na khule to page par phir se click = dobara try ✨ -->
                 <button class="mic-btn" id="mic-btn" type="button">
                     <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
-                    <span id="mic-label" data-bind="micLabel">Tap anywhere to open mic &amp; blow 🎤</span>
+                    <span id="mic-label" data-bind="micLabel">Tap anywhere for mic 🎤 · candle pe tap = seedha bujh jaye 🕯️</span>
                 </button>
-                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Page pe kahin bhi tap karo, phir foonk maaro 💨</span></div>
-                <!-- Sirf tab dikhta hai jab mic kaam na kare (warna candles sirf voice se hi bujhti hain) -->
+                <div class="hint" id="hint-text"><span class="hint-dot"></span><span id="hint-label" data-bind="hintLabel">Candle pe tap karo 🕯️ ya page pe tap karke foonk maaro 💨</span></div>
+                <!-- Sirf tab dikhta hai jab mic kaam na kare (tab bhi candle pe tap kar sakte hain) -->
                 <button class="chip-btn ghost mic-fallback" id="mic-fallback" type="button" hidden>Mic nahi chal raha? 🙈 Tap to blow</button>
             </div>
         </section>

@@ -42,7 +42,8 @@ anubdy/
 │   ├── login.js        ← PIN check (+ billi unlock)
 │   ├── slides.js       ← slide navigation + dots (+ har slide ki taiyari)
 │   ├── decorations.js  ← fairy lights, bokeh, balloons
-│   ├── cake.js         ← cake banana, SIRF MIC se candles bujhana, confetti, countdown
+│   ├── cake.js         ← cake banana, candles bujhana (foonk se YA candle pe tap se),
+│   │                     confetti, wish ka countdown
 │   ├── question.js     ← bhaagta hua "No" button
 │   ├── letter.js       ← envelope khulna + poori story ka typewriter + skip
 │   ├── toast.js        ← chhote popup messages
@@ -69,7 +70,8 @@ anubdy/
 |---|---|
 | PIN badalna | `js/config.js` → `pin: '1410'` |
 | Naam badalna | `js/config.js` → `text.name` / `text.heroName` / `text.aka` |
-| Mic / "Blow now…" / side face wale texts | `js/config.js` → `text.micLabel` / `text.blowNow` / `text.blowGuide` |
+| Mic / "Blow now…" / candle tap / side face wale texts | `js/config.js` → `text.micLabel` / `text.blowNow` / `text.blowGuide` / `text.hintLabel` / `text.tapAria` / `text.tapTitle` |
+| Candle pe tap se bujhne wala option (on/off) | `js/config.js` → `cake.tapToBlow: true` (false karne par sirf mic) |
 | "Close your eyes and make a wish" line | `js/config.js` → `text.wishSub` |
 | Letter type hone ki speed | `js/config.js` → `letter.typeSpeedMs` + `letter.charsPerTick` |
 | Last page ka photo | `together.jpeg` badal do (ya `index.html` me path) |
@@ -99,11 +101,21 @@ anubdy/
 
 ---
 
-## 🎤 Cake wala page (slide 2) — sirf VOICE se
+## 🎤🕯️ Cake wala page (slide 2) — foonk se YA tap se
 
-- Candles **sirf mic (voice) se** bujhti hain. Is page par **kahin bhi click/tap**
-  karne se mic khul jaata hai aur bada sa *“Blow now… 💨”* dikhne lagta hai —
-  mic button dabana zaroori nahi hai.
+- Candles **do tarah se** bujhti hain:
+  1. 🕯️ **Candle (ya cake) par tap/click** — candle turant bujh jaati hai, wahin
+     ek chhota sa *💨* poof dikhta hai, aur **wish ka timer turant shuru** ho jaata
+     hai. (Keyboard wale log cake par focus karke **Enter / Space** bhi daba sakte hain.)
+  2. 🎤 **Mic se foonk maarke** — is page par cake ke alawa **kahin bhi click/tap**
+     karne se mic khul jaata hai aur bada sa *“Blow now… 💨”* dikhne lagta hai —
+     mic button dabana zaroori nahi hai.
+- Dono raste ek hi `blowCandles()` par jaate hain, isliye smoke, confetti, wish ka
+  10-second timer aur Next unlock — sab bilkul ek jaisa chalta hai.
+- Tap wala rasta band karna ho → `js/config.js` → `cake.tapToBlow: false`
+  (phir candles **sirf** mic se bujhengi, pehle jaisa behaviour).
+- Jab tak candles jalti hain, un par halka sa glow chalta rehta hai
+  (yahi ishara hai ki *“yahan tap kar sakte ho”*) — look → `css/cake.css`.
 - Mic kisi wajah se na khule (permission deny, error…) to state khud saaf ho
   jaati hai: **page par phir se click = mic dobara kholne ki koshish**. Saath me
   ek chhota fallback button bhi aa jaata hai (“Mic nahi chal raha? 🙈 Tap to
@@ -167,9 +179,10 @@ Jo bhi value `js/config.js > text.name` me hogi, wahin dikhegi.
 who-reveal, gallery, timeline, last page pe confetti + billi pop.
 Naya kaam chahiye to wahin add karo.
 
-### 4. Slide 2 ka "mic gate"
+### 4. Slide 2 ka "wish gate"
 `js/slides.js` me `cakeSwipeOk()` / `cakeSwipeGuard()` hain — jab tak
-`wishReady` (mic se candles + timer) nahi hota, Next/Next-dot aage nahi jaate.
+`wishReady` (candles bujhna — foonk se ya candle pe tap se — + wish ka timer)
+nahi hota, Next/Next-dot aage nahi jaate.
 
 ---
 

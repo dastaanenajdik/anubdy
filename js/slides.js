@@ -2,8 +2,8 @@
    slides.js — slides ke beech aage-peeche jaana + neeche wale Back / Next bar
    ============================================================
    • "data-goto" wale buttons khud kaam karte hain
-   • Slide 2 (cake) ka niyam: jab tak mic se candles na bujhein aur
-     wish ka countdown poora na ho, aage nahi ja sakte (next page disable)
+   • Slide 2 (cake) ka niyam: jab tak candles na bujhein (foonk se ya candle pe
+     tap se) aur wish ka countdown poora na ho, aage nahi ja sakte (next page disable)
    ============================================================ */
 
 let currentSlide = 1;
@@ -20,7 +20,7 @@ const SLIDE_HOOKS = {
     10: () => { if (typeof onFinalPage === 'function') onFinalPage(); },
 };
 
-// Slide 2 se aage jaane ki ijazat hai? (sirf mic + countdown ke baad)
+// Slide 2 se aage jaane ki ijazat hai? (candles bujhein + wish ka timer poora ho)
 function cakeSwipeOk() {
     return currentSlide !== 2 || (typeof wishReady !== 'undefined' && wishReady);
 }
@@ -47,7 +47,7 @@ function goToSlide(num, opts) {
     const target = byId('slide-' + num);
     if (!target) return;
 
-    // Slide 2 se aage? tab hi jab mic se candles bujhi hon + wish ka timer poora ho
+    // Slide 2 se aage? tab hi jab candles bujhi hon (foonk ya tap se) + timer poora ho
     const force = !!(opts && opts.force);
     if (!force && num > currentSlide && !cakeSwipeOk()) {
         cakeSwipeGuard();
@@ -100,7 +100,7 @@ function updateNavBar() {
         next.classList.remove('hidden-btn');
     }
 
-    // Slide 2 par: jab tak mic se candles na bujhein + timer poora na ho,
+    // Slide 2 par: jab tak candles na bujhein + wish ka timer poora na ho,
     // "Next" button disabled (dikhata hai, par kaam nahi karta)
     const locked = currentSlide === 2 && !(typeof wishReady !== 'undefined' && wishReady);
     next.classList.toggle('disabled-btn', locked);
