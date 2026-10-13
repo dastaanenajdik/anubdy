@@ -218,6 +218,13 @@ function collectTextObstacles() {
     if (active) roots.push(active);
     const bar = byId('bottom-bar');
     if (bar) roots.push(bar);
+    const muteBtn = byId('mute-btn');
+    if (muteBtn) {
+        const mr = muteBtn.getBoundingClientRect();
+        if (mr.width > 0 && mr.height > 0) {
+            rects.push({ left: mr.left, top: mr.top, right: mr.right, bottom: mr.bottom });
+        }
+    }
 
     roots.forEach((root) => {
         const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);

@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Pacifico&family=Quicksand:wght@500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Mali:wght@500;600&family=Pacifico&family=Quicksand:wght@500;600;700;900&display=swap" rel="stylesheet">
 
     <!-- Confetti library (celebration ke liye) -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -314,6 +314,11 @@
             <div class="modal-items" id="modal-items"></div>
         </div>
     </div>
+
+    <!-- MUTE / UNMUTE BUTTON (top-right corner) — js/music.js -->
+    <button class="mute-btn" id="mute-btn" type="button" aria-label="Mute music" aria-pressed="false" title="Mute / Unmute">
+        <span class="mute-ico" id="mute-ico" aria-hidden="true">🔊</span>
+    </button>
 
     <!-- FLOATING BILLI (cats) — js/cats.js -->
     <div class="cat-layer" id="cat-layer" aria-hidden="true"></div>

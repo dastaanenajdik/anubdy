@@ -6,7 +6,7 @@
 /* ================= SLIDE 2: CAKE ROOM ================= */
 #slide-2 {
     background: radial-gradient(ellipse 70% 45% at 50% 62%, rgba(255, 236, 214, 0.9) 0%, rgba(255, 236, 214, 0) 70%), linear-gradient(180deg, #fff8f5 0%, #fdeef1 45%, #f9e3ea 75%, #f4dbe4 100%);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 64px 16px 108px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 48px 16px 76px;
 }
 #slide-2::after {
     content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
@@ -43,7 +43,7 @@
 .balloon::after { content: ''; position: absolute; top: 100%; left: 50%; width: 1px; height: 120px; margin-top: 2px; background: linear-gradient(rgba(170, 130, 150, 0.6), rgba(170, 130, 150, 0)); }
 @keyframes sway { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
 
-.celebration-header { position: relative; z-index: 5; text-align: center; min-height: 170px; width: 100%; max-width: 440px; display: grid; place-items: center; }
+.celebration-header { position: relative; z-index: 5; text-align: center; min-height: clamp(120px, 20vh, 165px); width: 100%; max-width: 440px; display: grid; place-items: center; }
 .intro, .wish-panel { grid-area: 1 / 1; transition: opacity 0.6s ease, transform 0.6s ease; }
 .intro.hide { opacity: 0; transform: translateY(-12px); pointer-events: none; }
 .eyebrow {
@@ -63,12 +63,12 @@
 .ring .progress { fill: none; stroke: url(#ringGradient); stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
 .ring-value { position: absolute; inset: 0; display: grid; place-items: center; font-size: 28px; font-weight: 900; color: #c2456b; }
 
-.cake-controls { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 14px; min-height: 92px; }
+.cake-controls { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; min-height: 84px; }
 .hint { display: flex; align-items: center; gap: 8px; color: #8a5468; font-weight: 700; font-size: 15px; background: rgba(255,255,255,0.75); padding: 10px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(214, 120, 150, 0.14); border: 1px solid rgba(240, 195, 208, 0.8); animation: gentleBounce 2.2s ease-in-out infinite; text-align: center; }
 .hint-dot { width: 8px; height: 8px; border-radius: 50%; background: #f08aa6; box-shadow: 0 0 0 0 rgba(240, 138, 166, 0.6); animation: ping 1.6s ease-out infinite; flex-shrink: 0; }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(240, 138, 166, 0.6); } 100% { box-shadow: 0 0 0 10px rgba(240, 138, 166, 0); } }
 @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-.mic-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1.5px solid #e9a9bb; color: #c2456b; font-family: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px; border-radius: 999px; cursor: pointer; transition: background 0.25s ease; }
+.mic-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.88); border: 1.5px solid #e9a9bb; color: #c2456b; font-family: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(214, 120, 150, 0.18); cursor: pointer; transition: background 0.25s ease, transform 0.2s ease; }
 .mic-btn:hover, .mic-btn.listening { background: rgba(255,255,255,0.8); }
 .mic-btn.listening .mic-icon { animation: ping 1.2s ease-out infinite; border-radius: 50%; }
 .mic-icon { width: 16px; height: 16px; }

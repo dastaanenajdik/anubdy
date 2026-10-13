@@ -83,9 +83,9 @@ function buildCandles() {
 function fitCake() {
     if (!cakeStage || !cakeScene) return;
     const { sceneWidth: W, sceneHeight: H, minScale, maxScale } = CONFIG.cake;
-    const s = Math.max(minScale, Math.min(
+    const s = Math.max(Math.min(minScale, 0.52), Math.min(
         maxScale,
-        (window.innerHeight - 190) / H,
+        (window.innerHeight - 330) / H,
         (window.innerWidth * 0.92) / W
     ));
     cakeStage.style.width = (W * s) + 'px';
@@ -271,6 +271,9 @@ function initCake() {
 
     // mic wala button
     byId('mic-btn').addEventListener('click', startMicListening);
+
+    const fallbackBtn = byId('mic-fallback');
+    if (fallbackBtn) fallbackBtn.addEventListener('click', blowCandles);
 
     // screen ghume to cake ka size dobara theek karo
     window.addEventListener('resize', fitCake);
