@@ -6,7 +6,7 @@
 /* ================= SLIDE 2: CAKE ROOM ================= */
 #slide-2 {
     background: radial-gradient(ellipse 70% 45% at 50% 62%, rgba(255, 236, 214, 0.9) 0%, rgba(255, 236, 214, 0) 70%), linear-gradient(180deg, #fff8f5 0%, #fdeef1 45%, #f9e3ea 75%, #f4dbe4 100%);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 64px 16px 56px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 64px 16px 108px;
 }
 #slide-2::after {
     content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 30%;

@@ -82,7 +82,7 @@ function fitCake() {
     const { sceneWidth: W, sceneHeight: H, minScale, maxScale } = CONFIG.cake;
     const s = Math.max(minScale, Math.min(
         maxScale,
-        (window.innerHeight - 64 - 170 - 140) / H,
+        (window.innerHeight - 190) / H,
         (window.innerWidth * 0.92) / W
     ));
     cakeStage.style.width = (W * s) + 'px';

@@ -1,38 +1,36 @@
 /* ============================================================
-   slides.js — slides ke beech aage-peeche jaana + neeche wale dots
-   ============================================================
-   Kisi bhi button se kisi slide par jana ho to us button me
-   data-goto="6" laga do, baaki kaam yahin hota hai.
-
-   Dots khud ban jaate hain (jitne .slide hain, utne dots).
-   Har slide par jaane ke baad uski zaroori taiyari SLIDE_HOOKS me hai.
+   slides.js — slides ke beech aage-peeche jaana + neeche wale dots + nav bar
    ============================================================ */
+
+let currentSlide = 1;
+const TOTAL_SLIDES = 10;
 
 // Har slide par pahunchne ke baad kya karna hai
 const SLIDE_HOOKS = {
-    2: () => { if (typeof fitCake === 'function') fitCake(); },              // cake ki size
-    3: () => { if (typeof resetNoBtn === 'function') resetNoBtn(); },        // No button wapas center
-    6: () => { if (typeof resetDeck === 'function') resetDeck(); },          // gallery deck
-    9: () => { if (typeof buildTimeline === 'function') buildTimeline(); },  // timeline ek-ek karke
-    10: () => { if (typeof onFinalPage === 'function') onFinalPage(); },     // birthday reveal + billi
+    2: () => { if (typeof fitCake === 'function') fitCake(); },
+    3: () => { if (typeof resetNoBtn === 'function') resetNoBtn(); },
+    6: () => { if (typeof resetDeck === 'function') resetDeck(); },
+    9: () => { if (typeof buildTimeline === 'function') buildTimeline(); },
+    10: () => { if (typeof onFinalPage === 'function') onFinalPage(); },
 };
 
-// Jitne slides hain utne dots bana do
 function buildDots() {
     const box = byId('dots-container');
     if (!box) return;
     box.innerHTML = '';
-    const total = document.querySelectorAll('.slide').length;
-    for (let i = 1; i <= total; i++) {
+    for (let i = 1; i <= TOTAL_SLIDES; i++) {
         const dot = document.createElement('div');
-        dot.className = 'dot' + (i === 1 ? ' active' : '');
+        dot.className = 'dot' + (i === currentSlide ? ' active' : '');
         dot.id = 'dot-' + i;
+        dot.setAttribute('role', 'button');
+        dot.setAttribute('aria-label', 'Go to slide ' + i);
+        dot.addEventListener('click', () => goToSlide(i));
         box.appendChild(dot);
     }
 }
 
-// Ek slide ko dikhao, baaki sab chhup jayein (dots bhi update)
 function goToSlide(num) {
+    if (num < 1 || num > TOTAL_SLIDES) return;
     const target = byId('slide-' + num);
     if (!target) return;
 
@@ -43,23 +41,65 @@ function goToSlide(num) {
     const dot = byId('dot-' + num);
     if (dot) dot.classList.add('active');
 
-    // Lamba page ho to sabse upar se shuru karo
     target.scrollTop = 0;
+    currentSlide = num;
+
+    updateNavBar();
 
     const hook = SLIDE_HOOKS[num];
     if (hook) hook();
 }
 
-// Sabse pehla slide (Shuru se button isko use karta hai)
-function goToFirstSlide() {
-    goToSlide(1);
+function goToFirstSlide() { goToSlide(1); }
+
+function stepSlide(delta) {
+    const next = currentSlide + delta;
+    if (next < 1 || next > TOTAL_SLIDES) return;
+    const btnId = delta > 0 ? 'nav-next' : 'nav-back';
+    const btn = byId(btnId);
+    if (btn) {
+        btn.classList.remove('pop');
+        void btn.offsetWidth;
+        btn.classList.add('pop');
+        btn.style.animation = 'navPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    }
+    goToSlide(next);
+}
+
+function updateNavBar() {
+    const back = byId('nav-back');
+    const next = byId('nav-next');
+    if (!back || !next) return;
+    if (currentSlide <= 1) {
+        back.classList.add('hidden-btn');
+    } else {
+        back.classList.remove('hidden-btn');
+    }
+    if (currentSlide >= TOTAL_SLIDES) {
+        next.classList.add('hidden-btn');
+    } else {
+        next.classList.remove('hidden-btn');
+    }
 }
 
 function initSlides() {
     buildDots();
 
-    // data-goto wale sab buttons (jaise "Start the tribute", "Continue", "Back")
     document.querySelectorAll('[data-goto]').forEach(el => {
         el.addEventListener('click', () => goToSlide(Number(el.dataset.goto)));
     });
+
+    const backBtn = byId('nav-back');
+    const nextBtn = byId('nav-next');
+    if (backBtn) backBtn.addEventListener('click', () => stepSlide(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => stepSlide(+1));
+
+    document.addEventListener('keydown', (e) => {
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+        if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); stepSlide(-1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); stepSlide(+1); }
+    });
+
+    updateNavBar();
 }
