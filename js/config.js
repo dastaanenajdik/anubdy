@@ -9,21 +9,22 @@
 const CONFIG = {
 
     // ---------- 1. LOGIN SCREEN (screen 1) ----------
-    pin: '1411',                    // 🔑 secret PIN yahin change karo
+    pin: '1410',                    // 🔑 secret PIN yahin change karo (14 October)
 
     // ---------- 2. TEXT ----------
     // Ye text index.html me un jagahon par khud lag jata hai
     // jahan data-bind attribute laga hai.
     // {name} ki jagah automatically neeche wala 'name' aa jata hai.
     text: {
-        date: '14 • 11',
+        date: '14 • 10',
         title: 'Happy Birthday',
-        name: 'Tingu Mingu',            // sirf naam (baaki jagahon me bhi use hota hai)
-        heroName: 'Tingu Mingu 🌸🥺',   // slide 1 wala naam (emoji ke saath)
-        eyebrow: '14 • 11 • JUST FOR YOU',
+        name: 'Anushri',                // asli naam
+        heroName: 'Anushri 🌸🥺',       // slide 1 wala naam
+        aka: 'aka Tingu 💗',            // pyar wala naam
+        eyebrow: '14 • 10 • JUST FOR YOU',
         introSub: "{name}, it's your special day",
-        plaque: '{name}',               // cake par likha hua naam
-        questionSub: 'Pick your answer, {name} 🎀',
+        plaque: 'Tingu',                // cake par likha hua pyara naam
+        questionSub: 'Pick your answer, Tingu 🎀',
         wishTitle: 'Make a Wish',
         wishSub: 'Close your eyes and make it count',
         wishDoneTitle: 'Wish Granted',
@@ -32,6 +33,16 @@ const CONFIG = {
         micLabel: 'Or blow into your mic',
         micListening: 'Listening... blow now!',
         micUnavailable: 'Mic unavailable, just tap the candles',
+
+        // --- Slide 9 (14 October wala page) ---
+        factsChip: '14 October — Tera Din ✨',
+
+        // --- Slide 10 (last page) ---
+        finalTitle: 'Happiest Birthday,<br>Tingu! 🎂💗',
+        finalText: 'Bas itna kehna tha — duniya thodi si chaotic hai, par usme tujh jaise log mil jaaye to jina worth it lagta hai. Hassti rehna, khati rehna, aur main hamesha ek text door hoon. 🫂💗',
+        finalLine: '14.10 — officially tera din. ✨',
+        wishBoxTitle: '💌 Wish Box 🎁',
+        wishBoxPrompt: 'anything you wanna tell me today....',
     },
 
     // ---------- 3. CAKE (slide 2) ----------
@@ -114,7 +125,178 @@ const CONFIG = {
 
     // ---------- 7. LETTER (slide 4) ----------
     letter: {
-        typeSpeedMs: 25,          // typewriter ki speed (chhota number = fast)
+        typeSpeedMs: 15,          // typewriter ki speed (chhota number = fast)
         flapOpenMs: 500,          // envelope ka flap khulne me kitna time
+        skipSpeedMs: 2,           // skip dabane par typing ki speed
+    },
+
+    // ---------- 8. WHO IS THIS FOR? (slide 5) ----------
+    who: {
+        // Dono chips tap hote hain, phir ye reveal hota hai
+        name: 'Anushri 🌸',
+        aka: 'meri Tingu 💗',
+        line: 'Yes… ye sab sirf tere liye hai 🫶🏻',
+    },
+
+    // ---------- 9. GALLERY (slide 6) ----------
+    gallery: {
+        // Photos gallery folder me hain (p1.jpeg - p7.jpeg)
+        photos: ['p1.jpeg', 'p2.jpeg', 'p3.jpeg', 'p4.jpeg', 'p5.jpeg', 'p6.jpeg', 'p7.jpeg'],
+
+        // Captions: ye gallery/caption.txt se khud padhe jaate hain
+        // (network me file na mile to neeche wale backup captions use hote hain)
+        captionFile: 'gallery/caption.txt',
+        captions: [
+            'Background ki paintings aur decor sundar hai, par asli beauty toh frame ke saamne baithi hai. 😗',
+            'Phone case toh accha hai hi, par uske peeche wali smile usse bhi zyada pyaari hai 😉',
+            'Nadi ki lehrein ek taraf, aur aapka yeh graceful and charming look doosri taraf🫣♥️',
+            'Stepped right out of a dream and straight onto a mood board. 💜✨',
+            'Stepped straight into a vintage postcard🏛️✨',
+            'Kisi road-trip wali movie ka ekdum dream sequence lag raha hai! 🎬',
+            'Stunning under the lights! ✨  🫣',
+        ],
+
+        // 🎵 USKA GANA: apna gaana is naam se gallery folder me daal do
+        // (file ka naam badalna ho to neeche wala path badlo, ya mp3 ki jagah .m4a/.wav likho)
+        songSrc: 'gallery/song.mp3',
+        songLabelOn: '⏸ Pause her song',
+        songLabelOff: '🎵 Her song chalao',
+    },
+
+    // ---------- 10. FEELINGS ZONE + NOTES (slide 7 & 8) ----------
+    notes: {
+        lockCount: 4,             // bas hint wale lock icons (koi logic nahi)
+        items: [
+            {
+                title: 'Some things, I wanna confess to you…',
+                text: "Tingu Mingu, I'm really sorry ki tumhe video call ke liye itna wait karwata hoon. 🥹❤️ I hope jaldi hi hum call karein aur tumhara yeh wait khatam ho jaaye. 🫂💗",
+            },
+            {
+                title: 'Woh pehla "Babu" 🫶🏻',
+                text: "Aur mujhe yaad hai jab humari conversation ke beech tumne first time mujhe “Babu” bola tha, hayeee 😭❤️ I swear, woh sunke main dil se khush ho gaya tha, pata nahi kyun but that little moment felt so special to me. 🥹🫶🏻💗",
+            },
+            {
+                title: 'Tumhari woh dance video 💃🏻',
+                text: "Tumhari woh dance video jab maine first time dekhi thi, hayeee 😭❤️ uss raat literally 15 baar dekhi thi. Tum dance karte waqt continuously smile kar rahi thi, aur usse pata chalta hai ki tumhe dance karna kitna pasand hai. 🥹💗 I hope tumhara stage par dance karne ka dream jaldi poora ho. 💃🏻✨️",
+            },
+            {
+                title: 'Woh ek morning ☀️',
+                text: "Starting mein tum mujhe thodi sad si vibes deti thi, but ek morning jab humari baat hui, tum itni khushi se sab kuch share kar rahi thi, tumhari masti, mazaak sab dekhkar mujhe bahut achha laga. 🥹❤️ Idk what changed, but I'm genuinely so happy to see you happy🫶🏻💗",
+            },
+        ],
+        typeSpeedMs: 14,          // note khulte hi typing ki speed
+        doneText: 'Sab notes khul gaye 💗 ab aage chalo…',
+    },
+
+    // ---------- 11. 14 OCTOBER WALA PAGE (slide 9) ----------
+    facts: {
+        buttons: [
+            { id: 'inHistory', chip: '🇮🇳 Bharat', label: 'Indian History', emoji: '🏛️', sub: '14 October — Bharat ke itihaas me' },
+            { id: 'inCelebs', chip: '⭐ Sitare', label: 'Indian Celebs', emoji: '🎬', sub: 'Aaj ke din paida hue Indian sitare' },
+            { id: 'days', chip: '🌍 Days', label: 'International & National Days', emoji: '📅', sub: '14 October ko duniya kya manati hai' },
+            { id: 'worldHistory', chip: '🌏 Duniya', label: 'World History', emoji: '📜', sub: 'Duniya me aaj ke din kya hua tha' },
+            { id: 'worldCelebs', chip: '🌍 World', label: 'International Celebs', emoji: '✨', sub: 'Duniya bhar ke 14 October wale' },
+        ],
+        sections: {
+            // (a) Indian History
+            inHistory: [
+                { t: '1884 — Lala Har Dayal ka janm', d: 'Delhi me paida hue Lala Har Dayal — Ghadar Party ke founder aur India ke freedom movement ke sabse bade revolutionaries me se ek.' },
+                { t: '1955 — Colombo Plan Conference, New Delhi', d: 'Asia ke deshon ko technological help dene ke liye Colombo Plan ka conference New Delhi me hua.' },
+                { t: '1956 — Dhamma Deeksha, Deekshabhoomi (Nagpur)', d: 'Dr. B. R. Ambedkar ne apne 4-5 lakh followers ke saath Nagpur ke Deekshabhoomi me Buddhism accept kiya — isliye 14 October ko Dhamma Chakra Pravartan Din kehte hain.' },
+                { t: '1998 — Amartya Sen ko Nobel Prize', d: 'Economist Amartya Sen ko welfare economics ke liye Nobel Prize (Economic Sciences) mila — announcement 14 October 1998 ko hua tha.' },
+            ],
+            // (b) Indian Celebs
+            inCelebs: [
+                { t: 'Gautam Gambhir (b. 1981)', d: 'Former Indian opener, 2 World Cup finals me kaamyaab, aur ab Team India ke head coach + politician.' },
+                { t: 'Navya Nair (b. 1985)', d: 'Malayalam actress aur dancer — apni charming acting ke liye famous.' },
+                { t: 'Nikhil Banerjee (b. 1931)', d: 'Legendary sitar maestro — India ke sabse bade sitar players me se ek.' },
+                { t: 'Arun Khetarpal (b. 1950)', d: '2nd Lieutenant, Param Vir Chakra (1971 Indo-Pak war) — sirf 21 saal ki umar me shaheed hue.' },
+                { t: 'Anamika Khanna (b. 1977)', d: 'Indian fashion designer — 14 October ko hi paida hui.' },
+            ],
+            // (c) Days
+            days: [
+                { t: 'Dhamma Chakra Pravartan Din (India)', d: '14 October 1956 me Nagpur ke Deekshabhoomi me hui mass conversion ki yaad me manaya jata hai — Maharashtra me bahut bada din hai.' },
+                { t: 'World Standards Day (ISO / IEC)', d: 'Standards aur unke banane walon ko celebrate karta hai. 14 October isliye chuna gaya kyunki 1946 me isi din London me 25 desh mile the — wahi se ISO bana. 1970 se manaya jata hai.' },
+                { t: 'International E-Waste Day', d: 'WEEE Forum dwara — purane phone/laptop wagairah ko sahi tareeke se recycle karne ke baare me awareness.' },
+                { t: 'National Dessert Day (USA)', d: 'Meethe ke liye ek poora din 🍰 — 14 October ko USA me desserts ka celebration hota hai.' },
+            ],
+            // (d) World History
+            worldHistory: [
+                { t: '1066 — Battle of Hastings', d: 'William of Normandy ne King Harold II ko haraya — Norman conquest of England shuru hui, England ka history hamesha ke liye badal gaya.' },
+                { t: '1888 — Pehli Motion Picture', d: 'Louis Le Prince ne "Roundhay Garden Scene" film ki — duniya ki sabse purani bachi hui motion picture.' },
+                { t: '1947 — Sound Barrier Toota', d: 'Chuck Yeager ne Bell X-1 rocket plane se Mach 1 se tez udi — insaan pehli baar sound se fast chala.' },
+                { t: '1964 — Martin Luther King Jr. ko Nobel Peace Prize', d: 'Civil rights leader MLK ko Nobel Peace Prize mila — woh us waqt ke sabse young winner the.' },
+                { t: '2012 — Felix Baumgartner ka Jump', d: 'Stratosphere se 39 km upar se 9 minute tak free-fall — speed 1357 km/h, sound barrier bhi cross hua, aur safely parachute se landing.' },
+            ],
+            // (e) International Celebs
+            worldCelebs: [
+                { t: 'Dwight D. Eisenhower (b. 1890)', d: 'WWII me Europe ke Supreme Allied Commander, aur America ke 34th President.' },
+                { t: 'Hannah Arendt (b. 1906)', d: 'Political philosopher — "The Origins of Totalitarianism" ki author.' },
+                { t: 'Ralph Lauren (b. 1939)', d: 'Fashion designer aur businessman — Polo wala brand unhi ka hai.' },
+                { t: 'Cliff Richard (b. 1940)', d: 'Legendary singer — aur mazedaar baat, unka janm Lucknow, India me hua tha 🎶' },
+                { t: 'Roger Moore (b. 1927)', d: 'James Bond ki 7 filmon ke Bond — 14 October ko hi paida hue.' },
+                { t: 'Usher (b. 1978)', d: 'American singer — 8 Grammy awards, R&B ke bade naam.' },
+                { t: 'Leonard Bernstein (d. 1990)', d: 'Composer aur conductor (West Side Story) — 14 October 1990 ko unka nidhan hua.' },
+            ],
+        },
+        timeline: [
+            { t: 'The First Hello', d: '27 September — humara first hello Snap pe hua tha. Bas ek chhota sa message, aur sab kuch wahi se shuru ho gaya. ✨' },
+            { t: 'The First Laugh', d: 'Woh pehli hasi jo bina kisi reason ke memory banti gayi. 😄' },
+            { t: 'The Random Conversations', d: 'Woh random baatein jo kabhi bhi khali nahi hoti thi. 🫶🏻' },
+            { t: 'The Chaos', d: 'Kyunki is safar me thoda chaos bhi toh hona hi tha. 😅' },
+            { t: 'Today', d: 'Aur ab… yahan tak pahunch gaye. 14 October 💗' },
+        ],
+        staggerMs: 300,           // timeline ke items ek-ek karke aayein
+    },
+
+    // ---------- 12. LAST PAGE — WISH BOX (slide 10) ----------
+    wish: {
+        whatsapp: '6206108416',   // 📱 WhatsApp number (10 digit)
+        countryCode: '91',        // India
+        prefix: '',               // message ke pehle lagne wala text (khali chhodo)
+        emptyToast: 'Kuch toh likho pehle 😅',
+        openToast: 'WhatsApp khul raha hai... send karna mat bhoolna 💚',
+        celebrateToast: 'Party never ends 🎉💗',
+    },
+
+    // ---------- 13. FLOATING BILLI (cats) — pure site par ----------
+    cats: {
+        enabled: true,
+        size: 50,                 // cat ka size (px)
+        tapCooldownMs: 700,       // itni der me dobara tap na ho
+        toastMs: 2600,            // toast kitni der dikhe
+        list: [
+            {
+                id: 'cat-scuba',
+                gif: 'https://media.tenor.com/GQAsycjoZG8AAAAi/scuba-scuba-cat.gif',
+                fallback: '🤿',
+                side: 'right', top: '12%', offset: '5%',
+                lines: [
+                    'Dua: Tu jahan bhi jaye, tujhe apni jagah mil jaye 🌊 — May you always find where you belong.',
+                    'Dua: Tera dil hamesha halka rahe 🕊️ — May your heart always stay light.',
+                    'Scuba billi bolti hai: khushiyon me doob ja, literally 🤿',
+                    'Congratulations! Itni deep wish bhejni thi ki scuba gear lagana pada 😎',
+                ],
+            },
+            {
+                id: 'cat-dance',
+                gif: 'https://media.tenor.com/ECATiSXWwm8AAAAm/dancing-cat-cat.webp',
+                fallback: '💃',
+                side: 'left', bottom: '15%', offset: '4%',
+                lines: [
+                    'Dua: Tujhe hamesha aise log milein jo teri value samjhein 💗 — May you always find people who truly value you.',
+                    'Dua: Teri hansi kabhi kam na ho 😄 — May your laughter never run out.',
+                    'Ye billi tere liye naach rahi hai. Fees: ek slice cake 🍰',
+                    'Dance floor ready hai, cake ready hai, bas tu late hai 💃',
+                    'Happy Birthday! Aaj koi tujhe kisi baat pe daant nahi sakta. Rule hai. 😼',
+                ],
+            },
+        ],
+    },
+
+    // ---------- 14. TOASTS (chhote messages) ----------
+    toast: {
+        max: 2,                   // ek saath kitne toast dikhein
+        ms: 2600,                 // kitni der dikhein
     },
 };

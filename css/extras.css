@@ -1,0 +1,51 @@
+/* ============================================================
+   extras.css — Floating billi (cats) + toast messages
+   Yahi file badlo jab isi part ka look/style change karna ho.
+   Cat ki lines/js/cats.js aur js/config.js > cats me hain.
+   ============================================================ */
+
+/* ---------------- FLOATING BILLI (cats) ---------------- */
+.cat-layer { position: fixed; inset: 0; pointer-events: none; z-index: 220; }
+.cat-layer.hidden { display: none; }
+
+.cat {
+    position: fixed; pointer-events: auto; cursor: grab; touch-action: none;
+    filter: drop-shadow(0 8px 14px rgba(180, 100, 130, 0.32));
+    animation: catBob 3.4s ease-in-out infinite;
+    z-index: 221;
+}
+.cat img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.cat-fallback {
+    display: grid; place-items: center; width: 100%; height: 100%; font-size: 26px;
+    background: rgba(255, 255, 255, 0.88); border: 2px solid #f6c9d6; border-radius: 50%;
+}
+.cat.dragging { animation: none; cursor: grabbing; transform: scale(1.08); }
+.cat.pop { animation: catPop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.6); }
+@keyframes catBob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes catPop {
+    0% { transform: scale(1) rotate(0deg); }
+    40% { transform: scale(1.35) rotate(8deg); }
+    70% { transform: scale(0.94) rotate(-4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ---------------- TOASTS ---------------- */
+.toast-box {
+    position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    width: min(92vw, 460px); z-index: 300; pointer-events: none;
+}
+.toast {
+    width: fit-content; max-width: 100%; text-align: center;
+    background: rgba(255, 255, 255, 0.93); border: 1px solid rgba(240, 190, 205, 0.9);
+    color: #7d4a5e; font-weight: 700; font-size: 14.5px; line-height: 1.4;
+    padding: 12px 18px; border-radius: 16px;
+    box-shadow: 0 14px 32px rgba(214, 120, 150, 0.28);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    opacity: 0; transform: translateY(14px) scale(0.96);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+.toast.in { opacity: 1; transform: translateY(0) scale(1); }

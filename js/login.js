@@ -10,7 +10,8 @@ function unlockSurprise() {
     if (byId('pwd').value === CONFIG.pin) {
         byId('login-screen').style.display = 'none';
         byId('main-app').style.display = 'block';
-        fitCake();                       // cake ko screen ke hisaab se fit karo
+        fitCake();                                  // cake ko screen ke hisaab se fit karo
+        if (typeof unlockCats === 'function') unlockCats();   // ab billi dikhegi
     } else {
         byId('error-msg').style.display = 'block';
     }
