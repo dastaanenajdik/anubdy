@@ -12,6 +12,7 @@ function unlockSurprise() {
         byId('main-app').style.display = 'block';
         fitCake();                                  // cake ko screen ke hisaab se fit karo
         if (typeof unlockCats === 'function') unlockCats();   // ab billi dikhegi
+        if (typeof syncMusic === 'function') syncMusic();     // main song chalu rahe
     } else {
         byId('error-msg').style.display = 'block';
     }

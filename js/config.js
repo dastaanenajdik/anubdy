@@ -310,10 +310,10 @@ const CONFIG = {
     },
 
     // ---------- 13b. MUSIC (teen gaane — js/music.js) ----------
+    // bg      → main song: site khulne ke saath hi shuru se bajta hai; letter/photo
+    //           wale gaane ke waqt ruk (pause ho) jaata hai, aur wapas wahin se chalu hota hai
     // letter  → envelope khulte hi loop, us page se hate hi band
     // photo   → photo page par aate hi loop, next/back se band
-    // bg      → photo page ke baad se throughout; letter/photo wale gaane ke waqt
-    //           ruk jaata hai, aur wapas aane par wahin se continue hota hai
     music: {
         volume: 0.8,              // 0 (chup) se 1 (poori awaaz)
         letter: 'https://files.catbox.moe/s3ic3d.mp3',
