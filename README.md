@@ -22,7 +22,7 @@ anubdy/
 ├── css/
 │   ├── base.css        ← common reset, slide system, dots, chip buttons, modal,
 │   │                     chhote phone ke liye media queries
-│   ├── login.css       ← screen 1: PIN wala lock screen
+│   ├── login.css       ← screen 1: PIN wala lock screen (glassmorphism ✨)
 │   ├── slide-1.css     ← slide 1: wallpaper + "Happy Birthday"
 │   ├── slide-2.css     ← slide 2: cake ROOM (lights, bokeh, balloons, header, controls)
 │   ├── cake.css        ← cake khud (layers, drips, candles, flames, smoke, sparkles)
@@ -86,7 +86,8 @@ anubdy/
 | Floating billi (GIF, lines, size) | `js/config.js` → `cats` |
 | Gaane (letter / photo / throughout) + volume | `js/config.js` → `music` (logic: `js/music.js`) |
 | Toast kitne/kitni der | `js/config.js` → `toast` |
-| Wish countdown 15 sec → kuch aur | `js/config.js` → `celebration.wishSeconds` |
+| Wish countdown 10 sec → kuch aur | `js/config.js` → `celebration.wishSeconds` |
+| PIN screen (glass card, font, blobs) ka look | `css/login.css` |
 | Slide 7 ke note icons (✉️) | `js/config.js` → `notes.noteIcon` |
 | Slide 5 ka reveal line/naam | `js/config.js` → `who` |
 | Confetti colors | `js/config.js` → `celebration.confettiColors` |
