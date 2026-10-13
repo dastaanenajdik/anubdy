@@ -31,7 +31,10 @@ anubdy/
 │   ├── letter.js       ← envelope khulna + typewriter
 │   └── main.js         ← sab files ko jodta hai (ise badalne ki zaroorat nahi)
 ├── bg-photo.jpg
-└── memory1.jpeg
+├── memory1.jpeg
+└── gallery/
+    ├── p1.jpeg … p7.jpeg  ← gallery photos
+    └── caption.txt        ← photo captions
 ```
 
 ---
