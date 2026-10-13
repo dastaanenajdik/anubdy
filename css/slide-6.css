@@ -10,12 +10,17 @@
 #slide-6 { justify-content: flex-start; padding-top: 52px; }
 
 /* ---------------- PHOTO CARD KA DECK ---------------- */
-.deck {
+/* Wrap = photo + usi par chipka hua caption, dono ka ek hi frame */
+.deck-wrap {
     position: relative; margin: 16px auto 0;
+    width: min(96vw, 520px, 46vh);
+}
+.deck {
+    position: relative;
     /* Frame pehle se bahut bada (horizontally bhi) aur photos ke
        shape (3:4 portrait) jaisa — isliye poori photo bina kate dikhti hai.
        (46vh = height kabhi screen se bahar na jaye) */
-    width: min(96vw, 520px, 46vh);
+    width: 100%;
     aspect-ratio: 3 / 4;
     touch-action: none;
 }
@@ -30,18 +35,23 @@
 /* contain = poori photo dikhti hai (kuch bhi katt ke bahar nahi jaata) */
 .deck-card img { width: 100%; height: 100%; object-fit: contain; background: #fff; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 
-/* ---------------- CAPTION ---------------- */
-/* Caption ke peeche wala white frame bada kar diya —
-   lambi caption ki aakhiri line bhi andar hi rehti hai 💗 */
+/* ---------------- CAPTION (photo par hi, thoda tirchha) ---------------- */
+/* Caption ab photo ke niche alag nahi — photo par hi neeche chipka hai,
+   halka sa tirchha (rotate), background white hi hai, aur caption ki
+   lines white box ke bahar nahi jaati (wrap + andar hi rehti hain) 💗 */
 .deck-caption {
-    max-width: min(94vw, 560px); min-height: 48px; margin-top: 20px;
+    position: absolute; left: 50%; bottom: 14px; z-index: 1005;
+    width: max-content; max-width: calc(100% - 36px); box-sizing: border-box;
+    margin: 0; text-align: center;
+    overflow-wrap: break-word; word-break: normal;
+    pointer-events: none;                     /* swipe caption ke upar se bhi chale */
     color: #7d4a5e; font-weight: 700; font-size: clamp(13.5px, 3.6vw, 16px); line-height: 1.55;
-    background: rgba(255, 255, 255, 0.86); border: 1px solid rgba(240, 195, 208, 0.9);
-    padding: 14px 20px; border-radius: 20px;
-    box-shadow: 0 10px 24px rgba(214, 120, 150, 0.16);
-    opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease;
+    background: #fff; border: 1px solid rgba(240, 195, 208, 0.9);
+    padding: 12px 16px; border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(214, 120, 150, 0.22);
+    opacity: 0; transform: translateX(-50%) translateY(8px) rotate(-2deg); transition: opacity 0.35s ease, transform 0.35s ease;
 }
-.deck-caption.in { opacity: 1; transform: translateY(0); }
+.deck-caption.in { opacity: 1; transform: translateX(-50%) translateY(0) rotate(-2deg); }
 
 /* Bahut purane browser me aspect-ratio nahi hota → tab bhi deck dikhe */
 @supports not (aspect-ratio: 3 / 4) {

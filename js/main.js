@@ -9,7 +9,7 @@ function safeInit(name, fn) {
         console.error('safeInit error for ' + name + ':', e);
         try {
             if (typeof showToast === 'function') {
-                showToast('Chhoti si dikkat aayi 😅 Neeche Back/Next se aage badh jao 💗');
+                showToast('Chhoti si dikkat aayi 😅 Neeche Back/Next se aage badh jaiye 💗');
             }
         } catch (te) { /* ignore */ }
     }
@@ -29,7 +29,7 @@ function applyTextBindings() {
 window.addEventListener('error', (e) => {
     try {
         if (typeof showToast === 'function') {
-            showToast('Chhoti si dikkat aayi 😅 Neeche Back/Next se aage badh jao 💗');
+            showToast('Chhoti si dikkat aayi 😅 Neeche Back/Next se aage badh jaiye 💗');
         }
     } catch (te) { /* ignore */ }
 });

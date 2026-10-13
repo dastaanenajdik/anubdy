@@ -55,7 +55,7 @@
             <p>Enter the secret PIN to unlock</p>
             <input type="password" id="pwd" placeholder="Enter PIN" inputmode="numeric" aria-label="Secret PIN">
             <button class="unlock-btn" id="unlock-btn" type="button">Unlock 💖</button>
-            <p id="error-msg" role="alert">Oops! Galat PIN. Phir se try karo 🥺</p>
+            <p id="error-msg" role="alert">Oops! Galat PIN. Phir se try kijiye 🥺</p>
         </div>
     </div>
 
@@ -212,13 +212,13 @@
 
         <!-- SLIDE 6: GALLERY (photo cards + caption) -->
         <section class="slide scrollable" id="slide-6">
-            <span class="eyebrow">Her photos 🖼️</span>
             <h2 class="page-title">Kuch yaadein, kuch pal 📸</h2>
-            <p class="page-sub">Photo ko side me swipe karo — agli photo aa jayegi 💫</p>
+            <p class="page-sub">Photo ko side me swipe kijiye — agli photo aa jayegi 💫</p>
 
-            <div class="deck" id="deck"></div>
-
-            <p class="deck-caption" id="deck-caption" aria-live="polite"></p>
+            <div class="deck-wrap">
+                <div class="deck" id="deck"></div>
+                <p class="deck-caption" id="deck-caption" aria-live="polite"></p>
+            </div>
         </section>
 
         <!-- SLIDE 7: FEELINGS ZONE (notes ka darwaza) -->
@@ -226,7 +226,7 @@
             <div class="glass-card feelings-card">
                 <span class="eyebrow">Feelings zone</span>
                 <h2 class="page-title">Some things, I wanna confess to you… 💌</h2>
-                <p class="page-sub">kuch notes likhe hain tere liye — aage har card pe tap karke ek-ek karke kholna.</p>
+                <p class="page-sub">kuch notes likhe hain aapke liye — aage har card pe tap karke ek-ek karke kholiye.</p>
 
                 <div class="note-row" id="lock-row" aria-hidden="true"></div>
             </div>
@@ -236,7 +236,7 @@
         <section class="slide scrollable" id="slide-8">
             <span class="eyebrow">Chunks 💌</span>
             <h2 class="page-title">Ab feelings ki baari 💌</h2>
-            <p class="page-sub">har card pe tap karo — ek-ek karke khulega 🫶🏻</p>
+            <p class="page-sub">har card pe tap kijiye — ek-ek karke khulega 🫶🏻</p>
 
             <div class="note-list" id="note-list"></div>
 
@@ -245,15 +245,15 @@
 
         <!-- SLIDE 9: 14 OCTOBER — TIMELINE (uppar) + FACTS (niche) -->
         <section class="slide scrollable" id="slide-9">
-            <span class="eyebrow" data-bind="factsChip">14 October — Tera Din ✨</span>
-            <h2 class="page-title">Janti hai aaj kya kya hua tha? 👀</h2>
+            <span class="eyebrow" data-bind="factsChip">14 October — Aapka Din ✨</span>
+            <h2 class="page-title">Jaanti hain aaj kya kya hua tha? 👀</h2>
 
             <div class="timeline">
                 <h3 class="timeline-title">Hamari timeline 🗓️</h3>
                 <div class="timeline-list" id="timeline-list"></div>
             </div>
 
-            <p class="page-sub fact-sub">Har section pe tap kar — chhota sa page khulega 💌</p>
+            <p class="page-sub fact-sub">Har section pe tap kijiye — chhota sa page khulega 💌</p>
             <div class="fact-buttons" id="fact-buttons"></div>
         </section>
 
@@ -262,15 +262,15 @@
             <div class="final-block">
                 <div class="heart-row" aria-hidden="true"><span>💗</span><span>🎂</span><span>💗</span></div>
                 <h2 class="final-title" data-bind="finalTitle" data-bind-html>Happiest Birthday,<br>Tingu! 🎂💗</h2>
-                <p class="final-text" data-bind="finalText">Bas itna kehna tha — duniya thodi si chaotic hai, par usme tujh jaise log mil jaaye to jina worth it lagta hai. Hassti rehna, khati rehna, aur main hamesha ek text door hoon. 🫂💗</p>
+                <p class="final-text" data-bind="finalText">Bas itna kehna tha — duniya thodi si chaotic hai, par usme aap jaise log mil jaaye to jeena worth it lagta hai. Hasti rahiye, khati rahiye, aur main hamesha ek text door hoon. 🫂💗</p>
 
                 <!-- Photo frame: hum dono (AI wali cute photo) -->
                 <figure class="photo-frame">
-                    <img src="together.jpeg" alt="Hum dono, ek cute si photo me 🫶🏻" loading="lazy" decoding="async">
+                    <img src="Festive%20Couple%20Portrait%20in%20Burgundy.png" alt="Hum dono, ek cute si photo me 🫶🏻" loading="lazy" decoding="async">
                     <figcaption data-bind="photoCaption">Ek din sach me… 🫂💗</figcaption>
                 </figure>
 
-                <p class="final-line" data-bind="finalLine">14.10 — officially tera din. ✨</p>
+                <p class="final-line" data-bind="finalLine">14.10 — officially aapka din. ✨</p>
                 <div class="nav-row">
                     <button class="chip-btn" id="celebrate-again" type="button">🎉 Celebrate Again</button>
                 </div>
@@ -278,9 +278,9 @@
 
             <div class="wish-box">
                 <h3 class="wish-heading" data-bind="wishBoxTitle">💌 Wish Box 🎁</h3>
-                <p class="wish-prompt" data-bind="wishBoxPrompt">anything you wanna tell me today....</p>
-                <textarea id="wish-text" maxlength="500" placeholder="anything you wanna tell me today.... ✍️" aria-label="Your message"></textarea>
-                <p class="wish-hint">Message ready hai — edit kar sakti hai, phir send 💗</p>
+                <p class="wish-prompt" data-bind="wishBoxPrompt">anything you want to tell me today....</p>
+                <textarea id="wish-text" maxlength="500" placeholder="anything you want to tell me today.... ✍️" aria-label="Your message"></textarea>
+                <p class="wish-hint">Message ready hai — edit kar sakti hain, phir send 💗</p>
                 <button class="chip-btn send-btn" id="wish-send" type="button">💚 Send on WhatsApp</button>
             </div>
 

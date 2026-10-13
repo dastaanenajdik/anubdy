@@ -2,7 +2,7 @@
    who.js — Slide 5: "Who is this for?"
    ============================================================
    • Sirf ek option hai: "Someone very close to my heart"
-   • Reveal ("Yes… ye sab sirf tumhare liye hai" + naam) ab
+   • Reveal ("Yes… ye sab sirf aapke liye hai" + naam) ab
      BINA TAP ke, slide khulte hi khud dikh jaata hai ✨
 
    Naam/line badalne ho → js/config.js > who
