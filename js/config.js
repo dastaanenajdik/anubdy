@@ -136,8 +136,8 @@ const CONFIG = {
 
     // ---------- 7. LETTER (slide 4) ----------
     letter: {
-        typeSpeedMs: 12,          // ek tick me kitna time lage (chhota number = fast)
-        charsPerTick: 5,          // ek tick me kitne akshar type hon (chhota = slow, badiya feel)
+        typeSpeedMs: 30,          // ek tick me kitna time lage (chhota number = fast) — 30ms = aahista likhna
+        charsPerTick: 1,          // ek tick me kitne akshar type hon (1 = ek-ek akshar, aahista)
         flapOpenMs: 500,          // envelope ka flap khulne me kitna time
         skipSpeedMs: 2,           // skip dabane par typing ki speed
     },
@@ -307,6 +307,18 @@ const CONFIG = {
                 ],
             },
         ],
+    },
+
+    // ---------- 13b. MUSIC (teen gaane — js/music.js) ----------
+    // letter  → envelope khulte hi loop, us page se hate hi band
+    // photo   → photo page par aate hi loop, next/back se band
+    // bg      → photo page ke baad se throughout; letter/photo wale gaane ke waqt
+    //           ruk jaata hai, aur wapas aane par wahin se continue hota hai
+    music: {
+        volume: 0.8,              // 0 (chup) se 1 (poori awaaz)
+        letter: 'https://files.catbox.moe/s3ic3d.mp3',
+        photo: 'https://files.catbox.moe/qisdwe.mp3',
+        bg: 'https://files.catbox.moe/sqj2kr.mp3',
     },
 
     // ---------- 14. TOASTS (chhote messages) ----------

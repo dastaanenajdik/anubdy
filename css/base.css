@@ -1,5 +1,5 @@
 /* ============================================================
-   base.css — Global reset, slide system, dots, common components
+   base.css — Global reset, slide system, common components
    (naye pages ke buttons/cards/modal bhi yahin hain, taaki
     slide-5 se slide-10 wali files chhoti rahein)
    ============================================================ */
@@ -16,11 +16,6 @@ body { font-family: 'Quicksand', sans-serif; overflow: hidden; background-color:
 #slide-5, #slide-6, #slide-7, #slide-8, #slide-9, #slide-10 {
     background: radial-gradient(ellipse 70% 45% at 50% 30%, rgba(255, 236, 214, 0.9) 0%, rgba(255, 236, 214, 0) 70%), linear-gradient(180deg, #fff8f5 0%, #fdeef1 45%, #f9e3ea 75%, #f4dbe4 100%);
 }
-
-/* ================= Dots ================= */
-.dots-container { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; z-index: 100; width: min(92vw, 420px); }
-.dot { width: 9px; height: 9px; background-color: rgba(207, 91, 127, 0.3); border-radius: 50%; transition: 0.4s; }
-.dot.active { width: 26px; background-color: #8a98e8; border-radius: 10px; }
 
 /* ================= NAYE PAGES KE COMMON PARTS ================= */
 
@@ -135,12 +130,14 @@ body { font-family: 'Quicksand', sans-serif; overflow: hidden; background-color:
 /* ================= BOTTOM NAV BAR ================= */
 .bottom-bar {
     position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 14px; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; z-index: 200;
     background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
     border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: 0 16px 36px rgba(214, 120, 150, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 6px 10px; width: min(94vw, 460px); justify-content: center;
+    padding: 6px 10px; width: min(94vw, 460px);
 }
+/* Next hamesha right corner par (Back chhupa ho to bhi) */
+#nav-next { margin-left: auto; }
 
 .nav-btn {
     font-family: inherit; font-weight: 800; font-size: 14px; cursor: pointer; border: none;
@@ -166,15 +163,6 @@ body { font-family: 'Quicksand', sans-serif; overflow: hidden; background-color:
     60% { transform: scale(1.08); }
     100% { transform: scale(1); opacity: 1; }
 }
-
-/* Dots inside the bottom bar */
-.bottom-bar .dots-container {
-    position: static; transform: none; bottom: auto; left: auto; width: auto;
-    display: flex; gap: 6px; flex-grow: 1; justify-content: center;
-    z-index: auto;
-}
-.bottom-bar .dot { width: 7px; height: 7px; }
-.bottom-bar .dot.active { width: 20px; border-radius: 10px; }
 
 @media (max-width: 380px) {
     .nav-txt { display: none; }
