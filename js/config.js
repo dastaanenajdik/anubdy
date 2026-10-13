@@ -32,27 +32,27 @@ const CONFIG = {
         hintLabel: 'Tap the mic 🎤 then blow the candles out',
         micLabel: 'Tap here & blow 🎤',
         micListening: 'Listening... blow now!',
-        micUnavailable: 'Mic nahi mila 😢 mic allow karke dobara try karo 🎤',
+        micUnavailable: 'Mic nahi mila 😢 mic allow karke dobara try kijiye 🎤',
         // Cake tap karne par ye chhote messages saamne aate hain (ek-ek karke)
         micOnly: [
             'Pookiee, tap the mic and blow into it 🎤💨',
             'Tapping won\'t work — blow into the mic, pookiee 🎤',
             'Only voice works here, pookiee — tap the mic and blow 💨🎤',
         ],
-        wishLocked: 'Pehle wish karo — mic pe tap karke foonk maaro 🎤💨',
-        wishDone: 'Wish ho gayi 💗 ab aage chalo',
+        wishLocked: 'Pehle wish kijiye — mic pe tap karke foonk maariye 🎤💨',
+        wishDone: 'Wish ho gayi 💗 ab aage badhiye',
         letterDone: 'Poora letter likh diya 💌',
 
         // --- Slide 9 (14 October wala page) ---
-        factsChip: '14 October — Tera Din ✨',
+        factsChip: '14 October — Aapka Din ✨',
 
         // --- Slide 10 (last page) ---
         finalTitle: 'Happiest Birthday,<br>Tingu! 🎂💗',
-        finalText: 'Bas itna kehna tha — duniya thodi si chaotic hai, par usme tujh jaise log mil jaaye to jina worth it lagta hai. Hassti rehna, khati rehna, aur main hamesha ek text door hoon. 🫂💗',
+        finalText: 'Bas itna kehna tha — duniya thodi si chaotic hai, par usme aap jaise log mil jaaye to jeena worth it lagta hai. Hasti rahiye, khati rahiye, aur main hamesha ek text door hoon. 🫂💗',
         photoCaption: 'Ek din sach me… 🫂💗',
-        finalLine: '14.10 — officially tera din. ✨',
+        finalLine: '14.10 — officially aapka din. ✨',
         wishBoxTitle: '💌 Wish Box 🎁',
-        wishBoxPrompt: 'anything you wanna tell me today....',
+        wishBoxPrompt: 'anything you want to tell me today....',
         restartHint: 'Yahan se poori site dobara shuru hogi 💗',
     },
 
@@ -118,16 +118,16 @@ const CONFIG = {
         emojis: ['🙈', '🥺', '😢', '😭', '😠', '😤', '😩', '🫠', '🥴', '🙃', '😵‍💫', '😴'],
         // {emoji} ki jagah upar wala emoji aa jata hai. Jitne chahe lines add karo.
         messages: [
-            "Arre nahi nahi... Yes dabao na {emoji}",
-            "Tum samajhti kyu nahi? Yes karo {emoji}",
-            "Yes kro {emoji}",
-            "Nice try... but u can't skip this one {emoji}",
-            "No button bhi bhaag raha hai tumse {emoji}",
-            "Pakad mein nahi aa raha na? Yes hi karo {emoji}",
+            "Arre nahi nahi... Yes dabaiye na {emoji}",
+            "Aap samajhti kyun nahi hain? Yes kijiye {emoji}",
+            "Yes kijiye {emoji}",
+            "Nice try... but you can't skip this one {emoji}",
+            "No button bhi bhaag raha hai aap se {emoji}",
+            "Pakad mein nahi aa raha na? Yes hi kijiye {emoji}",
             "Ab to No ne surrender kar diya hai {emoji}",
-            "Bas karo, ab gussa ho gaya hai No wala {emoji}",
-            "Chhodo usse, abhi so jayega {emoji}",
-            "Last baar bol rahi hoon... YES dabao {emoji}",
+            "Bas kijiye, ab gussa ho gaya hai No wala {emoji}",
+            "Chhodiye usse, abhi so jayega {emoji}",
+            "Last baar bol rahi hoon... YES dabaiye {emoji}",
             "Theek hai theek hai... dogi ho ho ho 🥰💖"
         ],
         dodgeMs: 420,             // click karne par bhaagne ki speed
@@ -147,7 +147,7 @@ const CONFIG = {
         // Ab sirf ek hi option hai — aur reveal bina tap ke khud dikhta hai
         name: 'Anushree 🌸',
         aka: 'meri Tingu 💗',
-        line: 'Yes… ye sab sirf tumhare liye hai 🫶🏻',
+        line: 'Yes… ye sab sirf aapke liye hai 🫶🏻',
     },
 
     // ---------- 9. GALLERY (slide 6) ----------
@@ -179,23 +179,23 @@ const CONFIG = {
         items: [
             {
                 title: 'Some things, I wanna confess to you…',
-                text: "Tingu Mingu, I'm really sorry ki tumhe video call ke liye itna wait karwata hoon. 🥹❤️ I hope jaldi hi hum call karein aur tumhara yeh wait khatam ho jaaye. 🫂💗",
+                text: "Tingu Mingu, I'm really sorry ki aapko video call ke liye itna wait karwata hoon. 🥹❤️ I hope jaldi hi hum call karein aur aapka yeh wait khatam ho jaaye. 🫂💗",
             },
             {
                 title: 'Woh pehla "Babu" 🫶🏻',
-                text: "Aur mujhe yaad hai jab humari conversation ke beech tumne first time mujhe “Babu” bola tha, hayeee 😭❤️ I swear, woh sunke main dil se khush ho gaya tha, pata nahi kyun but that little moment felt so special to me. 🥹🫶🏻💗",
+                text: "Aur mujhe yaad hai jab humari conversation ke beech aapne first time mujhe “Babu” bola tha, hayeee 😭❤️ I swear, woh sunke main dil se khush ho gaya tha, pata nahi kyun but that little moment felt so special to me. 🥹🫶🏻💗",
             },
             {
-                title: 'Tumhari woh dance video 💃🏻',
-                text: "Tumhari woh dance video jab maine first time dekhi thi, hayeee 😭❤️ uss raat literally 15 baar dekhi thi. Tum dance karte waqt continuously smile kar rahi thi, aur usse pata chalta hai ki tumhe dance karna kitna pasand hai. 🥹💗 I hope tumhara stage par dance karne ka dream jaldi poora ho. 💃🏻✨️",
+                title: 'Aapki woh dance video 💃🏻',
+                text: "Aapki woh dance video jab maine first time dekhi thi, hayeee 😭❤️ uss raat literally 15 baar dekhi thi. Aap dance karte waqt continuously smile kar rahi thi, aur usse pata chalta hai ki aapko dance karna kitna pasand hai. 🥹💗 I hope aapka stage par dance karne ka dream jaldi poora ho. 💃🏻✨️",
             },
             {
                 title: 'Woh ek morning ☀️',
-                text: "Starting mein tum mujhe thodi sad si vibes deti thi, but ek morning jab humari baat hui, tum itni khushi se sab kuch share kar rahi thi, tumhari masti, mazaak sab dekhkar mujhe bahut achha laga. 🥹❤️ Idk what changed, but I'm genuinely so happy to see you happy🫶🏻💗",
+                text: "Starting mein aap mujhe thodi sad si vibes deti thi, but ek morning jab humari baat hui, aap itni khushi se sab kuch share kar rahi thi, aapki masti, mazaak sab dekhkar mujhe bahut achha laga. 🥹❤️ Idk what changed, but I'm genuinely so happy to see you happy🫶🏻💗",
             },
         ],
         typeSpeedMs: 14,          // note khulte hi typing ki speed
-        doneText: 'Sab notes khul gaye 💗 ab aage chalo…',
+        doneText: 'Sab notes khul gaye 💗 ab aage badhiye…',
     },
 
     // ---------- 11. 14 OCTOBER WALA PAGE (slide 9) ----------
@@ -269,8 +269,8 @@ const CONFIG = {
         whatsapp: '6206108416',   // 📱 WhatsApp number (10 digit)
         countryCode: '91',        // India
         prefix: '',               // message ke pehle lagne wala text (khali chhodo)
-        emptyToast: 'Kuch toh likho pehle 😅',
-        openToast: 'WhatsApp khul raha hai... send karna mat bhoolna 💚',
+        emptyToast: 'Kuch toh likhiye pehle 😅',
+        openToast: 'WhatsApp khul raha hai... send karna mat bhooliyega 💚',
         celebrateToast: 'Party never ends 🎉💗',
     },
 
@@ -287,9 +287,9 @@ const CONFIG = {
                 fallback: '🤿',
                 side: 'right', top: '12%', offset: '5%',
                 lines: [
-                    'Dua: Tu jahan bhi jaye, tujhe apni jagah mil jaye 🌊 — May you always find where you belong.',
-                    'Dua: Tera dil hamesha halka rahe 🕊️ — May your heart always stay light.',
-                    'Scuba billi bolti hai: khushiyon me doob ja, literally 🤿',
+                    'Dua: Aap jahan bhi jayein, aapko apni jagah mil jaye 🌊 — May you always find where you belong.',
+                    'Dua: Aapka dil hamesha halka rahe 🕊️ — May your heart always stay light.',
+                    'Scuba billi bolti hai: khushiyon me doob jaiye, literally 🤿',
                     'Congratulations! Itni deep wish bhejni thi ki scuba gear lagana pada 😎',
                 ],
             },
@@ -299,11 +299,11 @@ const CONFIG = {
                 fallback: '💃',
                 side: 'left', bottom: '22%', offset: '4%',
                 lines: [
-                    'Dua: Tujhe hamesha aise log milein jo teri value samjhein 💗 — May you always find people who truly value you.',
-                    'Dua: Teri hansi kabhi kam na ho 😄 — May your laughter never run out.',
-                    'Ye billi tere liye naach rahi hai. Fees: ek slice cake 🍰',
-                    'Dance floor ready hai, cake ready hai, bas tu late hai 💃',
-                    'Happy Birthday! Aaj koi tujhe kisi baat pe daant nahi sakta. Rule hai. 😼',
+                    'Dua: Aapko hamesha aise log milein jo aapki value samjhein 💗 — May you always find people who truly value you.',
+                    'Dua: Aapki hasi kabhi kam na ho 😄 — May your laughter never run out.',
+                    'Ye billi aapke liye naach rahi hai. Fees: ek slice cake 🍰',
+                    'Dance floor ready hai, cake ready hai, bas aap late hain 💃',
+                    'Happy Birthday! Aaj koi aapko kisi baat par daant nahi sakta. Rule hai. 😼',
                 ],
             },
         ],

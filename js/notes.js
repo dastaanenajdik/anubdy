@@ -49,7 +49,7 @@ function buildNotes() {
             '</div>' +
             '<h4 class="note-title">' + note.title + '</h4>' +
             '<p class="note-body"></p>' +
-            '<p class="note-tap">tap karke kholo 💌</p>';
+            '<p class="note-tap">tap karke kholiye 💌</p>';
 
         card.addEventListener('click', () => openNote(card, note));
         list.appendChild(card);
@@ -91,7 +91,7 @@ function updateNoteProgress() {
     if (box) {
         box.textContent = notesOpened >= total
             ? CONFIG.notes.doneText
-            : notesOpened + ' / ' + total + ' notes khule 💌 (baaki bhi khol lo)';
+            : notesOpened + ' / ' + total + ' notes khule 💌 (baaki bhi khol lijiye)';
     }
     if (notesOpened >= total) {
         showToast('Sab notes khul gaye 💗');
